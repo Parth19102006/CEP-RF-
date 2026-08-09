@@ -1,0 +1,37 @@
+comparison_scope,attack_family,reference_file,compared_file,column_name,issue,reference_type,compared_type
+first_file_reference,,DNS-testing.parquet,LDAP-testing.parquet,Fwd Act Data Packets,dtype_mismatch,int16,int8
+first_file_reference,,DNS-testing.parquet,LDAP-training.parquet,Total Fwd Packets,dtype_mismatch,int16,int32
+first_file_reference,,DNS-testing.parquet,LDAP-training.parquet,Bwd Header Length,dtype_mismatch,int32,int64
+first_file_reference,,DNS-testing.parquet,LDAP-training.parquet,Subflow Fwd Packets,dtype_mismatch,int16,int32
+first_file_reference,,DNS-testing.parquet,MSSQL-testing.parquet,Fwd Header Length,dtype_mismatch,int64,int32
+first_file_reference,,DNS-testing.parquet,MSSQL-testing.parquet,Fwd Act Data Packets,dtype_mismatch,int16,int8
+first_file_reference,,DNS-testing.parquet,MSSQL-training.parquet,Bwd Header Length,dtype_mismatch,int32,int64
+first_file_reference,,DNS-testing.parquet,NetBIOS-testing.parquet,Fwd Act Data Packets,dtype_mismatch,int16,int8
+first_file_reference,,DNS-testing.parquet,NetBIOS-training.parquet,Bwd Header Length,dtype_mismatch,int32,int16
+first_file_reference,,DNS-testing.parquet,Portmap-training.parquet,Fwd Header Length,dtype_mismatch,int64,int32
+first_file_reference,,DNS-testing.parquet,SNMP-testing.parquet,Fwd Act Data Packets,dtype_mismatch,int16,int8
+first_file_reference,,DNS-testing.parquet,Syn-testing.parquet,Fwd Header Length,dtype_mismatch,int64,int16
+first_file_reference,,DNS-testing.parquet,Syn-testing.parquet,Bwd Header Length,dtype_mismatch,int32,int16
+first_file_reference,,DNS-testing.parquet,Syn-testing.parquet,Fwd Act Data Packets,dtype_mismatch,int16,int8
+first_file_reference,,DNS-testing.parquet,Syn-testing.parquet,Fwd Seg Size Min,dtype_mismatch,int32,int8
+first_file_reference,,DNS-testing.parquet,Syn-training.parquet,Fwd Header Length,dtype_mismatch,int64,int32
+first_file_reference,,DNS-testing.parquet,Syn-training.parquet,Fwd Seg Size Min,dtype_mismatch,int32,int8
+first_file_reference,,DNS-testing.parquet,TFTP-testing.parquet,Fwd Act Data Packets,dtype_mismatch,int16,int8
+first_file_reference,,DNS-testing.parquet,UDP-testing.parquet,Fwd Act Data Packets,dtype_mismatch,int16,int8
+first_file_reference,,DNS-testing.parquet,UDPLag-testing.parquet,Bwd Header Length,dtype_mismatch,int32,int16
+first_file_reference,,DNS-testing.parquet,UDPLag-testing.parquet,Fwd Act Data Packets,dtype_mismatch,int16,int8
+first_file_reference,,DNS-testing.parquet,UDPLag-training.parquet,Bwd Header Length,dtype_mismatch,int32,int16
+training_vs_testing,LDAP,LDAP-training.parquet,LDAP-testing.parquet,Total Fwd Packets,dtype_mismatch,int32,int16
+training_vs_testing,LDAP,LDAP-training.parquet,LDAP-testing.parquet,Bwd Header Length,dtype_mismatch,int64,int32
+training_vs_testing,LDAP,LDAP-training.parquet,LDAP-testing.parquet,Subflow Fwd Packets,dtype_mismatch,int32,int16
+training_vs_testing,LDAP,LDAP-training.parquet,LDAP-testing.parquet,Fwd Act Data Packets,dtype_mismatch,int16,int8
+training_vs_testing,MSSQL,MSSQL-training.parquet,MSSQL-testing.parquet,Fwd Header Length,dtype_mismatch,int64,int32
+training_vs_testing,MSSQL,MSSQL-training.parquet,MSSQL-testing.parquet,Bwd Header Length,dtype_mismatch,int64,int32
+training_vs_testing,MSSQL,MSSQL-training.parquet,MSSQL-testing.parquet,Fwd Act Data Packets,dtype_mismatch,int16,int8
+training_vs_testing,NetBIOS,NetBIOS-training.parquet,NetBIOS-testing.parquet,Bwd Header Length,dtype_mismatch,int16,int32
+training_vs_testing,NetBIOS,NetBIOS-training.parquet,NetBIOS-testing.parquet,Fwd Act Data Packets,dtype_mismatch,int16,int8
+training_vs_testing,Syn,Syn-training.parquet,Syn-testing.parquet,Fwd Header Length,dtype_mismatch,int32,int16
+training_vs_testing,Syn,Syn-training.parquet,Syn-testing.parquet,Bwd Header Length,dtype_mismatch,int32,int16
+training_vs_testing,Syn,Syn-training.parquet,Syn-testing.parquet,Fwd Act Data Packets,dtype_mismatch,int16,int8
+training_vs_testing,UDP,UDP-training.parquet,UDP-testing.parquet,Fwd Act Data Packets,dtype_mismatch,int16,int8
+training_vs_testing,UDPLag,UDPLag-training.parquet,UDPLag-testing.parquet,Fwd Act Data Packets,dtype_mismatch,int16,int8

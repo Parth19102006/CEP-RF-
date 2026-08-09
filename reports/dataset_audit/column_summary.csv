@@ -1,0 +1,1327 @@
+file_name,attack_family,split,column_position,column_name,data_type
+DNS-testing.parquet,DNS,testing,1,Protocol,int8
+DNS-testing.parquet,DNS,testing,2,Flow Duration,int32
+DNS-testing.parquet,DNS,testing,3,Total Fwd Packets,int16
+DNS-testing.parquet,DNS,testing,4,Total Backward Packets,int16
+DNS-testing.parquet,DNS,testing,5,Fwd Packets Length Total,float
+DNS-testing.parquet,DNS,testing,6,Bwd Packets Length Total,float
+DNS-testing.parquet,DNS,testing,7,Fwd Packet Length Max,float
+DNS-testing.parquet,DNS,testing,8,Fwd Packet Length Min,float
+DNS-testing.parquet,DNS,testing,9,Fwd Packet Length Mean,float
+DNS-testing.parquet,DNS,testing,10,Fwd Packet Length Std,float
+DNS-testing.parquet,DNS,testing,11,Bwd Packet Length Max,float
+DNS-testing.parquet,DNS,testing,12,Bwd Packet Length Min,float
+DNS-testing.parquet,DNS,testing,13,Bwd Packet Length Mean,float
+DNS-testing.parquet,DNS,testing,14,Bwd Packet Length Std,float
+DNS-testing.parquet,DNS,testing,15,Flow Bytes/s,double
+DNS-testing.parquet,DNS,testing,16,Flow Packets/s,double
+DNS-testing.parquet,DNS,testing,17,Flow IAT Mean,float
+DNS-testing.parquet,DNS,testing,18,Flow IAT Std,float
+DNS-testing.parquet,DNS,testing,19,Flow IAT Max,float
+DNS-testing.parquet,DNS,testing,20,Flow IAT Min,float
+DNS-testing.parquet,DNS,testing,21,Fwd IAT Total,float
+DNS-testing.parquet,DNS,testing,22,Fwd IAT Mean,float
+DNS-testing.parquet,DNS,testing,23,Fwd IAT Std,float
+DNS-testing.parquet,DNS,testing,24,Fwd IAT Max,float
+DNS-testing.parquet,DNS,testing,25,Fwd IAT Min,float
+DNS-testing.parquet,DNS,testing,26,Bwd IAT Total,float
+DNS-testing.parquet,DNS,testing,27,Bwd IAT Mean,float
+DNS-testing.parquet,DNS,testing,28,Bwd IAT Std,float
+DNS-testing.parquet,DNS,testing,29,Bwd IAT Max,float
+DNS-testing.parquet,DNS,testing,30,Bwd IAT Min,float
+DNS-testing.parquet,DNS,testing,31,Fwd PSH Flags,int8
+DNS-testing.parquet,DNS,testing,32,Bwd PSH Flags,int8
+DNS-testing.parquet,DNS,testing,33,Fwd URG Flags,int8
+DNS-testing.parquet,DNS,testing,34,Bwd URG Flags,int8
+DNS-testing.parquet,DNS,testing,35,Fwd Header Length,int64
+DNS-testing.parquet,DNS,testing,36,Bwd Header Length,int32
+DNS-testing.parquet,DNS,testing,37,Fwd Packets/s,float
+DNS-testing.parquet,DNS,testing,38,Bwd Packets/s,float
+DNS-testing.parquet,DNS,testing,39,Packet Length Min,float
+DNS-testing.parquet,DNS,testing,40,Packet Length Max,float
+DNS-testing.parquet,DNS,testing,41,Packet Length Mean,float
+DNS-testing.parquet,DNS,testing,42,Packet Length Std,float
+DNS-testing.parquet,DNS,testing,43,Packet Length Variance,float
+DNS-testing.parquet,DNS,testing,44,FIN Flag Count,int8
+DNS-testing.parquet,DNS,testing,45,SYN Flag Count,int8
+DNS-testing.parquet,DNS,testing,46,RST Flag Count,int8
+DNS-testing.parquet,DNS,testing,47,PSH Flag Count,int8
+DNS-testing.parquet,DNS,testing,48,ACK Flag Count,int8
+DNS-testing.parquet,DNS,testing,49,URG Flag Count,int8
+DNS-testing.parquet,DNS,testing,50,CWE Flag Count,int8
+DNS-testing.parquet,DNS,testing,51,ECE Flag Count,int8
+DNS-testing.parquet,DNS,testing,52,Down/Up Ratio,float
+DNS-testing.parquet,DNS,testing,53,Avg Packet Size,float
+DNS-testing.parquet,DNS,testing,54,Avg Fwd Segment Size,float
+DNS-testing.parquet,DNS,testing,55,Avg Bwd Segment Size,float
+DNS-testing.parquet,DNS,testing,56,Fwd Avg Bytes/Bulk,int8
+DNS-testing.parquet,DNS,testing,57,Fwd Avg Packets/Bulk,int8
+DNS-testing.parquet,DNS,testing,58,Fwd Avg Bulk Rate,int8
+DNS-testing.parquet,DNS,testing,59,Bwd Avg Bytes/Bulk,int8
+DNS-testing.parquet,DNS,testing,60,Bwd Avg Packets/Bulk,int8
+DNS-testing.parquet,DNS,testing,61,Bwd Avg Bulk Rate,int8
+DNS-testing.parquet,DNS,testing,62,Subflow Fwd Packets,int16
+DNS-testing.parquet,DNS,testing,63,Subflow Fwd Bytes,int32
+DNS-testing.parquet,DNS,testing,64,Subflow Bwd Packets,int16
+DNS-testing.parquet,DNS,testing,65,Subflow Bwd Bytes,int32
+DNS-testing.parquet,DNS,testing,66,Init Fwd Win Bytes,int32
+DNS-testing.parquet,DNS,testing,67,Init Bwd Win Bytes,int32
+DNS-testing.parquet,DNS,testing,68,Fwd Act Data Packets,int16
+DNS-testing.parquet,DNS,testing,69,Fwd Seg Size Min,int32
+DNS-testing.parquet,DNS,testing,70,Active Mean,float
+DNS-testing.parquet,DNS,testing,71,Active Std,float
+DNS-testing.parquet,DNS,testing,72,Active Max,float
+DNS-testing.parquet,DNS,testing,73,Active Min,float
+DNS-testing.parquet,DNS,testing,74,Idle Mean,float
+DNS-testing.parquet,DNS,testing,75,Idle Std,float
+DNS-testing.parquet,DNS,testing,76,Idle Max,float
+DNS-testing.parquet,DNS,testing,77,Idle Min,float
+DNS-testing.parquet,DNS,testing,78,Label,"dictionary<values=string, indices=int8, ordered=0>"
+LDAP-testing.parquet,LDAP,testing,1,Protocol,int8
+LDAP-testing.parquet,LDAP,testing,2,Flow Duration,int32
+LDAP-testing.parquet,LDAP,testing,3,Total Fwd Packets,int16
+LDAP-testing.parquet,LDAP,testing,4,Total Backward Packets,int16
+LDAP-testing.parquet,LDAP,testing,5,Fwd Packets Length Total,float
+LDAP-testing.parquet,LDAP,testing,6,Bwd Packets Length Total,float
+LDAP-testing.parquet,LDAP,testing,7,Fwd Packet Length Max,float
+LDAP-testing.parquet,LDAP,testing,8,Fwd Packet Length Min,float
+LDAP-testing.parquet,LDAP,testing,9,Fwd Packet Length Mean,float
+LDAP-testing.parquet,LDAP,testing,10,Fwd Packet Length Std,float
+LDAP-testing.parquet,LDAP,testing,11,Bwd Packet Length Max,float
+LDAP-testing.parquet,LDAP,testing,12,Bwd Packet Length Min,float
+LDAP-testing.parquet,LDAP,testing,13,Bwd Packet Length Mean,float
+LDAP-testing.parquet,LDAP,testing,14,Bwd Packet Length Std,float
+LDAP-testing.parquet,LDAP,testing,15,Flow Bytes/s,double
+LDAP-testing.parquet,LDAP,testing,16,Flow Packets/s,double
+LDAP-testing.parquet,LDAP,testing,17,Flow IAT Mean,float
+LDAP-testing.parquet,LDAP,testing,18,Flow IAT Std,float
+LDAP-testing.parquet,LDAP,testing,19,Flow IAT Max,float
+LDAP-testing.parquet,LDAP,testing,20,Flow IAT Min,float
+LDAP-testing.parquet,LDAP,testing,21,Fwd IAT Total,float
+LDAP-testing.parquet,LDAP,testing,22,Fwd IAT Mean,float
+LDAP-testing.parquet,LDAP,testing,23,Fwd IAT Std,float
+LDAP-testing.parquet,LDAP,testing,24,Fwd IAT Max,float
+LDAP-testing.parquet,LDAP,testing,25,Fwd IAT Min,float
+LDAP-testing.parquet,LDAP,testing,26,Bwd IAT Total,float
+LDAP-testing.parquet,LDAP,testing,27,Bwd IAT Mean,float
+LDAP-testing.parquet,LDAP,testing,28,Bwd IAT Std,float
+LDAP-testing.parquet,LDAP,testing,29,Bwd IAT Max,float
+LDAP-testing.parquet,LDAP,testing,30,Bwd IAT Min,float
+LDAP-testing.parquet,LDAP,testing,31,Fwd PSH Flags,int8
+LDAP-testing.parquet,LDAP,testing,32,Bwd PSH Flags,int8
+LDAP-testing.parquet,LDAP,testing,33,Fwd URG Flags,int8
+LDAP-testing.parquet,LDAP,testing,34,Bwd URG Flags,int8
+LDAP-testing.parquet,LDAP,testing,35,Fwd Header Length,int64
+LDAP-testing.parquet,LDAP,testing,36,Bwd Header Length,int32
+LDAP-testing.parquet,LDAP,testing,37,Fwd Packets/s,float
+LDAP-testing.parquet,LDAP,testing,38,Bwd Packets/s,float
+LDAP-testing.parquet,LDAP,testing,39,Packet Length Min,float
+LDAP-testing.parquet,LDAP,testing,40,Packet Length Max,float
+LDAP-testing.parquet,LDAP,testing,41,Packet Length Mean,float
+LDAP-testing.parquet,LDAP,testing,42,Packet Length Std,float
+LDAP-testing.parquet,LDAP,testing,43,Packet Length Variance,float
+LDAP-testing.parquet,LDAP,testing,44,FIN Flag Count,int8
+LDAP-testing.parquet,LDAP,testing,45,SYN Flag Count,int8
+LDAP-testing.parquet,LDAP,testing,46,RST Flag Count,int8
+LDAP-testing.parquet,LDAP,testing,47,PSH Flag Count,int8
+LDAP-testing.parquet,LDAP,testing,48,ACK Flag Count,int8
+LDAP-testing.parquet,LDAP,testing,49,URG Flag Count,int8
+LDAP-testing.parquet,LDAP,testing,50,CWE Flag Count,int8
+LDAP-testing.parquet,LDAP,testing,51,ECE Flag Count,int8
+LDAP-testing.parquet,LDAP,testing,52,Down/Up Ratio,float
+LDAP-testing.parquet,LDAP,testing,53,Avg Packet Size,float
+LDAP-testing.parquet,LDAP,testing,54,Avg Fwd Segment Size,float
+LDAP-testing.parquet,LDAP,testing,55,Avg Bwd Segment Size,float
+LDAP-testing.parquet,LDAP,testing,56,Fwd Avg Bytes/Bulk,int8
+LDAP-testing.parquet,LDAP,testing,57,Fwd Avg Packets/Bulk,int8
+LDAP-testing.parquet,LDAP,testing,58,Fwd Avg Bulk Rate,int8
+LDAP-testing.parquet,LDAP,testing,59,Bwd Avg Bytes/Bulk,int8
+LDAP-testing.parquet,LDAP,testing,60,Bwd Avg Packets/Bulk,int8
+LDAP-testing.parquet,LDAP,testing,61,Bwd Avg Bulk Rate,int8
+LDAP-testing.parquet,LDAP,testing,62,Subflow Fwd Packets,int16
+LDAP-testing.parquet,LDAP,testing,63,Subflow Fwd Bytes,int32
+LDAP-testing.parquet,LDAP,testing,64,Subflow Bwd Packets,int16
+LDAP-testing.parquet,LDAP,testing,65,Subflow Bwd Bytes,int32
+LDAP-testing.parquet,LDAP,testing,66,Init Fwd Win Bytes,int32
+LDAP-testing.parquet,LDAP,testing,67,Init Bwd Win Bytes,int32
+LDAP-testing.parquet,LDAP,testing,68,Fwd Act Data Packets,int8
+LDAP-testing.parquet,LDAP,testing,69,Fwd Seg Size Min,int32
+LDAP-testing.parquet,LDAP,testing,70,Active Mean,float
+LDAP-testing.parquet,LDAP,testing,71,Active Std,float
+LDAP-testing.parquet,LDAP,testing,72,Active Max,float
+LDAP-testing.parquet,LDAP,testing,73,Active Min,float
+LDAP-testing.parquet,LDAP,testing,74,Idle Mean,float
+LDAP-testing.parquet,LDAP,testing,75,Idle Std,float
+LDAP-testing.parquet,LDAP,testing,76,Idle Max,float
+LDAP-testing.parquet,LDAP,testing,77,Idle Min,float
+LDAP-testing.parquet,LDAP,testing,78,Label,"dictionary<values=string, indices=int8, ordered=0>"
+LDAP-training.parquet,LDAP,training,1,Protocol,int8
+LDAP-training.parquet,LDAP,training,2,Flow Duration,int32
+LDAP-training.parquet,LDAP,training,3,Total Fwd Packets,int32
+LDAP-training.parquet,LDAP,training,4,Total Backward Packets,int16
+LDAP-training.parquet,LDAP,training,5,Fwd Packets Length Total,float
+LDAP-training.parquet,LDAP,training,6,Bwd Packets Length Total,float
+LDAP-training.parquet,LDAP,training,7,Fwd Packet Length Max,float
+LDAP-training.parquet,LDAP,training,8,Fwd Packet Length Min,float
+LDAP-training.parquet,LDAP,training,9,Fwd Packet Length Mean,float
+LDAP-training.parquet,LDAP,training,10,Fwd Packet Length Std,float
+LDAP-training.parquet,LDAP,training,11,Bwd Packet Length Max,float
+LDAP-training.parquet,LDAP,training,12,Bwd Packet Length Min,float
+LDAP-training.parquet,LDAP,training,13,Bwd Packet Length Mean,float
+LDAP-training.parquet,LDAP,training,14,Bwd Packet Length Std,float
+LDAP-training.parquet,LDAP,training,15,Flow Bytes/s,double
+LDAP-training.parquet,LDAP,training,16,Flow Packets/s,double
+LDAP-training.parquet,LDAP,training,17,Flow IAT Mean,float
+LDAP-training.parquet,LDAP,training,18,Flow IAT Std,float
+LDAP-training.parquet,LDAP,training,19,Flow IAT Max,float
+LDAP-training.parquet,LDAP,training,20,Flow IAT Min,float
+LDAP-training.parquet,LDAP,training,21,Fwd IAT Total,float
+LDAP-training.parquet,LDAP,training,22,Fwd IAT Mean,float
+LDAP-training.parquet,LDAP,training,23,Fwd IAT Std,float
+LDAP-training.parquet,LDAP,training,24,Fwd IAT Max,float
+LDAP-training.parquet,LDAP,training,25,Fwd IAT Min,float
+LDAP-training.parquet,LDAP,training,26,Bwd IAT Total,float
+LDAP-training.parquet,LDAP,training,27,Bwd IAT Mean,float
+LDAP-training.parquet,LDAP,training,28,Bwd IAT Std,float
+LDAP-training.parquet,LDAP,training,29,Bwd IAT Max,float
+LDAP-training.parquet,LDAP,training,30,Bwd IAT Min,float
+LDAP-training.parquet,LDAP,training,31,Fwd PSH Flags,int8
+LDAP-training.parquet,LDAP,training,32,Bwd PSH Flags,int8
+LDAP-training.parquet,LDAP,training,33,Fwd URG Flags,int8
+LDAP-training.parquet,LDAP,training,34,Bwd URG Flags,int8
+LDAP-training.parquet,LDAP,training,35,Fwd Header Length,int64
+LDAP-training.parquet,LDAP,training,36,Bwd Header Length,int64
+LDAP-training.parquet,LDAP,training,37,Fwd Packets/s,float
+LDAP-training.parquet,LDAP,training,38,Bwd Packets/s,float
+LDAP-training.parquet,LDAP,training,39,Packet Length Min,float
+LDAP-training.parquet,LDAP,training,40,Packet Length Max,float
+LDAP-training.parquet,LDAP,training,41,Packet Length Mean,float
+LDAP-training.parquet,LDAP,training,42,Packet Length Std,float
+LDAP-training.parquet,LDAP,training,43,Packet Length Variance,float
+LDAP-training.parquet,LDAP,training,44,FIN Flag Count,int8
+LDAP-training.parquet,LDAP,training,45,SYN Flag Count,int8
+LDAP-training.parquet,LDAP,training,46,RST Flag Count,int8
+LDAP-training.parquet,LDAP,training,47,PSH Flag Count,int8
+LDAP-training.parquet,LDAP,training,48,ACK Flag Count,int8
+LDAP-training.parquet,LDAP,training,49,URG Flag Count,int8
+LDAP-training.parquet,LDAP,training,50,CWE Flag Count,int8
+LDAP-training.parquet,LDAP,training,51,ECE Flag Count,int8
+LDAP-training.parquet,LDAP,training,52,Down/Up Ratio,float
+LDAP-training.parquet,LDAP,training,53,Avg Packet Size,float
+LDAP-training.parquet,LDAP,training,54,Avg Fwd Segment Size,float
+LDAP-training.parquet,LDAP,training,55,Avg Bwd Segment Size,float
+LDAP-training.parquet,LDAP,training,56,Fwd Avg Bytes/Bulk,int8
+LDAP-training.parquet,LDAP,training,57,Fwd Avg Packets/Bulk,int8
+LDAP-training.parquet,LDAP,training,58,Fwd Avg Bulk Rate,int8
+LDAP-training.parquet,LDAP,training,59,Bwd Avg Bytes/Bulk,int8
+LDAP-training.parquet,LDAP,training,60,Bwd Avg Packets/Bulk,int8
+LDAP-training.parquet,LDAP,training,61,Bwd Avg Bulk Rate,int8
+LDAP-training.parquet,LDAP,training,62,Subflow Fwd Packets,int32
+LDAP-training.parquet,LDAP,training,63,Subflow Fwd Bytes,int32
+LDAP-training.parquet,LDAP,training,64,Subflow Bwd Packets,int16
+LDAP-training.parquet,LDAP,training,65,Subflow Bwd Bytes,int32
+LDAP-training.parquet,LDAP,training,66,Init Fwd Win Bytes,int32
+LDAP-training.parquet,LDAP,training,67,Init Bwd Win Bytes,int32
+LDAP-training.parquet,LDAP,training,68,Fwd Act Data Packets,int16
+LDAP-training.parquet,LDAP,training,69,Fwd Seg Size Min,int32
+LDAP-training.parquet,LDAP,training,70,Active Mean,float
+LDAP-training.parquet,LDAP,training,71,Active Std,float
+LDAP-training.parquet,LDAP,training,72,Active Max,float
+LDAP-training.parquet,LDAP,training,73,Active Min,float
+LDAP-training.parquet,LDAP,training,74,Idle Mean,float
+LDAP-training.parquet,LDAP,training,75,Idle Std,float
+LDAP-training.parquet,LDAP,training,76,Idle Max,float
+LDAP-training.parquet,LDAP,training,77,Idle Min,float
+LDAP-training.parquet,LDAP,training,78,Label,"dictionary<values=string, indices=int8, ordered=0>"
+MSSQL-testing.parquet,MSSQL,testing,1,Protocol,int8
+MSSQL-testing.parquet,MSSQL,testing,2,Flow Duration,int32
+MSSQL-testing.parquet,MSSQL,testing,3,Total Fwd Packets,int16
+MSSQL-testing.parquet,MSSQL,testing,4,Total Backward Packets,int16
+MSSQL-testing.parquet,MSSQL,testing,5,Fwd Packets Length Total,float
+MSSQL-testing.parquet,MSSQL,testing,6,Bwd Packets Length Total,float
+MSSQL-testing.parquet,MSSQL,testing,7,Fwd Packet Length Max,float
+MSSQL-testing.parquet,MSSQL,testing,8,Fwd Packet Length Min,float
+MSSQL-testing.parquet,MSSQL,testing,9,Fwd Packet Length Mean,float
+MSSQL-testing.parquet,MSSQL,testing,10,Fwd Packet Length Std,float
+MSSQL-testing.parquet,MSSQL,testing,11,Bwd Packet Length Max,float
+MSSQL-testing.parquet,MSSQL,testing,12,Bwd Packet Length Min,float
+MSSQL-testing.parquet,MSSQL,testing,13,Bwd Packet Length Mean,float
+MSSQL-testing.parquet,MSSQL,testing,14,Bwd Packet Length Std,float
+MSSQL-testing.parquet,MSSQL,testing,15,Flow Bytes/s,double
+MSSQL-testing.parquet,MSSQL,testing,16,Flow Packets/s,double
+MSSQL-testing.parquet,MSSQL,testing,17,Flow IAT Mean,float
+MSSQL-testing.parquet,MSSQL,testing,18,Flow IAT Std,float
+MSSQL-testing.parquet,MSSQL,testing,19,Flow IAT Max,float
+MSSQL-testing.parquet,MSSQL,testing,20,Flow IAT Min,float
+MSSQL-testing.parquet,MSSQL,testing,21,Fwd IAT Total,float
+MSSQL-testing.parquet,MSSQL,testing,22,Fwd IAT Mean,float
+MSSQL-testing.parquet,MSSQL,testing,23,Fwd IAT Std,float
+MSSQL-testing.parquet,MSSQL,testing,24,Fwd IAT Max,float
+MSSQL-testing.parquet,MSSQL,testing,25,Fwd IAT Min,float
+MSSQL-testing.parquet,MSSQL,testing,26,Bwd IAT Total,float
+MSSQL-testing.parquet,MSSQL,testing,27,Bwd IAT Mean,float
+MSSQL-testing.parquet,MSSQL,testing,28,Bwd IAT Std,float
+MSSQL-testing.parquet,MSSQL,testing,29,Bwd IAT Max,float
+MSSQL-testing.parquet,MSSQL,testing,30,Bwd IAT Min,float
+MSSQL-testing.parquet,MSSQL,testing,31,Fwd PSH Flags,int8
+MSSQL-testing.parquet,MSSQL,testing,32,Bwd PSH Flags,int8
+MSSQL-testing.parquet,MSSQL,testing,33,Fwd URG Flags,int8
+MSSQL-testing.parquet,MSSQL,testing,34,Bwd URG Flags,int8
+MSSQL-testing.parquet,MSSQL,testing,35,Fwd Header Length,int32
+MSSQL-testing.parquet,MSSQL,testing,36,Bwd Header Length,int32
+MSSQL-testing.parquet,MSSQL,testing,37,Fwd Packets/s,float
+MSSQL-testing.parquet,MSSQL,testing,38,Bwd Packets/s,float
+MSSQL-testing.parquet,MSSQL,testing,39,Packet Length Min,float
+MSSQL-testing.parquet,MSSQL,testing,40,Packet Length Max,float
+MSSQL-testing.parquet,MSSQL,testing,41,Packet Length Mean,float
+MSSQL-testing.parquet,MSSQL,testing,42,Packet Length Std,float
+MSSQL-testing.parquet,MSSQL,testing,43,Packet Length Variance,float
+MSSQL-testing.parquet,MSSQL,testing,44,FIN Flag Count,int8
+MSSQL-testing.parquet,MSSQL,testing,45,SYN Flag Count,int8
+MSSQL-testing.parquet,MSSQL,testing,46,RST Flag Count,int8
+MSSQL-testing.parquet,MSSQL,testing,47,PSH Flag Count,int8
+MSSQL-testing.parquet,MSSQL,testing,48,ACK Flag Count,int8
+MSSQL-testing.parquet,MSSQL,testing,49,URG Flag Count,int8
+MSSQL-testing.parquet,MSSQL,testing,50,CWE Flag Count,int8
+MSSQL-testing.parquet,MSSQL,testing,51,ECE Flag Count,int8
+MSSQL-testing.parquet,MSSQL,testing,52,Down/Up Ratio,float
+MSSQL-testing.parquet,MSSQL,testing,53,Avg Packet Size,float
+MSSQL-testing.parquet,MSSQL,testing,54,Avg Fwd Segment Size,float
+MSSQL-testing.parquet,MSSQL,testing,55,Avg Bwd Segment Size,float
+MSSQL-testing.parquet,MSSQL,testing,56,Fwd Avg Bytes/Bulk,int8
+MSSQL-testing.parquet,MSSQL,testing,57,Fwd Avg Packets/Bulk,int8
+MSSQL-testing.parquet,MSSQL,testing,58,Fwd Avg Bulk Rate,int8
+MSSQL-testing.parquet,MSSQL,testing,59,Bwd Avg Bytes/Bulk,int8
+MSSQL-testing.parquet,MSSQL,testing,60,Bwd Avg Packets/Bulk,int8
+MSSQL-testing.parquet,MSSQL,testing,61,Bwd Avg Bulk Rate,int8
+MSSQL-testing.parquet,MSSQL,testing,62,Subflow Fwd Packets,int16
+MSSQL-testing.parquet,MSSQL,testing,63,Subflow Fwd Bytes,int32
+MSSQL-testing.parquet,MSSQL,testing,64,Subflow Bwd Packets,int16
+MSSQL-testing.parquet,MSSQL,testing,65,Subflow Bwd Bytes,int32
+MSSQL-testing.parquet,MSSQL,testing,66,Init Fwd Win Bytes,int32
+MSSQL-testing.parquet,MSSQL,testing,67,Init Bwd Win Bytes,int32
+MSSQL-testing.parquet,MSSQL,testing,68,Fwd Act Data Packets,int8
+MSSQL-testing.parquet,MSSQL,testing,69,Fwd Seg Size Min,int32
+MSSQL-testing.parquet,MSSQL,testing,70,Active Mean,float
+MSSQL-testing.parquet,MSSQL,testing,71,Active Std,float
+MSSQL-testing.parquet,MSSQL,testing,72,Active Max,float
+MSSQL-testing.parquet,MSSQL,testing,73,Active Min,float
+MSSQL-testing.parquet,MSSQL,testing,74,Idle Mean,float
+MSSQL-testing.parquet,MSSQL,testing,75,Idle Std,float
+MSSQL-testing.parquet,MSSQL,testing,76,Idle Max,float
+MSSQL-testing.parquet,MSSQL,testing,77,Idle Min,float
+MSSQL-testing.parquet,MSSQL,testing,78,Label,"dictionary<values=string, indices=int8, ordered=0>"
+MSSQL-training.parquet,MSSQL,training,1,Protocol,int8
+MSSQL-training.parquet,MSSQL,training,2,Flow Duration,int32
+MSSQL-training.parquet,MSSQL,training,3,Total Fwd Packets,int16
+MSSQL-training.parquet,MSSQL,training,4,Total Backward Packets,int16
+MSSQL-training.parquet,MSSQL,training,5,Fwd Packets Length Total,float
+MSSQL-training.parquet,MSSQL,training,6,Bwd Packets Length Total,float
+MSSQL-training.parquet,MSSQL,training,7,Fwd Packet Length Max,float
+MSSQL-training.parquet,MSSQL,training,8,Fwd Packet Length Min,float
+MSSQL-training.parquet,MSSQL,training,9,Fwd Packet Length Mean,float
+MSSQL-training.parquet,MSSQL,training,10,Fwd Packet Length Std,float
+MSSQL-training.parquet,MSSQL,training,11,Bwd Packet Length Max,float
+MSSQL-training.parquet,MSSQL,training,12,Bwd Packet Length Min,float
+MSSQL-training.parquet,MSSQL,training,13,Bwd Packet Length Mean,float
+MSSQL-training.parquet,MSSQL,training,14,Bwd Packet Length Std,float
+MSSQL-training.parquet,MSSQL,training,15,Flow Bytes/s,double
+MSSQL-training.parquet,MSSQL,training,16,Flow Packets/s,double
+MSSQL-training.parquet,MSSQL,training,17,Flow IAT Mean,float
+MSSQL-training.parquet,MSSQL,training,18,Flow IAT Std,float
+MSSQL-training.parquet,MSSQL,training,19,Flow IAT Max,float
+MSSQL-training.parquet,MSSQL,training,20,Flow IAT Min,float
+MSSQL-training.parquet,MSSQL,training,21,Fwd IAT Total,float
+MSSQL-training.parquet,MSSQL,training,22,Fwd IAT Mean,float
+MSSQL-training.parquet,MSSQL,training,23,Fwd IAT Std,float
+MSSQL-training.parquet,MSSQL,training,24,Fwd IAT Max,float
+MSSQL-training.parquet,MSSQL,training,25,Fwd IAT Min,float
+MSSQL-training.parquet,MSSQL,training,26,Bwd IAT Total,float
+MSSQL-training.parquet,MSSQL,training,27,Bwd IAT Mean,float
+MSSQL-training.parquet,MSSQL,training,28,Bwd IAT Std,float
+MSSQL-training.parquet,MSSQL,training,29,Bwd IAT Max,float
+MSSQL-training.parquet,MSSQL,training,30,Bwd IAT Min,float
+MSSQL-training.parquet,MSSQL,training,31,Fwd PSH Flags,int8
+MSSQL-training.parquet,MSSQL,training,32,Bwd PSH Flags,int8
+MSSQL-training.parquet,MSSQL,training,33,Fwd URG Flags,int8
+MSSQL-training.parquet,MSSQL,training,34,Bwd URG Flags,int8
+MSSQL-training.parquet,MSSQL,training,35,Fwd Header Length,int64
+MSSQL-training.parquet,MSSQL,training,36,Bwd Header Length,int64
+MSSQL-training.parquet,MSSQL,training,37,Fwd Packets/s,float
+MSSQL-training.parquet,MSSQL,training,38,Bwd Packets/s,float
+MSSQL-training.parquet,MSSQL,training,39,Packet Length Min,float
+MSSQL-training.parquet,MSSQL,training,40,Packet Length Max,float
+MSSQL-training.parquet,MSSQL,training,41,Packet Length Mean,float
+MSSQL-training.parquet,MSSQL,training,42,Packet Length Std,float
+MSSQL-training.parquet,MSSQL,training,43,Packet Length Variance,float
+MSSQL-training.parquet,MSSQL,training,44,FIN Flag Count,int8
+MSSQL-training.parquet,MSSQL,training,45,SYN Flag Count,int8
+MSSQL-training.parquet,MSSQL,training,46,RST Flag Count,int8
+MSSQL-training.parquet,MSSQL,training,47,PSH Flag Count,int8
+MSSQL-training.parquet,MSSQL,training,48,ACK Flag Count,int8
+MSSQL-training.parquet,MSSQL,training,49,URG Flag Count,int8
+MSSQL-training.parquet,MSSQL,training,50,CWE Flag Count,int8
+MSSQL-training.parquet,MSSQL,training,51,ECE Flag Count,int8
+MSSQL-training.parquet,MSSQL,training,52,Down/Up Ratio,float
+MSSQL-training.parquet,MSSQL,training,53,Avg Packet Size,float
+MSSQL-training.parquet,MSSQL,training,54,Avg Fwd Segment Size,float
+MSSQL-training.parquet,MSSQL,training,55,Avg Bwd Segment Size,float
+MSSQL-training.parquet,MSSQL,training,56,Fwd Avg Bytes/Bulk,int8
+MSSQL-training.parquet,MSSQL,training,57,Fwd Avg Packets/Bulk,int8
+MSSQL-training.parquet,MSSQL,training,58,Fwd Avg Bulk Rate,int8
+MSSQL-training.parquet,MSSQL,training,59,Bwd Avg Bytes/Bulk,int8
+MSSQL-training.parquet,MSSQL,training,60,Bwd Avg Packets/Bulk,int8
+MSSQL-training.parquet,MSSQL,training,61,Bwd Avg Bulk Rate,int8
+MSSQL-training.parquet,MSSQL,training,62,Subflow Fwd Packets,int16
+MSSQL-training.parquet,MSSQL,training,63,Subflow Fwd Bytes,int32
+MSSQL-training.parquet,MSSQL,training,64,Subflow Bwd Packets,int16
+MSSQL-training.parquet,MSSQL,training,65,Subflow Bwd Bytes,int32
+MSSQL-training.parquet,MSSQL,training,66,Init Fwd Win Bytes,int32
+MSSQL-training.parquet,MSSQL,training,67,Init Bwd Win Bytes,int32
+MSSQL-training.parquet,MSSQL,training,68,Fwd Act Data Packets,int16
+MSSQL-training.parquet,MSSQL,training,69,Fwd Seg Size Min,int32
+MSSQL-training.parquet,MSSQL,training,70,Active Mean,float
+MSSQL-training.parquet,MSSQL,training,71,Active Std,float
+MSSQL-training.parquet,MSSQL,training,72,Active Max,float
+MSSQL-training.parquet,MSSQL,training,73,Active Min,float
+MSSQL-training.parquet,MSSQL,training,74,Idle Mean,float
+MSSQL-training.parquet,MSSQL,training,75,Idle Std,float
+MSSQL-training.parquet,MSSQL,training,76,Idle Max,float
+MSSQL-training.parquet,MSSQL,training,77,Idle Min,float
+MSSQL-training.parquet,MSSQL,training,78,Label,"dictionary<values=string, indices=int8, ordered=0>"
+NetBIOS-testing.parquet,NetBIOS,testing,1,Protocol,int8
+NetBIOS-testing.parquet,NetBIOS,testing,2,Flow Duration,int32
+NetBIOS-testing.parquet,NetBIOS,testing,3,Total Fwd Packets,int16
+NetBIOS-testing.parquet,NetBIOS,testing,4,Total Backward Packets,int16
+NetBIOS-testing.parquet,NetBIOS,testing,5,Fwd Packets Length Total,float
+NetBIOS-testing.parquet,NetBIOS,testing,6,Bwd Packets Length Total,float
+NetBIOS-testing.parquet,NetBIOS,testing,7,Fwd Packet Length Max,float
+NetBIOS-testing.parquet,NetBIOS,testing,8,Fwd Packet Length Min,float
+NetBIOS-testing.parquet,NetBIOS,testing,9,Fwd Packet Length Mean,float
+NetBIOS-testing.parquet,NetBIOS,testing,10,Fwd Packet Length Std,float
+NetBIOS-testing.parquet,NetBIOS,testing,11,Bwd Packet Length Max,float
+NetBIOS-testing.parquet,NetBIOS,testing,12,Bwd Packet Length Min,float
+NetBIOS-testing.parquet,NetBIOS,testing,13,Bwd Packet Length Mean,float
+NetBIOS-testing.parquet,NetBIOS,testing,14,Bwd Packet Length Std,float
+NetBIOS-testing.parquet,NetBIOS,testing,15,Flow Bytes/s,double
+NetBIOS-testing.parquet,NetBIOS,testing,16,Flow Packets/s,double
+NetBIOS-testing.parquet,NetBIOS,testing,17,Flow IAT Mean,float
+NetBIOS-testing.parquet,NetBIOS,testing,18,Flow IAT Std,float
+NetBIOS-testing.parquet,NetBIOS,testing,19,Flow IAT Max,float
+NetBIOS-testing.parquet,NetBIOS,testing,20,Flow IAT Min,float
+NetBIOS-testing.parquet,NetBIOS,testing,21,Fwd IAT Total,float
+NetBIOS-testing.parquet,NetBIOS,testing,22,Fwd IAT Mean,float
+NetBIOS-testing.parquet,NetBIOS,testing,23,Fwd IAT Std,float
+NetBIOS-testing.parquet,NetBIOS,testing,24,Fwd IAT Max,float
+NetBIOS-testing.parquet,NetBIOS,testing,25,Fwd IAT Min,float
+NetBIOS-testing.parquet,NetBIOS,testing,26,Bwd IAT Total,float
+NetBIOS-testing.parquet,NetBIOS,testing,27,Bwd IAT Mean,float
+NetBIOS-testing.parquet,NetBIOS,testing,28,Bwd IAT Std,float
+NetBIOS-testing.parquet,NetBIOS,testing,29,Bwd IAT Max,float
+NetBIOS-testing.parquet,NetBIOS,testing,30,Bwd IAT Min,float
+NetBIOS-testing.parquet,NetBIOS,testing,31,Fwd PSH Flags,int8
+NetBIOS-testing.parquet,NetBIOS,testing,32,Bwd PSH Flags,int8
+NetBIOS-testing.parquet,NetBIOS,testing,33,Fwd URG Flags,int8
+NetBIOS-testing.parquet,NetBIOS,testing,34,Bwd URG Flags,int8
+NetBIOS-testing.parquet,NetBIOS,testing,35,Fwd Header Length,int64
+NetBIOS-testing.parquet,NetBIOS,testing,36,Bwd Header Length,int32
+NetBIOS-testing.parquet,NetBIOS,testing,37,Fwd Packets/s,float
+NetBIOS-testing.parquet,NetBIOS,testing,38,Bwd Packets/s,float
+NetBIOS-testing.parquet,NetBIOS,testing,39,Packet Length Min,float
+NetBIOS-testing.parquet,NetBIOS,testing,40,Packet Length Max,float
+NetBIOS-testing.parquet,NetBIOS,testing,41,Packet Length Mean,float
+NetBIOS-testing.parquet,NetBIOS,testing,42,Packet Length Std,float
+NetBIOS-testing.parquet,NetBIOS,testing,43,Packet Length Variance,float
+NetBIOS-testing.parquet,NetBIOS,testing,44,FIN Flag Count,int8
+NetBIOS-testing.parquet,NetBIOS,testing,45,SYN Flag Count,int8
+NetBIOS-testing.parquet,NetBIOS,testing,46,RST Flag Count,int8
+NetBIOS-testing.parquet,NetBIOS,testing,47,PSH Flag Count,int8
+NetBIOS-testing.parquet,NetBIOS,testing,48,ACK Flag Count,int8
+NetBIOS-testing.parquet,NetBIOS,testing,49,URG Flag Count,int8
+NetBIOS-testing.parquet,NetBIOS,testing,50,CWE Flag Count,int8
+NetBIOS-testing.parquet,NetBIOS,testing,51,ECE Flag Count,int8
+NetBIOS-testing.parquet,NetBIOS,testing,52,Down/Up Ratio,float
+NetBIOS-testing.parquet,NetBIOS,testing,53,Avg Packet Size,float
+NetBIOS-testing.parquet,NetBIOS,testing,54,Avg Fwd Segment Size,float
+NetBIOS-testing.parquet,NetBIOS,testing,55,Avg Bwd Segment Size,float
+NetBIOS-testing.parquet,NetBIOS,testing,56,Fwd Avg Bytes/Bulk,int8
+NetBIOS-testing.parquet,NetBIOS,testing,57,Fwd Avg Packets/Bulk,int8
+NetBIOS-testing.parquet,NetBIOS,testing,58,Fwd Avg Bulk Rate,int8
+NetBIOS-testing.parquet,NetBIOS,testing,59,Bwd Avg Bytes/Bulk,int8
+NetBIOS-testing.parquet,NetBIOS,testing,60,Bwd Avg Packets/Bulk,int8
+NetBIOS-testing.parquet,NetBIOS,testing,61,Bwd Avg Bulk Rate,int8
+NetBIOS-testing.parquet,NetBIOS,testing,62,Subflow Fwd Packets,int16
+NetBIOS-testing.parquet,NetBIOS,testing,63,Subflow Fwd Bytes,int32
+NetBIOS-testing.parquet,NetBIOS,testing,64,Subflow Bwd Packets,int16
+NetBIOS-testing.parquet,NetBIOS,testing,65,Subflow Bwd Bytes,int32
+NetBIOS-testing.parquet,NetBIOS,testing,66,Init Fwd Win Bytes,int32
+NetBIOS-testing.parquet,NetBIOS,testing,67,Init Bwd Win Bytes,int32
+NetBIOS-testing.parquet,NetBIOS,testing,68,Fwd Act Data Packets,int8
+NetBIOS-testing.parquet,NetBIOS,testing,69,Fwd Seg Size Min,int32
+NetBIOS-testing.parquet,NetBIOS,testing,70,Active Mean,float
+NetBIOS-testing.parquet,NetBIOS,testing,71,Active Std,float
+NetBIOS-testing.parquet,NetBIOS,testing,72,Active Max,float
+NetBIOS-testing.parquet,NetBIOS,testing,73,Active Min,float
+NetBIOS-testing.parquet,NetBIOS,testing,74,Idle Mean,float
+NetBIOS-testing.parquet,NetBIOS,testing,75,Idle Std,float
+NetBIOS-testing.parquet,NetBIOS,testing,76,Idle Max,float
+NetBIOS-testing.parquet,NetBIOS,testing,77,Idle Min,float
+NetBIOS-testing.parquet,NetBIOS,testing,78,Label,"dictionary<values=string, indices=int8, ordered=0>"
+NetBIOS-training.parquet,NetBIOS,training,1,Protocol,int8
+NetBIOS-training.parquet,NetBIOS,training,2,Flow Duration,int32
+NetBIOS-training.parquet,NetBIOS,training,3,Total Fwd Packets,int16
+NetBIOS-training.parquet,NetBIOS,training,4,Total Backward Packets,int16
+NetBIOS-training.parquet,NetBIOS,training,5,Fwd Packets Length Total,float
+NetBIOS-training.parquet,NetBIOS,training,6,Bwd Packets Length Total,float
+NetBIOS-training.parquet,NetBIOS,training,7,Fwd Packet Length Max,float
+NetBIOS-training.parquet,NetBIOS,training,8,Fwd Packet Length Min,float
+NetBIOS-training.parquet,NetBIOS,training,9,Fwd Packet Length Mean,float
+NetBIOS-training.parquet,NetBIOS,training,10,Fwd Packet Length Std,float
+NetBIOS-training.parquet,NetBIOS,training,11,Bwd Packet Length Max,float
+NetBIOS-training.parquet,NetBIOS,training,12,Bwd Packet Length Min,float
+NetBIOS-training.parquet,NetBIOS,training,13,Bwd Packet Length Mean,float
+NetBIOS-training.parquet,NetBIOS,training,14,Bwd Packet Length Std,float
+NetBIOS-training.parquet,NetBIOS,training,15,Flow Bytes/s,double
+NetBIOS-training.parquet,NetBIOS,training,16,Flow Packets/s,double
+NetBIOS-training.parquet,NetBIOS,training,17,Flow IAT Mean,float
+NetBIOS-training.parquet,NetBIOS,training,18,Flow IAT Std,float
+NetBIOS-training.parquet,NetBIOS,training,19,Flow IAT Max,float
+NetBIOS-training.parquet,NetBIOS,training,20,Flow IAT Min,float
+NetBIOS-training.parquet,NetBIOS,training,21,Fwd IAT Total,float
+NetBIOS-training.parquet,NetBIOS,training,22,Fwd IAT Mean,float
+NetBIOS-training.parquet,NetBIOS,training,23,Fwd IAT Std,float
+NetBIOS-training.parquet,NetBIOS,training,24,Fwd IAT Max,float
+NetBIOS-training.parquet,NetBIOS,training,25,Fwd IAT Min,float
+NetBIOS-training.parquet,NetBIOS,training,26,Bwd IAT Total,float
+NetBIOS-training.parquet,NetBIOS,training,27,Bwd IAT Mean,float
+NetBIOS-training.parquet,NetBIOS,training,28,Bwd IAT Std,float
+NetBIOS-training.parquet,NetBIOS,training,29,Bwd IAT Max,float
+NetBIOS-training.parquet,NetBIOS,training,30,Bwd IAT Min,float
+NetBIOS-training.parquet,NetBIOS,training,31,Fwd PSH Flags,int8
+NetBIOS-training.parquet,NetBIOS,training,32,Bwd PSH Flags,int8
+NetBIOS-training.parquet,NetBIOS,training,33,Fwd URG Flags,int8
+NetBIOS-training.parquet,NetBIOS,training,34,Bwd URG Flags,int8
+NetBIOS-training.parquet,NetBIOS,training,35,Fwd Header Length,int64
+NetBIOS-training.parquet,NetBIOS,training,36,Bwd Header Length,int16
+NetBIOS-training.parquet,NetBIOS,training,37,Fwd Packets/s,float
+NetBIOS-training.parquet,NetBIOS,training,38,Bwd Packets/s,float
+NetBIOS-training.parquet,NetBIOS,training,39,Packet Length Min,float
+NetBIOS-training.parquet,NetBIOS,training,40,Packet Length Max,float
+NetBIOS-training.parquet,NetBIOS,training,41,Packet Length Mean,float
+NetBIOS-training.parquet,NetBIOS,training,42,Packet Length Std,float
+NetBIOS-training.parquet,NetBIOS,training,43,Packet Length Variance,float
+NetBIOS-training.parquet,NetBIOS,training,44,FIN Flag Count,int8
+NetBIOS-training.parquet,NetBIOS,training,45,SYN Flag Count,int8
+NetBIOS-training.parquet,NetBIOS,training,46,RST Flag Count,int8
+NetBIOS-training.parquet,NetBIOS,training,47,PSH Flag Count,int8
+NetBIOS-training.parquet,NetBIOS,training,48,ACK Flag Count,int8
+NetBIOS-training.parquet,NetBIOS,training,49,URG Flag Count,int8
+NetBIOS-training.parquet,NetBIOS,training,50,CWE Flag Count,int8
+NetBIOS-training.parquet,NetBIOS,training,51,ECE Flag Count,int8
+NetBIOS-training.parquet,NetBIOS,training,52,Down/Up Ratio,float
+NetBIOS-training.parquet,NetBIOS,training,53,Avg Packet Size,float
+NetBIOS-training.parquet,NetBIOS,training,54,Avg Fwd Segment Size,float
+NetBIOS-training.parquet,NetBIOS,training,55,Avg Bwd Segment Size,float
+NetBIOS-training.parquet,NetBIOS,training,56,Fwd Avg Bytes/Bulk,int8
+NetBIOS-training.parquet,NetBIOS,training,57,Fwd Avg Packets/Bulk,int8
+NetBIOS-training.parquet,NetBIOS,training,58,Fwd Avg Bulk Rate,int8
+NetBIOS-training.parquet,NetBIOS,training,59,Bwd Avg Bytes/Bulk,int8
+NetBIOS-training.parquet,NetBIOS,training,60,Bwd Avg Packets/Bulk,int8
+NetBIOS-training.parquet,NetBIOS,training,61,Bwd Avg Bulk Rate,int8
+NetBIOS-training.parquet,NetBIOS,training,62,Subflow Fwd Packets,int16
+NetBIOS-training.parquet,NetBIOS,training,63,Subflow Fwd Bytes,int32
+NetBIOS-training.parquet,NetBIOS,training,64,Subflow Bwd Packets,int16
+NetBIOS-training.parquet,NetBIOS,training,65,Subflow Bwd Bytes,int32
+NetBIOS-training.parquet,NetBIOS,training,66,Init Fwd Win Bytes,int32
+NetBIOS-training.parquet,NetBIOS,training,67,Init Bwd Win Bytes,int32
+NetBIOS-training.parquet,NetBIOS,training,68,Fwd Act Data Packets,int16
+NetBIOS-training.parquet,NetBIOS,training,69,Fwd Seg Size Min,int32
+NetBIOS-training.parquet,NetBIOS,training,70,Active Mean,float
+NetBIOS-training.parquet,NetBIOS,training,71,Active Std,float
+NetBIOS-training.parquet,NetBIOS,training,72,Active Max,float
+NetBIOS-training.parquet,NetBIOS,training,73,Active Min,float
+NetBIOS-training.parquet,NetBIOS,training,74,Idle Mean,float
+NetBIOS-training.parquet,NetBIOS,training,75,Idle Std,float
+NetBIOS-training.parquet,NetBIOS,training,76,Idle Max,float
+NetBIOS-training.parquet,NetBIOS,training,77,Idle Min,float
+NetBIOS-training.parquet,NetBIOS,training,78,Label,"dictionary<values=string, indices=int8, ordered=0>"
+NTP-testing.parquet,NTP,testing,1,Protocol,int8
+NTP-testing.parquet,NTP,testing,2,Flow Duration,int32
+NTP-testing.parquet,NTP,testing,3,Total Fwd Packets,int16
+NTP-testing.parquet,NTP,testing,4,Total Backward Packets,int16
+NTP-testing.parquet,NTP,testing,5,Fwd Packets Length Total,float
+NTP-testing.parquet,NTP,testing,6,Bwd Packets Length Total,float
+NTP-testing.parquet,NTP,testing,7,Fwd Packet Length Max,float
+NTP-testing.parquet,NTP,testing,8,Fwd Packet Length Min,float
+NTP-testing.parquet,NTP,testing,9,Fwd Packet Length Mean,float
+NTP-testing.parquet,NTP,testing,10,Fwd Packet Length Std,float
+NTP-testing.parquet,NTP,testing,11,Bwd Packet Length Max,float
+NTP-testing.parquet,NTP,testing,12,Bwd Packet Length Min,float
+NTP-testing.parquet,NTP,testing,13,Bwd Packet Length Mean,float
+NTP-testing.parquet,NTP,testing,14,Bwd Packet Length Std,float
+NTP-testing.parquet,NTP,testing,15,Flow Bytes/s,double
+NTP-testing.parquet,NTP,testing,16,Flow Packets/s,double
+NTP-testing.parquet,NTP,testing,17,Flow IAT Mean,float
+NTP-testing.parquet,NTP,testing,18,Flow IAT Std,float
+NTP-testing.parquet,NTP,testing,19,Flow IAT Max,float
+NTP-testing.parquet,NTP,testing,20,Flow IAT Min,float
+NTP-testing.parquet,NTP,testing,21,Fwd IAT Total,float
+NTP-testing.parquet,NTP,testing,22,Fwd IAT Mean,float
+NTP-testing.parquet,NTP,testing,23,Fwd IAT Std,float
+NTP-testing.parquet,NTP,testing,24,Fwd IAT Max,float
+NTP-testing.parquet,NTP,testing,25,Fwd IAT Min,float
+NTP-testing.parquet,NTP,testing,26,Bwd IAT Total,float
+NTP-testing.parquet,NTP,testing,27,Bwd IAT Mean,float
+NTP-testing.parquet,NTP,testing,28,Bwd IAT Std,float
+NTP-testing.parquet,NTP,testing,29,Bwd IAT Max,float
+NTP-testing.parquet,NTP,testing,30,Bwd IAT Min,float
+NTP-testing.parquet,NTP,testing,31,Fwd PSH Flags,int8
+NTP-testing.parquet,NTP,testing,32,Bwd PSH Flags,int8
+NTP-testing.parquet,NTP,testing,33,Fwd URG Flags,int8
+NTP-testing.parquet,NTP,testing,34,Bwd URG Flags,int8
+NTP-testing.parquet,NTP,testing,35,Fwd Header Length,int64
+NTP-testing.parquet,NTP,testing,36,Bwd Header Length,int32
+NTP-testing.parquet,NTP,testing,37,Fwd Packets/s,float
+NTP-testing.parquet,NTP,testing,38,Bwd Packets/s,float
+NTP-testing.parquet,NTP,testing,39,Packet Length Min,float
+NTP-testing.parquet,NTP,testing,40,Packet Length Max,float
+NTP-testing.parquet,NTP,testing,41,Packet Length Mean,float
+NTP-testing.parquet,NTP,testing,42,Packet Length Std,float
+NTP-testing.parquet,NTP,testing,43,Packet Length Variance,float
+NTP-testing.parquet,NTP,testing,44,FIN Flag Count,int8
+NTP-testing.parquet,NTP,testing,45,SYN Flag Count,int8
+NTP-testing.parquet,NTP,testing,46,RST Flag Count,int8
+NTP-testing.parquet,NTP,testing,47,PSH Flag Count,int8
+NTP-testing.parquet,NTP,testing,48,ACK Flag Count,int8
+NTP-testing.parquet,NTP,testing,49,URG Flag Count,int8
+NTP-testing.parquet,NTP,testing,50,CWE Flag Count,int8
+NTP-testing.parquet,NTP,testing,51,ECE Flag Count,int8
+NTP-testing.parquet,NTP,testing,52,Down/Up Ratio,float
+NTP-testing.parquet,NTP,testing,53,Avg Packet Size,float
+NTP-testing.parquet,NTP,testing,54,Avg Fwd Segment Size,float
+NTP-testing.parquet,NTP,testing,55,Avg Bwd Segment Size,float
+NTP-testing.parquet,NTP,testing,56,Fwd Avg Bytes/Bulk,int8
+NTP-testing.parquet,NTP,testing,57,Fwd Avg Packets/Bulk,int8
+NTP-testing.parquet,NTP,testing,58,Fwd Avg Bulk Rate,int8
+NTP-testing.parquet,NTP,testing,59,Bwd Avg Bytes/Bulk,int8
+NTP-testing.parquet,NTP,testing,60,Bwd Avg Packets/Bulk,int8
+NTP-testing.parquet,NTP,testing,61,Bwd Avg Bulk Rate,int8
+NTP-testing.parquet,NTP,testing,62,Subflow Fwd Packets,int16
+NTP-testing.parquet,NTP,testing,63,Subflow Fwd Bytes,int32
+NTP-testing.parquet,NTP,testing,64,Subflow Bwd Packets,int16
+NTP-testing.parquet,NTP,testing,65,Subflow Bwd Bytes,int32
+NTP-testing.parquet,NTP,testing,66,Init Fwd Win Bytes,int32
+NTP-testing.parquet,NTP,testing,67,Init Bwd Win Bytes,int32
+NTP-testing.parquet,NTP,testing,68,Fwd Act Data Packets,int16
+NTP-testing.parquet,NTP,testing,69,Fwd Seg Size Min,int32
+NTP-testing.parquet,NTP,testing,70,Active Mean,float
+NTP-testing.parquet,NTP,testing,71,Active Std,float
+NTP-testing.parquet,NTP,testing,72,Active Max,float
+NTP-testing.parquet,NTP,testing,73,Active Min,float
+NTP-testing.parquet,NTP,testing,74,Idle Mean,float
+NTP-testing.parquet,NTP,testing,75,Idle Std,float
+NTP-testing.parquet,NTP,testing,76,Idle Max,float
+NTP-testing.parquet,NTP,testing,77,Idle Min,float
+NTP-testing.parquet,NTP,testing,78,Label,"dictionary<values=string, indices=int8, ordered=0>"
+Portmap-training.parquet,Portmap,training,1,Protocol,int8
+Portmap-training.parquet,Portmap,training,2,Flow Duration,int32
+Portmap-training.parquet,Portmap,training,3,Total Fwd Packets,int16
+Portmap-training.parquet,Portmap,training,4,Total Backward Packets,int16
+Portmap-training.parquet,Portmap,training,5,Fwd Packets Length Total,float
+Portmap-training.parquet,Portmap,training,6,Bwd Packets Length Total,float
+Portmap-training.parquet,Portmap,training,7,Fwd Packet Length Max,float
+Portmap-training.parquet,Portmap,training,8,Fwd Packet Length Min,float
+Portmap-training.parquet,Portmap,training,9,Fwd Packet Length Mean,float
+Portmap-training.parquet,Portmap,training,10,Fwd Packet Length Std,float
+Portmap-training.parquet,Portmap,training,11,Bwd Packet Length Max,float
+Portmap-training.parquet,Portmap,training,12,Bwd Packet Length Min,float
+Portmap-training.parquet,Portmap,training,13,Bwd Packet Length Mean,float
+Portmap-training.parquet,Portmap,training,14,Bwd Packet Length Std,float
+Portmap-training.parquet,Portmap,training,15,Flow Bytes/s,double
+Portmap-training.parquet,Portmap,training,16,Flow Packets/s,double
+Portmap-training.parquet,Portmap,training,17,Flow IAT Mean,float
+Portmap-training.parquet,Portmap,training,18,Flow IAT Std,float
+Portmap-training.parquet,Portmap,training,19,Flow IAT Max,float
+Portmap-training.parquet,Portmap,training,20,Flow IAT Min,float
+Portmap-training.parquet,Portmap,training,21,Fwd IAT Total,float
+Portmap-training.parquet,Portmap,training,22,Fwd IAT Mean,float
+Portmap-training.parquet,Portmap,training,23,Fwd IAT Std,float
+Portmap-training.parquet,Portmap,training,24,Fwd IAT Max,float
+Portmap-training.parquet,Portmap,training,25,Fwd IAT Min,float
+Portmap-training.parquet,Portmap,training,26,Bwd IAT Total,float
+Portmap-training.parquet,Portmap,training,27,Bwd IAT Mean,float
+Portmap-training.parquet,Portmap,training,28,Bwd IAT Std,float
+Portmap-training.parquet,Portmap,training,29,Bwd IAT Max,float
+Portmap-training.parquet,Portmap,training,30,Bwd IAT Min,float
+Portmap-training.parquet,Portmap,training,31,Fwd PSH Flags,int8
+Portmap-training.parquet,Portmap,training,32,Bwd PSH Flags,int8
+Portmap-training.parquet,Portmap,training,33,Fwd URG Flags,int8
+Portmap-training.parquet,Portmap,training,34,Bwd URG Flags,int8
+Portmap-training.parquet,Portmap,training,35,Fwd Header Length,int32
+Portmap-training.parquet,Portmap,training,36,Bwd Header Length,int32
+Portmap-training.parquet,Portmap,training,37,Fwd Packets/s,float
+Portmap-training.parquet,Portmap,training,38,Bwd Packets/s,float
+Portmap-training.parquet,Portmap,training,39,Packet Length Min,float
+Portmap-training.parquet,Portmap,training,40,Packet Length Max,float
+Portmap-training.parquet,Portmap,training,41,Packet Length Mean,float
+Portmap-training.parquet,Portmap,training,42,Packet Length Std,float
+Portmap-training.parquet,Portmap,training,43,Packet Length Variance,float
+Portmap-training.parquet,Portmap,training,44,FIN Flag Count,int8
+Portmap-training.parquet,Portmap,training,45,SYN Flag Count,int8
+Portmap-training.parquet,Portmap,training,46,RST Flag Count,int8
+Portmap-training.parquet,Portmap,training,47,PSH Flag Count,int8
+Portmap-training.parquet,Portmap,training,48,ACK Flag Count,int8
+Portmap-training.parquet,Portmap,training,49,URG Flag Count,int8
+Portmap-training.parquet,Portmap,training,50,CWE Flag Count,int8
+Portmap-training.parquet,Portmap,training,51,ECE Flag Count,int8
+Portmap-training.parquet,Portmap,training,52,Down/Up Ratio,float
+Portmap-training.parquet,Portmap,training,53,Avg Packet Size,float
+Portmap-training.parquet,Portmap,training,54,Avg Fwd Segment Size,float
+Portmap-training.parquet,Portmap,training,55,Avg Bwd Segment Size,float
+Portmap-training.parquet,Portmap,training,56,Fwd Avg Bytes/Bulk,int8
+Portmap-training.parquet,Portmap,training,57,Fwd Avg Packets/Bulk,int8
+Portmap-training.parquet,Portmap,training,58,Fwd Avg Bulk Rate,int8
+Portmap-training.parquet,Portmap,training,59,Bwd Avg Bytes/Bulk,int8
+Portmap-training.parquet,Portmap,training,60,Bwd Avg Packets/Bulk,int8
+Portmap-training.parquet,Portmap,training,61,Bwd Avg Bulk Rate,int8
+Portmap-training.parquet,Portmap,training,62,Subflow Fwd Packets,int16
+Portmap-training.parquet,Portmap,training,63,Subflow Fwd Bytes,int32
+Portmap-training.parquet,Portmap,training,64,Subflow Bwd Packets,int16
+Portmap-training.parquet,Portmap,training,65,Subflow Bwd Bytes,int32
+Portmap-training.parquet,Portmap,training,66,Init Fwd Win Bytes,int32
+Portmap-training.parquet,Portmap,training,67,Init Bwd Win Bytes,int32
+Portmap-training.parquet,Portmap,training,68,Fwd Act Data Packets,int16
+Portmap-training.parquet,Portmap,training,69,Fwd Seg Size Min,int32
+Portmap-training.parquet,Portmap,training,70,Active Mean,float
+Portmap-training.parquet,Portmap,training,71,Active Std,float
+Portmap-training.parquet,Portmap,training,72,Active Max,float
+Portmap-training.parquet,Portmap,training,73,Active Min,float
+Portmap-training.parquet,Portmap,training,74,Idle Mean,float
+Portmap-training.parquet,Portmap,training,75,Idle Std,float
+Portmap-training.parquet,Portmap,training,76,Idle Max,float
+Portmap-training.parquet,Portmap,training,77,Idle Min,float
+Portmap-training.parquet,Portmap,training,78,Label,"dictionary<values=string, indices=int8, ordered=0>"
+SNMP-testing.parquet,SNMP,testing,1,Protocol,int8
+SNMP-testing.parquet,SNMP,testing,2,Flow Duration,int32
+SNMP-testing.parquet,SNMP,testing,3,Total Fwd Packets,int16
+SNMP-testing.parquet,SNMP,testing,4,Total Backward Packets,int16
+SNMP-testing.parquet,SNMP,testing,5,Fwd Packets Length Total,float
+SNMP-testing.parquet,SNMP,testing,6,Bwd Packets Length Total,float
+SNMP-testing.parquet,SNMP,testing,7,Fwd Packet Length Max,float
+SNMP-testing.parquet,SNMP,testing,8,Fwd Packet Length Min,float
+SNMP-testing.parquet,SNMP,testing,9,Fwd Packet Length Mean,float
+SNMP-testing.parquet,SNMP,testing,10,Fwd Packet Length Std,float
+SNMP-testing.parquet,SNMP,testing,11,Bwd Packet Length Max,float
+SNMP-testing.parquet,SNMP,testing,12,Bwd Packet Length Min,float
+SNMP-testing.parquet,SNMP,testing,13,Bwd Packet Length Mean,float
+SNMP-testing.parquet,SNMP,testing,14,Bwd Packet Length Std,float
+SNMP-testing.parquet,SNMP,testing,15,Flow Bytes/s,double
+SNMP-testing.parquet,SNMP,testing,16,Flow Packets/s,double
+SNMP-testing.parquet,SNMP,testing,17,Flow IAT Mean,float
+SNMP-testing.parquet,SNMP,testing,18,Flow IAT Std,float
+SNMP-testing.parquet,SNMP,testing,19,Flow IAT Max,float
+SNMP-testing.parquet,SNMP,testing,20,Flow IAT Min,float
+SNMP-testing.parquet,SNMP,testing,21,Fwd IAT Total,float
+SNMP-testing.parquet,SNMP,testing,22,Fwd IAT Mean,float
+SNMP-testing.parquet,SNMP,testing,23,Fwd IAT Std,float
+SNMP-testing.parquet,SNMP,testing,24,Fwd IAT Max,float
+SNMP-testing.parquet,SNMP,testing,25,Fwd IAT Min,float
+SNMP-testing.parquet,SNMP,testing,26,Bwd IAT Total,float
+SNMP-testing.parquet,SNMP,testing,27,Bwd IAT Mean,float
+SNMP-testing.parquet,SNMP,testing,28,Bwd IAT Std,float
+SNMP-testing.parquet,SNMP,testing,29,Bwd IAT Max,float
+SNMP-testing.parquet,SNMP,testing,30,Bwd IAT Min,float
+SNMP-testing.parquet,SNMP,testing,31,Fwd PSH Flags,int8
+SNMP-testing.parquet,SNMP,testing,32,Bwd PSH Flags,int8
+SNMP-testing.parquet,SNMP,testing,33,Fwd URG Flags,int8
+SNMP-testing.parquet,SNMP,testing,34,Bwd URG Flags,int8
+SNMP-testing.parquet,SNMP,testing,35,Fwd Header Length,int64
+SNMP-testing.parquet,SNMP,testing,36,Bwd Header Length,int32
+SNMP-testing.parquet,SNMP,testing,37,Fwd Packets/s,float
+SNMP-testing.parquet,SNMP,testing,38,Bwd Packets/s,float
+SNMP-testing.parquet,SNMP,testing,39,Packet Length Min,float
+SNMP-testing.parquet,SNMP,testing,40,Packet Length Max,float
+SNMP-testing.parquet,SNMP,testing,41,Packet Length Mean,float
+SNMP-testing.parquet,SNMP,testing,42,Packet Length Std,float
+SNMP-testing.parquet,SNMP,testing,43,Packet Length Variance,float
+SNMP-testing.parquet,SNMP,testing,44,FIN Flag Count,int8
+SNMP-testing.parquet,SNMP,testing,45,SYN Flag Count,int8
+SNMP-testing.parquet,SNMP,testing,46,RST Flag Count,int8
+SNMP-testing.parquet,SNMP,testing,47,PSH Flag Count,int8
+SNMP-testing.parquet,SNMP,testing,48,ACK Flag Count,int8
+SNMP-testing.parquet,SNMP,testing,49,URG Flag Count,int8
+SNMP-testing.parquet,SNMP,testing,50,CWE Flag Count,int8
+SNMP-testing.parquet,SNMP,testing,51,ECE Flag Count,int8
+SNMP-testing.parquet,SNMP,testing,52,Down/Up Ratio,float
+SNMP-testing.parquet,SNMP,testing,53,Avg Packet Size,float
+SNMP-testing.parquet,SNMP,testing,54,Avg Fwd Segment Size,float
+SNMP-testing.parquet,SNMP,testing,55,Avg Bwd Segment Size,float
+SNMP-testing.parquet,SNMP,testing,56,Fwd Avg Bytes/Bulk,int8
+SNMP-testing.parquet,SNMP,testing,57,Fwd Avg Packets/Bulk,int8
+SNMP-testing.parquet,SNMP,testing,58,Fwd Avg Bulk Rate,int8
+SNMP-testing.parquet,SNMP,testing,59,Bwd Avg Bytes/Bulk,int8
+SNMP-testing.parquet,SNMP,testing,60,Bwd Avg Packets/Bulk,int8
+SNMP-testing.parquet,SNMP,testing,61,Bwd Avg Bulk Rate,int8
+SNMP-testing.parquet,SNMP,testing,62,Subflow Fwd Packets,int16
+SNMP-testing.parquet,SNMP,testing,63,Subflow Fwd Bytes,int32
+SNMP-testing.parquet,SNMP,testing,64,Subflow Bwd Packets,int16
+SNMP-testing.parquet,SNMP,testing,65,Subflow Bwd Bytes,int32
+SNMP-testing.parquet,SNMP,testing,66,Init Fwd Win Bytes,int32
+SNMP-testing.parquet,SNMP,testing,67,Init Bwd Win Bytes,int32
+SNMP-testing.parquet,SNMP,testing,68,Fwd Act Data Packets,int8
+SNMP-testing.parquet,SNMP,testing,69,Fwd Seg Size Min,int32
+SNMP-testing.parquet,SNMP,testing,70,Active Mean,float
+SNMP-testing.parquet,SNMP,testing,71,Active Std,float
+SNMP-testing.parquet,SNMP,testing,72,Active Max,float
+SNMP-testing.parquet,SNMP,testing,73,Active Min,float
+SNMP-testing.parquet,SNMP,testing,74,Idle Mean,float
+SNMP-testing.parquet,SNMP,testing,75,Idle Std,float
+SNMP-testing.parquet,SNMP,testing,76,Idle Max,float
+SNMP-testing.parquet,SNMP,testing,77,Idle Min,float
+SNMP-testing.parquet,SNMP,testing,78,Label,"dictionary<values=string, indices=int8, ordered=0>"
+Syn-testing.parquet,Syn,testing,1,Protocol,int8
+Syn-testing.parquet,Syn,testing,2,Flow Duration,int32
+Syn-testing.parquet,Syn,testing,3,Total Fwd Packets,int16
+Syn-testing.parquet,Syn,testing,4,Total Backward Packets,int16
+Syn-testing.parquet,Syn,testing,5,Fwd Packets Length Total,float
+Syn-testing.parquet,Syn,testing,6,Bwd Packets Length Total,float
+Syn-testing.parquet,Syn,testing,7,Fwd Packet Length Max,float
+Syn-testing.parquet,Syn,testing,8,Fwd Packet Length Min,float
+Syn-testing.parquet,Syn,testing,9,Fwd Packet Length Mean,float
+Syn-testing.parquet,Syn,testing,10,Fwd Packet Length Std,float
+Syn-testing.parquet,Syn,testing,11,Bwd Packet Length Max,float
+Syn-testing.parquet,Syn,testing,12,Bwd Packet Length Min,float
+Syn-testing.parquet,Syn,testing,13,Bwd Packet Length Mean,float
+Syn-testing.parquet,Syn,testing,14,Bwd Packet Length Std,float
+Syn-testing.parquet,Syn,testing,15,Flow Bytes/s,double
+Syn-testing.parquet,Syn,testing,16,Flow Packets/s,double
+Syn-testing.parquet,Syn,testing,17,Flow IAT Mean,float
+Syn-testing.parquet,Syn,testing,18,Flow IAT Std,float
+Syn-testing.parquet,Syn,testing,19,Flow IAT Max,float
+Syn-testing.parquet,Syn,testing,20,Flow IAT Min,float
+Syn-testing.parquet,Syn,testing,21,Fwd IAT Total,float
+Syn-testing.parquet,Syn,testing,22,Fwd IAT Mean,float
+Syn-testing.parquet,Syn,testing,23,Fwd IAT Std,float
+Syn-testing.parquet,Syn,testing,24,Fwd IAT Max,float
+Syn-testing.parquet,Syn,testing,25,Fwd IAT Min,float
+Syn-testing.parquet,Syn,testing,26,Bwd IAT Total,float
+Syn-testing.parquet,Syn,testing,27,Bwd IAT Mean,float
+Syn-testing.parquet,Syn,testing,28,Bwd IAT Std,float
+Syn-testing.parquet,Syn,testing,29,Bwd IAT Max,float
+Syn-testing.parquet,Syn,testing,30,Bwd IAT Min,float
+Syn-testing.parquet,Syn,testing,31,Fwd PSH Flags,int8
+Syn-testing.parquet,Syn,testing,32,Bwd PSH Flags,int8
+Syn-testing.parquet,Syn,testing,33,Fwd URG Flags,int8
+Syn-testing.parquet,Syn,testing,34,Bwd URG Flags,int8
+Syn-testing.parquet,Syn,testing,35,Fwd Header Length,int16
+Syn-testing.parquet,Syn,testing,36,Bwd Header Length,int16
+Syn-testing.parquet,Syn,testing,37,Fwd Packets/s,float
+Syn-testing.parquet,Syn,testing,38,Bwd Packets/s,float
+Syn-testing.parquet,Syn,testing,39,Packet Length Min,float
+Syn-testing.parquet,Syn,testing,40,Packet Length Max,float
+Syn-testing.parquet,Syn,testing,41,Packet Length Mean,float
+Syn-testing.parquet,Syn,testing,42,Packet Length Std,float
+Syn-testing.parquet,Syn,testing,43,Packet Length Variance,float
+Syn-testing.parquet,Syn,testing,44,FIN Flag Count,int8
+Syn-testing.parquet,Syn,testing,45,SYN Flag Count,int8
+Syn-testing.parquet,Syn,testing,46,RST Flag Count,int8
+Syn-testing.parquet,Syn,testing,47,PSH Flag Count,int8
+Syn-testing.parquet,Syn,testing,48,ACK Flag Count,int8
+Syn-testing.parquet,Syn,testing,49,URG Flag Count,int8
+Syn-testing.parquet,Syn,testing,50,CWE Flag Count,int8
+Syn-testing.parquet,Syn,testing,51,ECE Flag Count,int8
+Syn-testing.parquet,Syn,testing,52,Down/Up Ratio,float
+Syn-testing.parquet,Syn,testing,53,Avg Packet Size,float
+Syn-testing.parquet,Syn,testing,54,Avg Fwd Segment Size,float
+Syn-testing.parquet,Syn,testing,55,Avg Bwd Segment Size,float
+Syn-testing.parquet,Syn,testing,56,Fwd Avg Bytes/Bulk,int8
+Syn-testing.parquet,Syn,testing,57,Fwd Avg Packets/Bulk,int8
+Syn-testing.parquet,Syn,testing,58,Fwd Avg Bulk Rate,int8
+Syn-testing.parquet,Syn,testing,59,Bwd Avg Bytes/Bulk,int8
+Syn-testing.parquet,Syn,testing,60,Bwd Avg Packets/Bulk,int8
+Syn-testing.parquet,Syn,testing,61,Bwd Avg Bulk Rate,int8
+Syn-testing.parquet,Syn,testing,62,Subflow Fwd Packets,int16
+Syn-testing.parquet,Syn,testing,63,Subflow Fwd Bytes,int32
+Syn-testing.parquet,Syn,testing,64,Subflow Bwd Packets,int16
+Syn-testing.parquet,Syn,testing,65,Subflow Bwd Bytes,int32
+Syn-testing.parquet,Syn,testing,66,Init Fwd Win Bytes,int32
+Syn-testing.parquet,Syn,testing,67,Init Bwd Win Bytes,int32
+Syn-testing.parquet,Syn,testing,68,Fwd Act Data Packets,int8
+Syn-testing.parquet,Syn,testing,69,Fwd Seg Size Min,int8
+Syn-testing.parquet,Syn,testing,70,Active Mean,float
+Syn-testing.parquet,Syn,testing,71,Active Std,float
+Syn-testing.parquet,Syn,testing,72,Active Max,float
+Syn-testing.parquet,Syn,testing,73,Active Min,float
+Syn-testing.parquet,Syn,testing,74,Idle Mean,float
+Syn-testing.parquet,Syn,testing,75,Idle Std,float
+Syn-testing.parquet,Syn,testing,76,Idle Max,float
+Syn-testing.parquet,Syn,testing,77,Idle Min,float
+Syn-testing.parquet,Syn,testing,78,Label,"dictionary<values=string, indices=int8, ordered=0>"
+Syn-training.parquet,Syn,training,1,Protocol,int8
+Syn-training.parquet,Syn,training,2,Flow Duration,int32
+Syn-training.parquet,Syn,training,3,Total Fwd Packets,int16
+Syn-training.parquet,Syn,training,4,Total Backward Packets,int16
+Syn-training.parquet,Syn,training,5,Fwd Packets Length Total,float
+Syn-training.parquet,Syn,training,6,Bwd Packets Length Total,float
+Syn-training.parquet,Syn,training,7,Fwd Packet Length Max,float
+Syn-training.parquet,Syn,training,8,Fwd Packet Length Min,float
+Syn-training.parquet,Syn,training,9,Fwd Packet Length Mean,float
+Syn-training.parquet,Syn,training,10,Fwd Packet Length Std,float
+Syn-training.parquet,Syn,training,11,Bwd Packet Length Max,float
+Syn-training.parquet,Syn,training,12,Bwd Packet Length Min,float
+Syn-training.parquet,Syn,training,13,Bwd Packet Length Mean,float
+Syn-training.parquet,Syn,training,14,Bwd Packet Length Std,float
+Syn-training.parquet,Syn,training,15,Flow Bytes/s,double
+Syn-training.parquet,Syn,training,16,Flow Packets/s,double
+Syn-training.parquet,Syn,training,17,Flow IAT Mean,float
+Syn-training.parquet,Syn,training,18,Flow IAT Std,float
+Syn-training.parquet,Syn,training,19,Flow IAT Max,float
+Syn-training.parquet,Syn,training,20,Flow IAT Min,float
+Syn-training.parquet,Syn,training,21,Fwd IAT Total,float
+Syn-training.parquet,Syn,training,22,Fwd IAT Mean,float
+Syn-training.parquet,Syn,training,23,Fwd IAT Std,float
+Syn-training.parquet,Syn,training,24,Fwd IAT Max,float
+Syn-training.parquet,Syn,training,25,Fwd IAT Min,float
+Syn-training.parquet,Syn,training,26,Bwd IAT Total,float
+Syn-training.parquet,Syn,training,27,Bwd IAT Mean,float
+Syn-training.parquet,Syn,training,28,Bwd IAT Std,float
+Syn-training.parquet,Syn,training,29,Bwd IAT Max,float
+Syn-training.parquet,Syn,training,30,Bwd IAT Min,float
+Syn-training.parquet,Syn,training,31,Fwd PSH Flags,int8
+Syn-training.parquet,Syn,training,32,Bwd PSH Flags,int8
+Syn-training.parquet,Syn,training,33,Fwd URG Flags,int8
+Syn-training.parquet,Syn,training,34,Bwd URG Flags,int8
+Syn-training.parquet,Syn,training,35,Fwd Header Length,int32
+Syn-training.parquet,Syn,training,36,Bwd Header Length,int32
+Syn-training.parquet,Syn,training,37,Fwd Packets/s,float
+Syn-training.parquet,Syn,training,38,Bwd Packets/s,float
+Syn-training.parquet,Syn,training,39,Packet Length Min,float
+Syn-training.parquet,Syn,training,40,Packet Length Max,float
+Syn-training.parquet,Syn,training,41,Packet Length Mean,float
+Syn-training.parquet,Syn,training,42,Packet Length Std,float
+Syn-training.parquet,Syn,training,43,Packet Length Variance,float
+Syn-training.parquet,Syn,training,44,FIN Flag Count,int8
+Syn-training.parquet,Syn,training,45,SYN Flag Count,int8
+Syn-training.parquet,Syn,training,46,RST Flag Count,int8
+Syn-training.parquet,Syn,training,47,PSH Flag Count,int8
+Syn-training.parquet,Syn,training,48,ACK Flag Count,int8
+Syn-training.parquet,Syn,training,49,URG Flag Count,int8
+Syn-training.parquet,Syn,training,50,CWE Flag Count,int8
+Syn-training.parquet,Syn,training,51,ECE Flag Count,int8
+Syn-training.parquet,Syn,training,52,Down/Up Ratio,float
+Syn-training.parquet,Syn,training,53,Avg Packet Size,float
+Syn-training.parquet,Syn,training,54,Avg Fwd Segment Size,float
+Syn-training.parquet,Syn,training,55,Avg Bwd Segment Size,float
+Syn-training.parquet,Syn,training,56,Fwd Avg Bytes/Bulk,int8
+Syn-training.parquet,Syn,training,57,Fwd Avg Packets/Bulk,int8
+Syn-training.parquet,Syn,training,58,Fwd Avg Bulk Rate,int8
+Syn-training.parquet,Syn,training,59,Bwd Avg Bytes/Bulk,int8
+Syn-training.parquet,Syn,training,60,Bwd Avg Packets/Bulk,int8
+Syn-training.parquet,Syn,training,61,Bwd Avg Bulk Rate,int8
+Syn-training.parquet,Syn,training,62,Subflow Fwd Packets,int16
+Syn-training.parquet,Syn,training,63,Subflow Fwd Bytes,int32
+Syn-training.parquet,Syn,training,64,Subflow Bwd Packets,int16
+Syn-training.parquet,Syn,training,65,Subflow Bwd Bytes,int32
+Syn-training.parquet,Syn,training,66,Init Fwd Win Bytes,int32
+Syn-training.parquet,Syn,training,67,Init Bwd Win Bytes,int32
+Syn-training.parquet,Syn,training,68,Fwd Act Data Packets,int16
+Syn-training.parquet,Syn,training,69,Fwd Seg Size Min,int8
+Syn-training.parquet,Syn,training,70,Active Mean,float
+Syn-training.parquet,Syn,training,71,Active Std,float
+Syn-training.parquet,Syn,training,72,Active Max,float
+Syn-training.parquet,Syn,training,73,Active Min,float
+Syn-training.parquet,Syn,training,74,Idle Mean,float
+Syn-training.parquet,Syn,training,75,Idle Std,float
+Syn-training.parquet,Syn,training,76,Idle Max,float
+Syn-training.parquet,Syn,training,77,Idle Min,float
+Syn-training.parquet,Syn,training,78,Label,"dictionary<values=string, indices=int8, ordered=0>"
+TFTP-testing.parquet,TFTP,testing,1,Protocol,int8
+TFTP-testing.parquet,TFTP,testing,2,Flow Duration,int32
+TFTP-testing.parquet,TFTP,testing,3,Total Fwd Packets,int16
+TFTP-testing.parquet,TFTP,testing,4,Total Backward Packets,int16
+TFTP-testing.parquet,TFTP,testing,5,Fwd Packets Length Total,float
+TFTP-testing.parquet,TFTP,testing,6,Bwd Packets Length Total,float
+TFTP-testing.parquet,TFTP,testing,7,Fwd Packet Length Max,float
+TFTP-testing.parquet,TFTP,testing,8,Fwd Packet Length Min,float
+TFTP-testing.parquet,TFTP,testing,9,Fwd Packet Length Mean,float
+TFTP-testing.parquet,TFTP,testing,10,Fwd Packet Length Std,float
+TFTP-testing.parquet,TFTP,testing,11,Bwd Packet Length Max,float
+TFTP-testing.parquet,TFTP,testing,12,Bwd Packet Length Min,float
+TFTP-testing.parquet,TFTP,testing,13,Bwd Packet Length Mean,float
+TFTP-testing.parquet,TFTP,testing,14,Bwd Packet Length Std,float
+TFTP-testing.parquet,TFTP,testing,15,Flow Bytes/s,double
+TFTP-testing.parquet,TFTP,testing,16,Flow Packets/s,double
+TFTP-testing.parquet,TFTP,testing,17,Flow IAT Mean,float
+TFTP-testing.parquet,TFTP,testing,18,Flow IAT Std,float
+TFTP-testing.parquet,TFTP,testing,19,Flow IAT Max,float
+TFTP-testing.parquet,TFTP,testing,20,Flow IAT Min,float
+TFTP-testing.parquet,TFTP,testing,21,Fwd IAT Total,float
+TFTP-testing.parquet,TFTP,testing,22,Fwd IAT Mean,float
+TFTP-testing.parquet,TFTP,testing,23,Fwd IAT Std,float
+TFTP-testing.parquet,TFTP,testing,24,Fwd IAT Max,float
+TFTP-testing.parquet,TFTP,testing,25,Fwd IAT Min,float
+TFTP-testing.parquet,TFTP,testing,26,Bwd IAT Total,float
+TFTP-testing.parquet,TFTP,testing,27,Bwd IAT Mean,float
+TFTP-testing.parquet,TFTP,testing,28,Bwd IAT Std,float
+TFTP-testing.parquet,TFTP,testing,29,Bwd IAT Max,float
+TFTP-testing.parquet,TFTP,testing,30,Bwd IAT Min,float
+TFTP-testing.parquet,TFTP,testing,31,Fwd PSH Flags,int8
+TFTP-testing.parquet,TFTP,testing,32,Bwd PSH Flags,int8
+TFTP-testing.parquet,TFTP,testing,33,Fwd URG Flags,int8
+TFTP-testing.parquet,TFTP,testing,34,Bwd URG Flags,int8
+TFTP-testing.parquet,TFTP,testing,35,Fwd Header Length,int64
+TFTP-testing.parquet,TFTP,testing,36,Bwd Header Length,int32
+TFTP-testing.parquet,TFTP,testing,37,Fwd Packets/s,float
+TFTP-testing.parquet,TFTP,testing,38,Bwd Packets/s,float
+TFTP-testing.parquet,TFTP,testing,39,Packet Length Min,float
+TFTP-testing.parquet,TFTP,testing,40,Packet Length Max,float
+TFTP-testing.parquet,TFTP,testing,41,Packet Length Mean,float
+TFTP-testing.parquet,TFTP,testing,42,Packet Length Std,float
+TFTP-testing.parquet,TFTP,testing,43,Packet Length Variance,float
+TFTP-testing.parquet,TFTP,testing,44,FIN Flag Count,int8
+TFTP-testing.parquet,TFTP,testing,45,SYN Flag Count,int8
+TFTP-testing.parquet,TFTP,testing,46,RST Flag Count,int8
+TFTP-testing.parquet,TFTP,testing,47,PSH Flag Count,int8
+TFTP-testing.parquet,TFTP,testing,48,ACK Flag Count,int8
+TFTP-testing.parquet,TFTP,testing,49,URG Flag Count,int8
+TFTP-testing.parquet,TFTP,testing,50,CWE Flag Count,int8
+TFTP-testing.parquet,TFTP,testing,51,ECE Flag Count,int8
+TFTP-testing.parquet,TFTP,testing,52,Down/Up Ratio,float
+TFTP-testing.parquet,TFTP,testing,53,Avg Packet Size,float
+TFTP-testing.parquet,TFTP,testing,54,Avg Fwd Segment Size,float
+TFTP-testing.parquet,TFTP,testing,55,Avg Bwd Segment Size,float
+TFTP-testing.parquet,TFTP,testing,56,Fwd Avg Bytes/Bulk,int8
+TFTP-testing.parquet,TFTP,testing,57,Fwd Avg Packets/Bulk,int8
+TFTP-testing.parquet,TFTP,testing,58,Fwd Avg Bulk Rate,int8
+TFTP-testing.parquet,TFTP,testing,59,Bwd Avg Bytes/Bulk,int8
+TFTP-testing.parquet,TFTP,testing,60,Bwd Avg Packets/Bulk,int8
+TFTP-testing.parquet,TFTP,testing,61,Bwd Avg Bulk Rate,int8
+TFTP-testing.parquet,TFTP,testing,62,Subflow Fwd Packets,int16
+TFTP-testing.parquet,TFTP,testing,63,Subflow Fwd Bytes,int32
+TFTP-testing.parquet,TFTP,testing,64,Subflow Bwd Packets,int16
+TFTP-testing.parquet,TFTP,testing,65,Subflow Bwd Bytes,int32
+TFTP-testing.parquet,TFTP,testing,66,Init Fwd Win Bytes,int32
+TFTP-testing.parquet,TFTP,testing,67,Init Bwd Win Bytes,int32
+TFTP-testing.parquet,TFTP,testing,68,Fwd Act Data Packets,int8
+TFTP-testing.parquet,TFTP,testing,69,Fwd Seg Size Min,int32
+TFTP-testing.parquet,TFTP,testing,70,Active Mean,float
+TFTP-testing.parquet,TFTP,testing,71,Active Std,float
+TFTP-testing.parquet,TFTP,testing,72,Active Max,float
+TFTP-testing.parquet,TFTP,testing,73,Active Min,float
+TFTP-testing.parquet,TFTP,testing,74,Idle Mean,float
+TFTP-testing.parquet,TFTP,testing,75,Idle Std,float
+TFTP-testing.parquet,TFTP,testing,76,Idle Max,float
+TFTP-testing.parquet,TFTP,testing,77,Idle Min,float
+TFTP-testing.parquet,TFTP,testing,78,Label,"dictionary<values=string, indices=int8, ordered=0>"
+UDP-testing.parquet,UDP,testing,1,Protocol,int8
+UDP-testing.parquet,UDP,testing,2,Flow Duration,int32
+UDP-testing.parquet,UDP,testing,3,Total Fwd Packets,int16
+UDP-testing.parquet,UDP,testing,4,Total Backward Packets,int16
+UDP-testing.parquet,UDP,testing,5,Fwd Packets Length Total,float
+UDP-testing.parquet,UDP,testing,6,Bwd Packets Length Total,float
+UDP-testing.parquet,UDP,testing,7,Fwd Packet Length Max,float
+UDP-testing.parquet,UDP,testing,8,Fwd Packet Length Min,float
+UDP-testing.parquet,UDP,testing,9,Fwd Packet Length Mean,float
+UDP-testing.parquet,UDP,testing,10,Fwd Packet Length Std,float
+UDP-testing.parquet,UDP,testing,11,Bwd Packet Length Max,float
+UDP-testing.parquet,UDP,testing,12,Bwd Packet Length Min,float
+UDP-testing.parquet,UDP,testing,13,Bwd Packet Length Mean,float
+UDP-testing.parquet,UDP,testing,14,Bwd Packet Length Std,float
+UDP-testing.parquet,UDP,testing,15,Flow Bytes/s,double
+UDP-testing.parquet,UDP,testing,16,Flow Packets/s,double
+UDP-testing.parquet,UDP,testing,17,Flow IAT Mean,float
+UDP-testing.parquet,UDP,testing,18,Flow IAT Std,float
+UDP-testing.parquet,UDP,testing,19,Flow IAT Max,float
+UDP-testing.parquet,UDP,testing,20,Flow IAT Min,float
+UDP-testing.parquet,UDP,testing,21,Fwd IAT Total,float
+UDP-testing.parquet,UDP,testing,22,Fwd IAT Mean,float
+UDP-testing.parquet,UDP,testing,23,Fwd IAT Std,float
+UDP-testing.parquet,UDP,testing,24,Fwd IAT Max,float
+UDP-testing.parquet,UDP,testing,25,Fwd IAT Min,float
+UDP-testing.parquet,UDP,testing,26,Bwd IAT Total,float
+UDP-testing.parquet,UDP,testing,27,Bwd IAT Mean,float
+UDP-testing.parquet,UDP,testing,28,Bwd IAT Std,float
+UDP-testing.parquet,UDP,testing,29,Bwd IAT Max,float
+UDP-testing.parquet,UDP,testing,30,Bwd IAT Min,float
+UDP-testing.parquet,UDP,testing,31,Fwd PSH Flags,int8
+UDP-testing.parquet,UDP,testing,32,Bwd PSH Flags,int8
+UDP-testing.parquet,UDP,testing,33,Fwd URG Flags,int8
+UDP-testing.parquet,UDP,testing,34,Bwd URG Flags,int8
+UDP-testing.parquet,UDP,testing,35,Fwd Header Length,int64
+UDP-testing.parquet,UDP,testing,36,Bwd Header Length,int32
+UDP-testing.parquet,UDP,testing,37,Fwd Packets/s,float
+UDP-testing.parquet,UDP,testing,38,Bwd Packets/s,float
+UDP-testing.parquet,UDP,testing,39,Packet Length Min,float
+UDP-testing.parquet,UDP,testing,40,Packet Length Max,float
+UDP-testing.parquet,UDP,testing,41,Packet Length Mean,float
+UDP-testing.parquet,UDP,testing,42,Packet Length Std,float
+UDP-testing.parquet,UDP,testing,43,Packet Length Variance,float
+UDP-testing.parquet,UDP,testing,44,FIN Flag Count,int8
+UDP-testing.parquet,UDP,testing,45,SYN Flag Count,int8
+UDP-testing.parquet,UDP,testing,46,RST Flag Count,int8
+UDP-testing.parquet,UDP,testing,47,PSH Flag Count,int8
+UDP-testing.parquet,UDP,testing,48,ACK Flag Count,int8
+UDP-testing.parquet,UDP,testing,49,URG Flag Count,int8
+UDP-testing.parquet,UDP,testing,50,CWE Flag Count,int8
+UDP-testing.parquet,UDP,testing,51,ECE Flag Count,int8
+UDP-testing.parquet,UDP,testing,52,Down/Up Ratio,float
+UDP-testing.parquet,UDP,testing,53,Avg Packet Size,float
+UDP-testing.parquet,UDP,testing,54,Avg Fwd Segment Size,float
+UDP-testing.parquet,UDP,testing,55,Avg Bwd Segment Size,float
+UDP-testing.parquet,UDP,testing,56,Fwd Avg Bytes/Bulk,int8
+UDP-testing.parquet,UDP,testing,57,Fwd Avg Packets/Bulk,int8
+UDP-testing.parquet,UDP,testing,58,Fwd Avg Bulk Rate,int8
+UDP-testing.parquet,UDP,testing,59,Bwd Avg Bytes/Bulk,int8
+UDP-testing.parquet,UDP,testing,60,Bwd Avg Packets/Bulk,int8
+UDP-testing.parquet,UDP,testing,61,Bwd Avg Bulk Rate,int8
+UDP-testing.parquet,UDP,testing,62,Subflow Fwd Packets,int16
+UDP-testing.parquet,UDP,testing,63,Subflow Fwd Bytes,int32
+UDP-testing.parquet,UDP,testing,64,Subflow Bwd Packets,int16
+UDP-testing.parquet,UDP,testing,65,Subflow Bwd Bytes,int32
+UDP-testing.parquet,UDP,testing,66,Init Fwd Win Bytes,int32
+UDP-testing.parquet,UDP,testing,67,Init Bwd Win Bytes,int32
+UDP-testing.parquet,UDP,testing,68,Fwd Act Data Packets,int8
+UDP-testing.parquet,UDP,testing,69,Fwd Seg Size Min,int32
+UDP-testing.parquet,UDP,testing,70,Active Mean,float
+UDP-testing.parquet,UDP,testing,71,Active Std,float
+UDP-testing.parquet,UDP,testing,72,Active Max,float
+UDP-testing.parquet,UDP,testing,73,Active Min,float
+UDP-testing.parquet,UDP,testing,74,Idle Mean,float
+UDP-testing.parquet,UDP,testing,75,Idle Std,float
+UDP-testing.parquet,UDP,testing,76,Idle Max,float
+UDP-testing.parquet,UDP,testing,77,Idle Min,float
+UDP-testing.parquet,UDP,testing,78,Label,"dictionary<values=string, indices=int8, ordered=0>"
+UDP-training.parquet,UDP,training,1,Protocol,int8
+UDP-training.parquet,UDP,training,2,Flow Duration,int32
+UDP-training.parquet,UDP,training,3,Total Fwd Packets,int16
+UDP-training.parquet,UDP,training,4,Total Backward Packets,int16
+UDP-training.parquet,UDP,training,5,Fwd Packets Length Total,float
+UDP-training.parquet,UDP,training,6,Bwd Packets Length Total,float
+UDP-training.parquet,UDP,training,7,Fwd Packet Length Max,float
+UDP-training.parquet,UDP,training,8,Fwd Packet Length Min,float
+UDP-training.parquet,UDP,training,9,Fwd Packet Length Mean,float
+UDP-training.parquet,UDP,training,10,Fwd Packet Length Std,float
+UDP-training.parquet,UDP,training,11,Bwd Packet Length Max,float
+UDP-training.parquet,UDP,training,12,Bwd Packet Length Min,float
+UDP-training.parquet,UDP,training,13,Bwd Packet Length Mean,float
+UDP-training.parquet,UDP,training,14,Bwd Packet Length Std,float
+UDP-training.parquet,UDP,training,15,Flow Bytes/s,double
+UDP-training.parquet,UDP,training,16,Flow Packets/s,double
+UDP-training.parquet,UDP,training,17,Flow IAT Mean,float
+UDP-training.parquet,UDP,training,18,Flow IAT Std,float
+UDP-training.parquet,UDP,training,19,Flow IAT Max,float
+UDP-training.parquet,UDP,training,20,Flow IAT Min,float
+UDP-training.parquet,UDP,training,21,Fwd IAT Total,float
+UDP-training.parquet,UDP,training,22,Fwd IAT Mean,float
+UDP-training.parquet,UDP,training,23,Fwd IAT Std,float
+UDP-training.parquet,UDP,training,24,Fwd IAT Max,float
+UDP-training.parquet,UDP,training,25,Fwd IAT Min,float
+UDP-training.parquet,UDP,training,26,Bwd IAT Total,float
+UDP-training.parquet,UDP,training,27,Bwd IAT Mean,float
+UDP-training.parquet,UDP,training,28,Bwd IAT Std,float
+UDP-training.parquet,UDP,training,29,Bwd IAT Max,float
+UDP-training.parquet,UDP,training,30,Bwd IAT Min,float
+UDP-training.parquet,UDP,training,31,Fwd PSH Flags,int8
+UDP-training.parquet,UDP,training,32,Bwd PSH Flags,int8
+UDP-training.parquet,UDP,training,33,Fwd URG Flags,int8
+UDP-training.parquet,UDP,training,34,Bwd URG Flags,int8
+UDP-training.parquet,UDP,training,35,Fwd Header Length,int64
+UDP-training.parquet,UDP,training,36,Bwd Header Length,int32
+UDP-training.parquet,UDP,training,37,Fwd Packets/s,float
+UDP-training.parquet,UDP,training,38,Bwd Packets/s,float
+UDP-training.parquet,UDP,training,39,Packet Length Min,float
+UDP-training.parquet,UDP,training,40,Packet Length Max,float
+UDP-training.parquet,UDP,training,41,Packet Length Mean,float
+UDP-training.parquet,UDP,training,42,Packet Length Std,float
+UDP-training.parquet,UDP,training,43,Packet Length Variance,float
+UDP-training.parquet,UDP,training,44,FIN Flag Count,int8
+UDP-training.parquet,UDP,training,45,SYN Flag Count,int8
+UDP-training.parquet,UDP,training,46,RST Flag Count,int8
+UDP-training.parquet,UDP,training,47,PSH Flag Count,int8
+UDP-training.parquet,UDP,training,48,ACK Flag Count,int8
+UDP-training.parquet,UDP,training,49,URG Flag Count,int8
+UDP-training.parquet,UDP,training,50,CWE Flag Count,int8
+UDP-training.parquet,UDP,training,51,ECE Flag Count,int8
+UDP-training.parquet,UDP,training,52,Down/Up Ratio,float
+UDP-training.parquet,UDP,training,53,Avg Packet Size,float
+UDP-training.parquet,UDP,training,54,Avg Fwd Segment Size,float
+UDP-training.parquet,UDP,training,55,Avg Bwd Segment Size,float
+UDP-training.parquet,UDP,training,56,Fwd Avg Bytes/Bulk,int8
+UDP-training.parquet,UDP,training,57,Fwd Avg Packets/Bulk,int8
+UDP-training.parquet,UDP,training,58,Fwd Avg Bulk Rate,int8
+UDP-training.parquet,UDP,training,59,Bwd Avg Bytes/Bulk,int8
+UDP-training.parquet,UDP,training,60,Bwd Avg Packets/Bulk,int8
+UDP-training.parquet,UDP,training,61,Bwd Avg Bulk Rate,int8
+UDP-training.parquet,UDP,training,62,Subflow Fwd Packets,int16
+UDP-training.parquet,UDP,training,63,Subflow Fwd Bytes,int32
+UDP-training.parquet,UDP,training,64,Subflow Bwd Packets,int16
+UDP-training.parquet,UDP,training,65,Subflow Bwd Bytes,int32
+UDP-training.parquet,UDP,training,66,Init Fwd Win Bytes,int32
+UDP-training.parquet,UDP,training,67,Init Bwd Win Bytes,int32
+UDP-training.parquet,UDP,training,68,Fwd Act Data Packets,int16
+UDP-training.parquet,UDP,training,69,Fwd Seg Size Min,int32
+UDP-training.parquet,UDP,training,70,Active Mean,float
+UDP-training.parquet,UDP,training,71,Active Std,float
+UDP-training.parquet,UDP,training,72,Active Max,float
+UDP-training.parquet,UDP,training,73,Active Min,float
+UDP-training.parquet,UDP,training,74,Idle Mean,float
+UDP-training.parquet,UDP,training,75,Idle Std,float
+UDP-training.parquet,UDP,training,76,Idle Max,float
+UDP-training.parquet,UDP,training,77,Idle Min,float
+UDP-training.parquet,UDP,training,78,Label,"dictionary<values=string, indices=int8, ordered=0>"
+UDPLag-testing.parquet,UDPLag,testing,1,Protocol,int8
+UDPLag-testing.parquet,UDPLag,testing,2,Flow Duration,int32
+UDPLag-testing.parquet,UDPLag,testing,3,Total Fwd Packets,int16
+UDPLag-testing.parquet,UDPLag,testing,4,Total Backward Packets,int16
+UDPLag-testing.parquet,UDPLag,testing,5,Fwd Packets Length Total,float
+UDPLag-testing.parquet,UDPLag,testing,6,Bwd Packets Length Total,float
+UDPLag-testing.parquet,UDPLag,testing,7,Fwd Packet Length Max,float
+UDPLag-testing.parquet,UDPLag,testing,8,Fwd Packet Length Min,float
+UDPLag-testing.parquet,UDPLag,testing,9,Fwd Packet Length Mean,float
+UDPLag-testing.parquet,UDPLag,testing,10,Fwd Packet Length Std,float
+UDPLag-testing.parquet,UDPLag,testing,11,Bwd Packet Length Max,float
+UDPLag-testing.parquet,UDPLag,testing,12,Bwd Packet Length Min,float
+UDPLag-testing.parquet,UDPLag,testing,13,Bwd Packet Length Mean,float
+UDPLag-testing.parquet,UDPLag,testing,14,Bwd Packet Length Std,float
+UDPLag-testing.parquet,UDPLag,testing,15,Flow Bytes/s,double
+UDPLag-testing.parquet,UDPLag,testing,16,Flow Packets/s,double
+UDPLag-testing.parquet,UDPLag,testing,17,Flow IAT Mean,float
+UDPLag-testing.parquet,UDPLag,testing,18,Flow IAT Std,float
+UDPLag-testing.parquet,UDPLag,testing,19,Flow IAT Max,float
+UDPLag-testing.parquet,UDPLag,testing,20,Flow IAT Min,float
+UDPLag-testing.parquet,UDPLag,testing,21,Fwd IAT Total,float
+UDPLag-testing.parquet,UDPLag,testing,22,Fwd IAT Mean,float
+UDPLag-testing.parquet,UDPLag,testing,23,Fwd IAT Std,float
+UDPLag-testing.parquet,UDPLag,testing,24,Fwd IAT Max,float
+UDPLag-testing.parquet,UDPLag,testing,25,Fwd IAT Min,float
+UDPLag-testing.parquet,UDPLag,testing,26,Bwd IAT Total,float
+UDPLag-testing.parquet,UDPLag,testing,27,Bwd IAT Mean,float
+UDPLag-testing.parquet,UDPLag,testing,28,Bwd IAT Std,float
+UDPLag-testing.parquet,UDPLag,testing,29,Bwd IAT Max,float
+UDPLag-testing.parquet,UDPLag,testing,30,Bwd IAT Min,float
+UDPLag-testing.parquet,UDPLag,testing,31,Fwd PSH Flags,int8
+UDPLag-testing.parquet,UDPLag,testing,32,Bwd PSH Flags,int8
+UDPLag-testing.parquet,UDPLag,testing,33,Fwd URG Flags,int8
+UDPLag-testing.parquet,UDPLag,testing,34,Bwd URG Flags,int8
+UDPLag-testing.parquet,UDPLag,testing,35,Fwd Header Length,int64
+UDPLag-testing.parquet,UDPLag,testing,36,Bwd Header Length,int16
+UDPLag-testing.parquet,UDPLag,testing,37,Fwd Packets/s,float
+UDPLag-testing.parquet,UDPLag,testing,38,Bwd Packets/s,float
+UDPLag-testing.parquet,UDPLag,testing,39,Packet Length Min,float
+UDPLag-testing.parquet,UDPLag,testing,40,Packet Length Max,float
+UDPLag-testing.parquet,UDPLag,testing,41,Packet Length Mean,float
+UDPLag-testing.parquet,UDPLag,testing,42,Packet Length Std,float
+UDPLag-testing.parquet,UDPLag,testing,43,Packet Length Variance,float
+UDPLag-testing.parquet,UDPLag,testing,44,FIN Flag Count,int8
+UDPLag-testing.parquet,UDPLag,testing,45,SYN Flag Count,int8
+UDPLag-testing.parquet,UDPLag,testing,46,RST Flag Count,int8
+UDPLag-testing.parquet,UDPLag,testing,47,PSH Flag Count,int8
+UDPLag-testing.parquet,UDPLag,testing,48,ACK Flag Count,int8
+UDPLag-testing.parquet,UDPLag,testing,49,URG Flag Count,int8
+UDPLag-testing.parquet,UDPLag,testing,50,CWE Flag Count,int8
+UDPLag-testing.parquet,UDPLag,testing,51,ECE Flag Count,int8
+UDPLag-testing.parquet,UDPLag,testing,52,Down/Up Ratio,float
+UDPLag-testing.parquet,UDPLag,testing,53,Avg Packet Size,float
+UDPLag-testing.parquet,UDPLag,testing,54,Avg Fwd Segment Size,float
+UDPLag-testing.parquet,UDPLag,testing,55,Avg Bwd Segment Size,float
+UDPLag-testing.parquet,UDPLag,testing,56,Fwd Avg Bytes/Bulk,int8
+UDPLag-testing.parquet,UDPLag,testing,57,Fwd Avg Packets/Bulk,int8
+UDPLag-testing.parquet,UDPLag,testing,58,Fwd Avg Bulk Rate,int8
+UDPLag-testing.parquet,UDPLag,testing,59,Bwd Avg Bytes/Bulk,int8
+UDPLag-testing.parquet,UDPLag,testing,60,Bwd Avg Packets/Bulk,int8
+UDPLag-testing.parquet,UDPLag,testing,61,Bwd Avg Bulk Rate,int8
+UDPLag-testing.parquet,UDPLag,testing,62,Subflow Fwd Packets,int16
+UDPLag-testing.parquet,UDPLag,testing,63,Subflow Fwd Bytes,int32
+UDPLag-testing.parquet,UDPLag,testing,64,Subflow Bwd Packets,int16
+UDPLag-testing.parquet,UDPLag,testing,65,Subflow Bwd Bytes,int32
+UDPLag-testing.parquet,UDPLag,testing,66,Init Fwd Win Bytes,int32
+UDPLag-testing.parquet,UDPLag,testing,67,Init Bwd Win Bytes,int32
+UDPLag-testing.parquet,UDPLag,testing,68,Fwd Act Data Packets,int8
+UDPLag-testing.parquet,UDPLag,testing,69,Fwd Seg Size Min,int32
+UDPLag-testing.parquet,UDPLag,testing,70,Active Mean,float
+UDPLag-testing.parquet,UDPLag,testing,71,Active Std,float
+UDPLag-testing.parquet,UDPLag,testing,72,Active Max,float
+UDPLag-testing.parquet,UDPLag,testing,73,Active Min,float
+UDPLag-testing.parquet,UDPLag,testing,74,Idle Mean,float
+UDPLag-testing.parquet,UDPLag,testing,75,Idle Std,float
+UDPLag-testing.parquet,UDPLag,testing,76,Idle Max,float
+UDPLag-testing.parquet,UDPLag,testing,77,Idle Min,float
+UDPLag-testing.parquet,UDPLag,testing,78,Label,"dictionary<values=string, indices=int8, ordered=0>"
+UDPLag-training.parquet,UDPLag,training,1,Protocol,int8
+UDPLag-training.parquet,UDPLag,training,2,Flow Duration,int32
+UDPLag-training.parquet,UDPLag,training,3,Total Fwd Packets,int16
+UDPLag-training.parquet,UDPLag,training,4,Total Backward Packets,int16
+UDPLag-training.parquet,UDPLag,training,5,Fwd Packets Length Total,float
+UDPLag-training.parquet,UDPLag,training,6,Bwd Packets Length Total,float
+UDPLag-training.parquet,UDPLag,training,7,Fwd Packet Length Max,float
+UDPLag-training.parquet,UDPLag,training,8,Fwd Packet Length Min,float
+UDPLag-training.parquet,UDPLag,training,9,Fwd Packet Length Mean,float
+UDPLag-training.parquet,UDPLag,training,10,Fwd Packet Length Std,float
+UDPLag-training.parquet,UDPLag,training,11,Bwd Packet Length Max,float
+UDPLag-training.parquet,UDPLag,training,12,Bwd Packet Length Min,float
+UDPLag-training.parquet,UDPLag,training,13,Bwd Packet Length Mean,float
+UDPLag-training.parquet,UDPLag,training,14,Bwd Packet Length Std,float
+UDPLag-training.parquet,UDPLag,training,15,Flow Bytes/s,double
+UDPLag-training.parquet,UDPLag,training,16,Flow Packets/s,double
+UDPLag-training.parquet,UDPLag,training,17,Flow IAT Mean,float
+UDPLag-training.parquet,UDPLag,training,18,Flow IAT Std,float
+UDPLag-training.parquet,UDPLag,training,19,Flow IAT Max,float
+UDPLag-training.parquet,UDPLag,training,20,Flow IAT Min,float
+UDPLag-training.parquet,UDPLag,training,21,Fwd IAT Total,float
+UDPLag-training.parquet,UDPLag,training,22,Fwd IAT Mean,float
+UDPLag-training.parquet,UDPLag,training,23,Fwd IAT Std,float
+UDPLag-training.parquet,UDPLag,training,24,Fwd IAT Max,float
+UDPLag-training.parquet,UDPLag,training,25,Fwd IAT Min,float
+UDPLag-training.parquet,UDPLag,training,26,Bwd IAT Total,float
+UDPLag-training.parquet,UDPLag,training,27,Bwd IAT Mean,float
+UDPLag-training.parquet,UDPLag,training,28,Bwd IAT Std,float
+UDPLag-training.parquet,UDPLag,training,29,Bwd IAT Max,float
+UDPLag-training.parquet,UDPLag,training,30,Bwd IAT Min,float
+UDPLag-training.parquet,UDPLag,training,31,Fwd PSH Flags,int8
+UDPLag-training.parquet,UDPLag,training,32,Bwd PSH Flags,int8
+UDPLag-training.parquet,UDPLag,training,33,Fwd URG Flags,int8
+UDPLag-training.parquet,UDPLag,training,34,Bwd URG Flags,int8
+UDPLag-training.parquet,UDPLag,training,35,Fwd Header Length,int64
+UDPLag-training.parquet,UDPLag,training,36,Bwd Header Length,int16
+UDPLag-training.parquet,UDPLag,training,37,Fwd Packets/s,float
+UDPLag-training.parquet,UDPLag,training,38,Bwd Packets/s,float
+UDPLag-training.parquet,UDPLag,training,39,Packet Length Min,float
+UDPLag-training.parquet,UDPLag,training,40,Packet Length Max,float
+UDPLag-training.parquet,UDPLag,training,41,Packet Length Mean,float
+UDPLag-training.parquet,UDPLag,training,42,Packet Length Std,float
+UDPLag-training.parquet,UDPLag,training,43,Packet Length Variance,float
+UDPLag-training.parquet,UDPLag,training,44,FIN Flag Count,int8
+UDPLag-training.parquet,UDPLag,training,45,SYN Flag Count,int8
+UDPLag-training.parquet,UDPLag,training,46,RST Flag Count,int8
+UDPLag-training.parquet,UDPLag,training,47,PSH Flag Count,int8
+UDPLag-training.parquet,UDPLag,training,48,ACK Flag Count,int8
+UDPLag-training.parquet,UDPLag,training,49,URG Flag Count,int8
+UDPLag-training.parquet,UDPLag,training,50,CWE Flag Count,int8
+UDPLag-training.parquet,UDPLag,training,51,ECE Flag Count,int8
+UDPLag-training.parquet,UDPLag,training,52,Down/Up Ratio,float
+UDPLag-training.parquet,UDPLag,training,53,Avg Packet Size,float
+UDPLag-training.parquet,UDPLag,training,54,Avg Fwd Segment Size,float
+UDPLag-training.parquet,UDPLag,training,55,Avg Bwd Segment Size,float
+UDPLag-training.parquet,UDPLag,training,56,Fwd Avg Bytes/Bulk,int8
+UDPLag-training.parquet,UDPLag,training,57,Fwd Avg Packets/Bulk,int8
+UDPLag-training.parquet,UDPLag,training,58,Fwd Avg Bulk Rate,int8
+UDPLag-training.parquet,UDPLag,training,59,Bwd Avg Bytes/Bulk,int8
+UDPLag-training.parquet,UDPLag,training,60,Bwd Avg Packets/Bulk,int8
+UDPLag-training.parquet,UDPLag,training,61,Bwd Avg Bulk Rate,int8
+UDPLag-training.parquet,UDPLag,training,62,Subflow Fwd Packets,int16
+UDPLag-training.parquet,UDPLag,training,63,Subflow Fwd Bytes,int32
+UDPLag-training.parquet,UDPLag,training,64,Subflow Bwd Packets,int16
+UDPLag-training.parquet,UDPLag,training,65,Subflow Bwd Bytes,int32
+UDPLag-training.parquet,UDPLag,training,66,Init Fwd Win Bytes,int32
+UDPLag-training.parquet,UDPLag,training,67,Init Bwd Win Bytes,int32
+UDPLag-training.parquet,UDPLag,training,68,Fwd Act Data Packets,int16
+UDPLag-training.parquet,UDPLag,training,69,Fwd Seg Size Min,int32
+UDPLag-training.parquet,UDPLag,training,70,Active Mean,float
+UDPLag-training.parquet,UDPLag,training,71,Active Std,float
+UDPLag-training.parquet,UDPLag,training,72,Active Max,float
+UDPLag-training.parquet,UDPLag,training,73,Active Min,float
+UDPLag-training.parquet,UDPLag,training,74,Idle Mean,float
+UDPLag-training.parquet,UDPLag,training,75,Idle Std,float
+UDPLag-training.parquet,UDPLag,training,76,Idle Max,float
+UDPLag-training.parquet,UDPLag,training,77,Idle Min,float
+UDPLag-training.parquet,UDPLag,training,78,Label,"dictionary<values=string, indices=int8, ordered=0>"

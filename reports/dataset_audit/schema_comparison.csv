@@ -1,0 +1,23 @@
+reference_file,compared_file,column_name,issue,reference_data_type,compared_data_type
+DNS-testing.parquet,LDAP-testing.parquet,Fwd Act Data Packets,different_data_type,int16,int8
+DNS-testing.parquet,LDAP-training.parquet,Total Fwd Packets,different_data_type,int16,int32
+DNS-testing.parquet,LDAP-training.parquet,Bwd Header Length,different_data_type,int32,int64
+DNS-testing.parquet,LDAP-training.parquet,Subflow Fwd Packets,different_data_type,int16,int32
+DNS-testing.parquet,MSSQL-testing.parquet,Fwd Header Length,different_data_type,int64,int32
+DNS-testing.parquet,MSSQL-testing.parquet,Fwd Act Data Packets,different_data_type,int16,int8
+DNS-testing.parquet,MSSQL-training.parquet,Bwd Header Length,different_data_type,int32,int64
+DNS-testing.parquet,NetBIOS-testing.parquet,Fwd Act Data Packets,different_data_type,int16,int8
+DNS-testing.parquet,NetBIOS-training.parquet,Bwd Header Length,different_data_type,int32,int16
+DNS-testing.parquet,Portmap-training.parquet,Fwd Header Length,different_data_type,int64,int32
+DNS-testing.parquet,SNMP-testing.parquet,Fwd Act Data Packets,different_data_type,int16,int8
+DNS-testing.parquet,Syn-testing.parquet,Fwd Header Length,different_data_type,int64,int16
+DNS-testing.parquet,Syn-testing.parquet,Bwd Header Length,different_data_type,int32,int16
+DNS-testing.parquet,Syn-testing.parquet,Fwd Act Data Packets,different_data_type,int16,int8
+DNS-testing.parquet,Syn-testing.parquet,Fwd Seg Size Min,different_data_type,int32,int8
+DNS-testing.parquet,Syn-training.parquet,Fwd Header Length,different_data_type,int64,int32
+DNS-testing.parquet,Syn-training.parquet,Fwd Seg Size Min,different_data_type,int32,int8
+DNS-testing.parquet,TFTP-testing.parquet,Fwd Act Data Packets,different_data_type,int16,int8
+DNS-testing.parquet,UDP-testing.parquet,Fwd Act Data Packets,different_data_type,int16,int8
+DNS-testing.parquet,UDPLag-testing.parquet,Bwd Header Length,different_data_type,int32,int16
+DNS-testing.parquet,UDPLag-testing.parquet,Fwd Act Data Packets,different_data_type,int16,int8
+DNS-testing.parquet,UDPLag-training.parquet,Bwd Header Length,different_data_type,int32,int16
