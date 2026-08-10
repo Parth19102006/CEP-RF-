@@ -774,14 +774,36 @@ def build_correlation_analysis(
 
     tables: list[pa.Table] = []
     total_rows = 0
+
+    # Correlation requires a common numeric dtype across all files.
+    # CIC-DDoS2019 contains schema-width differences such as int8 vs int16
+    # for otherwise identical numeric features.
+    correlation_schema = pa.schema(
+        [(column_name, pa.float64()) for column_name in feature_columns]
+    )
+
     for item in readable:
         path = raw_dir / item.file_name
-        table = pq.read_table(path, columns=feature_columns)
+        table = pq.read_table(
+            path,
+            columns=feature_columns,
+        )
+
+        # Normalize all numeric feature columns to float64 before concatenation.
+        table = table.cast(correlation_schema)
+
         tables.append(table)
         total_rows += table.num_rows
 
-    combined = pa.concat_tables(tables, promote_options="default")
-    matrix = combined.to_pandas().to_numpy(dtype=np.float64, copy=True)
+    combined = pa.concat_tables(
+        tables,
+        promote_options="default",
+    )
+
+    matrix = combined.to_pandas().to_numpy(
+        dtype=np.float64,
+        copy=True,
+    )
     sampled_matrix = _sample_correlation_matrix(matrix, correlation_sample_size, random_seed)
 
     if sampled_matrix.shape[0] < 2:
@@ -893,6 +915,13 @@ def write_reports(
     label_distribution: list[dict[str, object]],
     label_summary: list[dict[str, object]],
     label_file_mapping: list[dict[str, object]],
+    constant_feature_analysis: list[dict[str, object]],
+    near_constant_features: list[dict[str, object]],
+    correlation_pairs: list[dict[str, object]],
+    correlation_matrix: list[dict[str, object]],
+    potential_leakage_columns: list[dict[str, object]],
+    feature_taxonomy: list[dict[str, object]],
+    dataset_characterization: list[dict[str, object]],
 ) -> None:
     """Write Phase 2 reports."""
     report_dir.mkdir(parents=True, exist_ok=True)
@@ -981,6 +1010,103 @@ def write_reports(
             "split",
             "label",
             "row_count",
+        ],
+    )
+
+    write_csv(
+        report_dir / "constant_feature_analysis.csv",
+        constant_feature_analysis,
+        [
+            "scope",
+            "file_name",
+            "column_name",
+            "unique_count",
+            "constant_value",
+            "min_value",
+            "max_value",
+            "variance",
+            "is_constant",
+            "is_globally_constant",
+            "read_status",
+            "error",
+        ],
+    )
+
+    write_csv(
+        report_dir / "near_constant_features.csv",
+        near_constant_features,
+        [
+            "file_name",
+            "column_name",
+            "unique_count",
+            "variance",
+            "min_value",
+            "max_value",
+            "note",
+        ],
+    )
+
+    write_csv(
+        report_dir / "high_correlation_pairs.csv",
+        correlation_pairs,
+        [
+            "feature_a",
+            "feature_b",
+            "pearson_r",
+            "abs_pearson_r",
+            "feature_group_a",
+            "feature_group_b",
+            "redundancy_note",
+        ],
+    )
+
+    correlation_matrix_fields = ["feature"]
+
+    if correlation_matrix:
+        correlation_matrix_fields.extend(
+            str(row["feature"])
+            for row in correlation_matrix
+        )
+
+    write_csv(
+        report_dir / "correlation_matrix.csv",
+        correlation_matrix,
+        correlation_matrix_fields,
+    )
+
+    write_csv(
+        report_dir / "potential_leakage_columns.csv",
+        potential_leakage_columns,
+        [
+            "file_name",
+            "attack_family",
+            "split",
+            "column_name",
+            "matched_rule",
+            "is_allowlisted_legitimate_feature",
+            "review_note",
+        ],
+    )
+
+    write_csv(
+        report_dir / "feature_taxonomy.csv",
+        feature_taxonomy,
+        [
+            "column_position",
+            "column_name",
+            "data_type",
+            "feature_group",
+            "is_model_feature",
+            "is_label_column",
+        ],
+    )
+
+    write_csv(
+        report_dir / "dataset_characterization.csv",
+        dataset_characterization,
+        [
+            "metric",
+            "value",
         ],
     )
 
@@ -1080,7 +1206,7 @@ def print_results(
 
 
 def main() -> int:
-    """Run schema inspection only."""
+    """Run the complete Phase 2 dataset audit."""
     args = parse_args()
     raw_dir = resolve_project_path(args.raw_dir)
     report_dir = resolve_project_path(args.report_dir)
@@ -1096,35 +1222,160 @@ def main() -> int:
         return 1
 
     parquet_files = find_parquet_files(raw_dir)
+
+    if not parquet_files:
+        print(f"No Parquet files found in: {project_relative(raw_dir)}")
+        print("No raw data was modified.")
+        return 1
+
+    # ------------------------------------------------------------------
+    # 1. Basic dataset/schema inspection
+    # ------------------------------------------------------------------
     inspections = [inspect_parquet_schema(path) for path in parquet_files]
+
     dataset_summary = build_dataset_summary(inspections)
     column_summary = build_column_summary(inspections)
     schema_comparison = build_schema_comparison(inspections)
     schema_type_differences = build_schema_type_differences(inspections)
-    label_distribution = build_label_distribution(inspections, raw_dir)
-    label_summary = build_label_summary(label_distribution)
-    label_file_mapping = build_label_file_mapping(inspections, label_distribution)
 
-    write_reports(
-        report_dir,
-        dataset_summary,
-        column_summary,
-        schema_comparison,
-        schema_type_differences,
-        label_distribution,
-        label_summary,
-        label_file_mapping,
-    )
-    print_results(
+    # ------------------------------------------------------------------
+    # 2. Label inspection
+    # ------------------------------------------------------------------
+    label_distribution = build_label_distribution(
+        inspections,
         raw_dir,
-        dataset_summary,
-        schema_comparison,
-        schema_type_differences,
-        label_distribution,
-        label_summary,
     )
-    print(f"\nReports written to: {project_relative(report_dir)}")
+    label_summary = build_label_summary(label_distribution)
+    label_file_mapping = build_label_file_mapping(
+        inspections,
+        label_distribution,
+    )
+
+    # ------------------------------------------------------------------
+    # 3. Constant / near-constant feature analysis
+    # ------------------------------------------------------------------
+    constant_feature_analysis = build_constant_feature_analysis(
+        inspections,
+        raw_dir,
+    )
+
+    near_constant_features = build_near_constant_features(
+        constant_feature_analysis,
+    )
+
+    # ------------------------------------------------------------------
+    # 4. Feature taxonomy
+    # ------------------------------------------------------------------
+    feature_taxonomy = build_feature_taxonomy(inspections)
+
+    # ------------------------------------------------------------------
+    # 5. Potential leakage / identifier analysis
+    # ------------------------------------------------------------------
+    potential_leakage_columns = build_potential_leakage_columns(
+        inspections,
+    )
+
+    # ------------------------------------------------------------------
+    # 6. Correlation / redundancy analysis
+    # ------------------------------------------------------------------
+    if args.skip_correlation:
+        correlation_pairs = []
+        correlation_matrix = []
+        correlation_metadata = {
+            "status": "skipped",
+            "high_correlation_pair_count": 0,
+            "correlation_threshold": args.correlation_threshold,
+        }
+    else:
+        (
+            correlation_pairs,
+            correlation_matrix,
+            correlation_metadata,
+        ) = build_correlation_analysis(
+            inspections,
+            raw_dir,
+            correlation_threshold=args.correlation_threshold,
+            correlation_sample_size=args.correlation_sample_size,
+            random_seed=42,
+        )
+
+    # ------------------------------------------------------------------
+    # 7. Dataset characterization summary
+    # ------------------------------------------------------------------
+    dataset_characterization = build_dataset_characterization_summary(
+        dataset_summary=dataset_summary,
+        label_summary=label_summary,
+        constant_feature_analysis=constant_feature_analysis,
+        correlation_metadata=correlation_metadata,
+        feature_taxonomy=feature_taxonomy,
+        potential_leakage_columns=potential_leakage_columns,
+    )
+
+    # ------------------------------------------------------------------
+    # 8. Write all Phase 2 reports
+    # ------------------------------------------------------------------
+    write_reports(
+        report_dir=report_dir,
+        dataset_summary=dataset_summary,
+        column_summary=column_summary,
+        schema_comparison=schema_comparison,
+        schema_type_differences=schema_type_differences,
+        label_distribution=label_distribution,
+        label_summary=label_summary,
+        label_file_mapping=label_file_mapping,
+        constant_feature_analysis=constant_feature_analysis,
+        near_constant_features=near_constant_features,
+        correlation_pairs=correlation_pairs,
+        correlation_matrix=correlation_matrix,
+        potential_leakage_columns=potential_leakage_columns,
+        feature_taxonomy=feature_taxonomy,
+        dataset_characterization=dataset_characterization,
+    )
+
+    # ------------------------------------------------------------------
+    # 9. Console summary
+    # ------------------------------------------------------------------
+    print_results(
+        raw_dir=raw_dir,
+        dataset_summary=dataset_summary,
+        schema_comparison=schema_comparison,
+        schema_type_differences=schema_type_differences,
+        label_distribution=label_distribution,
+        label_summary=label_summary,
+    )
+
+    print("\nPhase 2 analysis:")
+    print(
+        f"- Constant/feature-analysis rows: "
+        f"{len(constant_feature_analysis)}"
+    )
+    print(
+        f"- Near-constant feature/file pairs: "
+        f"{len(near_constant_features)}"
+    )
+    print(
+        f"- High-correlation feature pairs: "
+        f"{len(correlation_pairs)}"
+    )
+    print(
+        f"- Potential leakage/identifier matches: "
+        f"{len(potential_leakage_columns)}"
+    )
+    print(
+        f"- Feature taxonomy rows: "
+        f"{len(feature_taxonomy)}"
+    )
+    print(
+        f"- Numeric model features: "
+        f"{sum(1 for row in feature_taxonomy if row['is_model_feature'])}"
+    )
+
+    print(
+        f"\nReports written to: "
+        f"{project_relative(report_dir)}"
+    )
     print("Raw data was not modified.")
+
     return 0
 
 
