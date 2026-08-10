@@ -1,0 +1,15 @@
+metric,value
+parquet_file_count,17
+total_flow_rows,431371
+raw_feature_columns_including_label,78
+numeric_model_feature_count,77
+unique_multiclass_labels,18
+benign_row_count,97831
+attack_row_count,333540
+globally_constant_feature_count,12
+near_constant_feature_pairs,see near_constant_features.csv
+high_correlation_feature_pairs,33
+leakage_keyword_matches,17
+leakage_false_positives_allowlisted,17
+leakage_flags_requiring_review,0
+feature_taxonomy_groups,11
