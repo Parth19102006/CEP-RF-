@@ -741,17 +741,197 @@ def build_near_constant_features(
     return rows
 
 
-def _sample_correlation_matrix(
-    matrix: np.ndarray,
-    sample_size: int,
+def read_correlation_sample_matrix(
+    inspections: list[SchemaInspection],
+    raw_dir: Path,
+    feature_columns: list[str],
+    correlation_sample_size: int,
     random_seed: int,
-) -> np.ndarray:
-    """Return a row sample of the feature matrix for correlation analysis."""
-    if sample_size <= 0 or matrix.shape[0] <= sample_size:
-        return matrix
+) -> tuple[np.ndarray, dict[str, object]]:
+    """Read only the bounded per-file rows needed for correlation analysis."""
+    matrices: list[np.ndarray] = []
+    rows_read_by_file: dict[str, int] = {}
     rng = np.random.default_rng(random_seed)
-    indices = rng.choice(matrix.shape[0], size=sample_size, replace=False)
-    return matrix[indices]
+    batch_size = 8192
+    total_rows = sum(
+        int(item.row_count)
+        for item in inspections
+        if item.read_status == "ok" and item.row_count is not None
+    )
+
+    correlation_schema = pa.schema(
+        [(column_name, pa.float64()) for column_name in feature_columns]
+    )
+
+    if correlation_sample_size <= 0 or correlation_sample_size >= total_rows:
+        selected_global_indices: np.ndarray | None = None
+    else:
+        selected_global_indices = np.sort(
+            rng.choice(total_rows, size=correlation_sample_size, replace=False)
+        )
+
+    file_start = 0
+    global_offset = 0
+
+    for item in inspections:
+        if item.read_status != "ok" or item.row_count is None or item.row_count <= 0:
+            continue
+
+        file_row_count = int(item.row_count)
+        file_end = file_start + file_row_count
+
+        if selected_global_indices is None:
+            selected_indices: np.ndarray | None = None
+        else:
+            while (
+                global_offset < selected_global_indices.size
+                and selected_global_indices[global_offset] < file_start
+            ):
+                global_offset += 1
+            file_offset_end = global_offset
+            while (
+                file_offset_end < selected_global_indices.size
+                and selected_global_indices[file_offset_end] < file_end
+            ):
+                file_offset_end += 1
+
+            if file_offset_end == global_offset:
+                rows_read_by_file[item.file_name] = 0
+                file_start = file_end
+                continue
+
+            selected_indices = (
+                selected_global_indices[global_offset:file_offset_end] - file_start
+            )
+            global_offset = file_offset_end
+
+        parquet_file = pq.ParquetFile(raw_dir / item.file_name)
+        file_matrices: list[np.ndarray] = []
+        batch_start = 0
+        selected_offset = 0
+
+        for batch in parquet_file.iter_batches(
+            batch_size=batch_size,
+            columns=feature_columns,
+        ):
+            batch_end = batch_start + batch.num_rows
+            table = pa.Table.from_batches([batch])
+
+            if selected_indices is not None:
+                while (
+                    selected_offset < selected_indices.size
+                    and selected_indices[selected_offset] < batch_start
+                ):
+                    selected_offset += 1
+                offset_end = selected_offset
+                while (
+                    offset_end < selected_indices.size
+                    and selected_indices[offset_end] < batch_end
+                ):
+                    offset_end += 1
+                if offset_end == selected_offset:
+                    batch_start = batch_end
+                    continue
+
+                local_indices = selected_indices[selected_offset:offset_end] - batch_start
+                table = table.take(pa.array(local_indices))
+                selected_offset = offset_end
+
+            table = table.cast(correlation_schema)
+            matrix = table.to_pandas().to_numpy(dtype=np.float64, copy=True)
+            if matrix.size:
+                file_matrices.append(matrix)
+
+            batch_start = batch_end
+            if selected_indices is not None and selected_offset >= selected_indices.size:
+                break
+
+        if file_matrices:
+            file_matrix = np.vstack(file_matrices)
+            matrices.append(file_matrix)
+            rows_read_by_file[item.file_name] = int(file_matrix.shape[0])
+        else:
+            rows_read_by_file[item.file_name] = 0
+
+        file_start = file_end
+
+    if matrices:
+        sampled_matrix = np.vstack(matrices)
+    else:
+        sampled_matrix = np.empty((0, len(feature_columns)), dtype=np.float64)
+
+    if correlation_sample_size <= 0 or sampled_matrix.shape[0] >= total_rows:
+        sampling_method = "all_rows"
+    else:
+        sampling_method = (
+            "deterministic_global_random_sample_streamed_by_file; "
+            "only selected rows are retained and concatenated for correlation"
+        )
+
+    metadata = {
+        "total_rows": total_rows,
+        "rows_requested_for_correlation": correlation_sample_size,
+        "rows_used_for_correlation": int(sampled_matrix.shape[0]),
+        "sampling_method": sampling_method,
+        "correlation_read_batch_size": batch_size,
+        "rows_read_by_file": "; ".join(
+            f"{file_name}={rows_read_by_file[file_name]}"
+            for file_name in sorted(rows_read_by_file)
+        ),
+    }
+    return sampled_matrix, metadata
+
+
+def drop_nonfinite_or_zero_variance_columns(
+    matrix: np.ndarray,
+    feature_columns: list[str],
+) -> tuple[np.ndarray, list[str], list[str]]:
+    """Keep only columns with at least two finite values and non-zero variance."""
+    kept_indices: list[int] = []
+    dropped_columns: list[str] = []
+
+    for column_index, column_name in enumerate(feature_columns):
+        values = matrix[:, column_index]
+        finite_values = values[np.isfinite(values)]
+        if finite_values.size < 2 or np.nanvar(finite_values) == 0:
+            dropped_columns.append(column_name)
+            continue
+        kept_indices.append(column_index)
+
+    if not kept_indices:
+        return np.empty((matrix.shape[0], 0), dtype=np.float64), [], dropped_columns
+
+    return matrix[:, kept_indices], [feature_columns[index] for index in kept_indices], dropped_columns
+
+
+def calculate_safe_correlation_matrix(matrix: np.ndarray) -> np.ndarray:
+    """Calculate pairwise Pearson r while ignoring invalid/non-finite values."""
+    feature_count = matrix.shape[1]
+    corr = np.full((feature_count, feature_count), np.nan, dtype=np.float64)
+    np.fill_diagonal(corr, 1.0)
+
+    for row_index in range(feature_count):
+        x = matrix[:, row_index]
+        for col_index in range(row_index + 1, feature_count):
+            y = matrix[:, col_index]
+            mask = np.isfinite(x) & np.isfinite(y)
+            if np.count_nonzero(mask) < 2:
+                continue
+
+            x_valid = x[mask]
+            y_valid = y[mask]
+            x_centered = x_valid - np.mean(x_valid)
+            y_centered = y_valid - np.mean(y_valid)
+            denominator = np.sqrt(np.sum(x_centered ** 2) * np.sum(y_centered ** 2))
+            if denominator == 0 or not np.isfinite(denominator):
+                continue
+
+            value = float(np.sum(x_centered * y_centered) / denominator)
+            if np.isfinite(value):
+                corr[row_index, col_index] = value
+                corr[col_index, row_index] = value
+
+    return corr
 
 
 def build_correlation_analysis(
@@ -759,6 +939,7 @@ def build_correlation_analysis(
     raw_dir: Path,
     correlation_threshold: float,
     correlation_sample_size: int,
+    constant_feature_analysis: list[dict[str, object]],
     random_seed: int = 42,
 ) -> tuple[list[dict[str, object]], list[dict[str, object]], dict[str, object]]:
     """Compute feature correlations and return pair list, matrix rows, and metadata."""
@@ -769,48 +950,52 @@ def build_correlation_analysis(
     reference = readable[0]
     label_column = identify_label_column(reference.schema)
     feature_columns = get_numeric_feature_columns(reference.schema, label_column)
-    if not feature_columns:
-        return [], [], {"status": "no_numeric_features"}
 
-    tables: list[pa.Table] = []
-    total_rows = 0
-
-    # Correlation requires a common numeric dtype across all files.
-    # CIC-DDoS2019 contains schema-width differences such as int8 vs int16
-    # for otherwise identical numeric features.
-    correlation_schema = pa.schema(
-        [(column_name, pa.float64()) for column_name in feature_columns]
-    )
-
-    for item in readable:
-        path = raw_dir / item.file_name
-        table = pq.read_table(
-            path,
-            columns=feature_columns,
+    globally_constant_columns = {
+        str(row["column_name"])
+        for row in constant_feature_analysis
+        if (
+            row["scope"] == "global"
+            and row["is_globally_constant"]
         )
+    }
 
-        # Normalize all numeric feature columns to float64 before concatenation.
-        table = table.cast(correlation_schema)
+    feature_columns = [
+        column
+        for column in feature_columns
+        if column not in globally_constant_columns
+    ]
+    if not feature_columns:
+        return [], [], {"status": "no_numeric_features_after_excluding_constants"}
 
-        tables.append(table)
-        total_rows += table.num_rows
-
-    combined = pa.concat_tables(
-        tables,
-        promote_options="default",
+    sampled_matrix, sampling_metadata = read_correlation_sample_matrix(
+        inspections=readable,
+        raw_dir=raw_dir,
+        feature_columns=feature_columns,
+        correlation_sample_size=correlation_sample_size,
+        random_seed=random_seed,
     )
-
-    matrix = combined.to_pandas().to_numpy(
-        dtype=np.float64,
-        copy=True,
-    )
-    sampled_matrix = _sample_correlation_matrix(matrix, correlation_sample_size, random_seed)
 
     if sampled_matrix.shape[0] < 2:
         return [], [], {"status": "insufficient_rows", "rows_used": sampled_matrix.shape[0]}
 
-    corr = np.corrcoef(sampled_matrix, rowvar=False)
-    np.fill_diagonal(corr, 1.0)
+    sampled_matrix, feature_columns, sample_dropped_columns = drop_nonfinite_or_zero_variance_columns(
+        sampled_matrix,
+        feature_columns,
+    )
+    if not feature_columns:
+        metadata = {
+            "status": "no_variable_numeric_features_after_sampling",
+            **sampling_metadata,
+            "correlation_threshold": correlation_threshold,
+            "high_correlation_pair_count": 0,
+            "random_seed": random_seed,
+            "globally_constant_features_excluded": len(globally_constant_columns),
+            "sample_zero_variance_or_nonfinite_features_excluded": len(sample_dropped_columns),
+        }
+        return [], [], metadata
+
+    corr = calculate_safe_correlation_matrix(sampled_matrix)
 
     pair_rows: list[dict[str, object]] = []
     matrix_rows: list[dict[str, object]] = []
@@ -844,12 +1029,14 @@ def build_correlation_analysis(
 
     metadata = {
         "status": "ok",
-        "total_rows": total_rows,
-        "rows_used_for_correlation": sampled_matrix.shape[0],
+        **sampling_metadata,
         "feature_count": feature_count,
         "correlation_threshold": correlation_threshold,
         "high_correlation_pair_count": len(pair_rows),
         "random_seed": random_seed,
+        "globally_constant_features_excluded": len(globally_constant_columns),
+        "sample_zero_variance_or_nonfinite_features_excluded": len(sample_dropped_columns),
+        "sample_zero_variance_or_nonfinite_feature_names": "; ".join(sample_dropped_columns),
     }
     return pair_rows, matrix_rows, metadata
 
@@ -858,6 +1045,7 @@ def build_dataset_characterization_summary(
     dataset_summary: list[dict[str, object]],
     label_summary: list[dict[str, object]],
     constant_feature_analysis: list[dict[str, object]],
+    near_constant_features: list[dict[str, object]],
     correlation_metadata: dict[str, object],
     feature_taxonomy: list[dict[str, object]],
     potential_leakage_columns: list[dict[str, object]],
@@ -878,22 +1066,42 @@ def build_dataset_characterization_summary(
     ]
     benign_rows = next((row["row_count"] for row in label_summary if row["label"] == "Benign"), 0)
     attack_rows = total_rows - int(benign_rows) if total_rows else 0
+    label_counts = [
+        (str(row["label"]), int(row["row_count"]))
+        for row in label_summary
+        if row.get("label") is not None
+    ]
+    majority_class, majority_count = max(label_counts, key=lambda item: item[1], default=("", 0))
+    minority_class, minority_count = min(label_counts, key=lambda item: item[1], default=("", 0))
+    imbalance_ratio = (
+        round(majority_count / minority_count, 6)
+        if minority_count
+        else None
+    )
 
     metrics: list[tuple[str, object]] = [
         ("parquet_file_count", len(dataset_summary)),
         ("total_flow_rows", total_rows),
-        ("raw_feature_columns_including_label", len(feature_taxonomy)),
+        ("raw_columns_including_label", len(feature_taxonomy)),
         ("numeric_model_feature_count", len(model_features)),
-        ("unique_multiclass_labels", len(label_summary)),
+        ("variable_numeric_features_after_global_constants", len(model_features) - len(global_constants)),
+        ("unique_label_count", len(label_summary)),
         ("benign_row_count", benign_rows),
         ("attack_row_count", attack_rows),
+        ("majority_class", majority_class),
+        ("minority_class", minority_class),
+        ("class_imbalance_ratio", imbalance_ratio),
         ("globally_constant_feature_count", len(global_constants)),
-        ("near_constant_feature_pairs", "see near_constant_features.csv"),
-        ("high_correlation_feature_pairs", correlation_metadata.get("high_correlation_pair_count", 0)),
+        ("near_constant_count", len(near_constant_features)),
+        ("high_correlation_pair_count", correlation_metadata.get("high_correlation_pair_count", 0)),
         ("leakage_keyword_matches", len(potential_leakage_columns)),
         ("leakage_false_positives_allowlisted", len(false_positive_leakage)),
-        ("leakage_flags_requiring_review", len(true_leakage_flags)),
-        ("feature_taxonomy_groups", len({row["feature_group"] for row in feature_taxonomy})),
+        ("leakage_candidates_requiring_review", len(true_leakage_flags)),
+        ("feature_taxonomy_group_count", len({row["feature_group"] for row in feature_taxonomy})),
+        ("correlation_status", correlation_metadata.get("status")),
+        ("correlation_rows_used", correlation_metadata.get("rows_used_for_correlation")),
+        ("correlation_feature_count", correlation_metadata.get("feature_count")),
+        ("correlation_sampling_method", correlation_metadata.get("sampling_method")),
     ]
     return [{"metric": metric, "value": value} for metric, value in metrics]
 
@@ -1178,23 +1386,49 @@ def print_label_results(
 
 def print_results(
     raw_dir: Path,
+    report_dir: Path,
     dataset_summary: list[dict[str, object]],
     schema_comparison: list[dict[str, object]],
     schema_type_differences: list[dict[str, object]],
     label_distribution: list[dict[str, object]],
     label_summary: list[dict[str, object]],
+    constant_feature_analysis: list[dict[str, object]],
+    near_constant_features: list[dict[str, object]],
+    correlation_pairs: list[dict[str, object]],
+    potential_leakage_columns: list[dict[str, object]],
+    feature_taxonomy: list[dict[str, object]],
 ) -> None:
     """Print a concise human-readable report."""
     print("=" * 80)
     print("CIC-DDOS2019 PHASE 2 DATASET AUDIT")
     print("=" * 80)
     print(f"Raw directory: {project_relative(raw_dir)}")
-    print(f"Parquet files inspected: {len(dataset_summary)}")
+    total_rows = sum(int(row["row_count"]) for row in dataset_summary if row["row_count"] is not None)
+    total_columns = len(feature_taxonomy)
+    numeric_candidate_features = sum(1 for row in feature_taxonomy if row["is_model_feature"])
+    global_constants = [
+        row
+        for row in constant_feature_analysis
+        if row["scope"] == "global" and row["is_globally_constant"]
+    ]
 
     issue_counts: dict[str, int] = {}
     for row in schema_comparison:
         issue = str(row["issue"])
         issue_counts[issue] = issue_counts.get(issue, 0) + 1
+
+    print("\nPhase 2 summary:")
+    print(f"- Files inspected: {len(dataset_summary)}")
+    print(f"- Total rows: {total_rows}")
+    print(f"- Total columns: {total_columns}")
+    print(f"- Numeric candidate features: {numeric_candidate_features}")
+    print(f"- Global constants: {len(global_constants)}")
+    print(f"- Near-constant pairs: {len(near_constant_features)}")
+    print(f"- High-correlation pairs: {len(correlation_pairs)}")
+    print(f"- Potential leakage matches: {len(potential_leakage_columns)}")
+    print(f"- Taxonomy feature count: {len(feature_taxonomy)}")
+    print(f"- Model feature count: {numeric_candidate_features}")
+    print(f"- Report directory: {project_relative(report_dir)}")
 
     print("\nSchema status:")
     print(f"- Schema comparison issues: {sum(issue_counts.values())}")
@@ -1296,6 +1530,7 @@ def main() -> int:
             raw_dir,
             correlation_threshold=args.correlation_threshold,
             correlation_sample_size=args.correlation_sample_size,
+            constant_feature_analysis=constant_feature_analysis,
             random_seed=42,
         )
 
@@ -1306,6 +1541,7 @@ def main() -> int:
         dataset_summary=dataset_summary,
         label_summary=label_summary,
         constant_feature_analysis=constant_feature_analysis,
+        near_constant_features=near_constant_features,
         correlation_metadata=correlation_metadata,
         feature_taxonomy=feature_taxonomy,
         potential_leakage_columns=potential_leakage_columns,
@@ -1337,42 +1573,17 @@ def main() -> int:
     # ------------------------------------------------------------------
     print_results(
         raw_dir=raw_dir,
+        report_dir=report_dir,
         dataset_summary=dataset_summary,
         schema_comparison=schema_comparison,
         schema_type_differences=schema_type_differences,
         label_distribution=label_distribution,
         label_summary=label_summary,
-    )
-
-    print("\nPhase 2 analysis:")
-    print(
-        f"- Constant/feature-analysis rows: "
-        f"{len(constant_feature_analysis)}"
-    )
-    print(
-        f"- Near-constant feature/file pairs: "
-        f"{len(near_constant_features)}"
-    )
-    print(
-        f"- High-correlation feature pairs: "
-        f"{len(correlation_pairs)}"
-    )
-    print(
-        f"- Potential leakage/identifier matches: "
-        f"{len(potential_leakage_columns)}"
-    )
-    print(
-        f"- Feature taxonomy rows: "
-        f"{len(feature_taxonomy)}"
-    )
-    print(
-        f"- Numeric model features: "
-        f"{sum(1 for row in feature_taxonomy if row['is_model_feature'])}"
-    )
-
-    print(
-        f"\nReports written to: "
-        f"{project_relative(report_dir)}"
+        constant_feature_analysis=constant_feature_analysis,
+        near_constant_features=near_constant_features,
+        correlation_pairs=correlation_pairs,
+        potential_leakage_columns=potential_leakage_columns,
+        feature_taxonomy=feature_taxonomy,
     )
     print("Raw data was not modified.")
 
