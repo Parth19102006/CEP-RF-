@@ -1,0 +1,79 @@
+column_position,column_name,data_type,feature_group,is_model_feature,is_label_column
+1,Protocol,int8,protocol,True,False
+2,Flow Duration,int32,timing_and_inter_arrival,True,False
+3,Total Fwd Packets,int16,packet_count,True,False
+4,Total Backward Packets,int16,packet_count,True,False
+5,Fwd Packets Length Total,float,subflow_volume,True,False
+6,Bwd Packets Length Total,float,subflow_volume,True,False
+7,Fwd Packet Length Max,float,packet_size,True,False
+8,Fwd Packet Length Min,float,packet_size,True,False
+9,Fwd Packet Length Mean,float,packet_size,True,False
+10,Fwd Packet Length Std,float,packet_size,True,False
+11,Bwd Packet Length Max,float,packet_size,True,False
+12,Bwd Packet Length Min,float,packet_size,True,False
+13,Bwd Packet Length Mean,float,packet_size,True,False
+14,Bwd Packet Length Std,float,packet_size,True,False
+15,Flow Bytes/s,double,rate_and_throughput,True,False
+16,Flow Packets/s,double,rate_and_throughput,True,False
+17,Flow IAT Mean,float,timing_and_inter_arrival,True,False
+18,Flow IAT Std,float,timing_and_inter_arrival,True,False
+19,Flow IAT Max,float,timing_and_inter_arrival,True,False
+20,Flow IAT Min,float,timing_and_inter_arrival,True,False
+21,Fwd IAT Total,float,timing_and_inter_arrival,True,False
+22,Fwd IAT Mean,float,timing_and_inter_arrival,True,False
+23,Fwd IAT Std,float,timing_and_inter_arrival,True,False
+24,Fwd IAT Max,float,timing_and_inter_arrival,True,False
+25,Fwd IAT Min,float,timing_and_inter_arrival,True,False
+26,Bwd IAT Total,float,timing_and_inter_arrival,True,False
+27,Bwd IAT Mean,float,timing_and_inter_arrival,True,False
+28,Bwd IAT Std,float,timing_and_inter_arrival,True,False
+29,Bwd IAT Max,float,timing_and_inter_arrival,True,False
+30,Bwd IAT Min,float,timing_and_inter_arrival,True,False
+31,Fwd PSH Flags,int8,tcp_flags,True,False
+32,Bwd PSH Flags,int8,tcp_flags,True,False
+33,Fwd URG Flags,int8,tcp_flags,True,False
+34,Bwd URG Flags,int8,tcp_flags,True,False
+35,Fwd Header Length,int64,header_and_window,True,False
+36,Bwd Header Length,int32,header_and_window,True,False
+37,Fwd Packets/s,float,rate_and_throughput,True,False
+38,Bwd Packets/s,float,rate_and_throughput,True,False
+39,Packet Length Min,float,packet_size,True,False
+40,Packet Length Max,float,packet_size,True,False
+41,Packet Length Mean,float,packet_size,True,False
+42,Packet Length Std,float,packet_size,True,False
+43,Packet Length Variance,float,packet_size,True,False
+44,FIN Flag Count,int8,tcp_flags,True,False
+45,SYN Flag Count,int8,tcp_flags,True,False
+46,RST Flag Count,int8,tcp_flags,True,False
+47,PSH Flag Count,int8,tcp_flags,True,False
+48,ACK Flag Count,int8,tcp_flags,True,False
+49,URG Flag Count,int8,tcp_flags,True,False
+50,CWE Flag Count,int8,tcp_flags,True,False
+51,ECE Flag Count,int8,tcp_flags,True,False
+52,Down/Up Ratio,float,direction_ratio,True,False
+53,Avg Packet Size,float,packet_size,True,False
+54,Avg Fwd Segment Size,float,packet_size,True,False
+55,Avg Bwd Segment Size,float,packet_size,True,False
+56,Fwd Avg Bytes/Bulk,int8,bulk_transfer,True,False
+57,Fwd Avg Packets/Bulk,int8,bulk_transfer,True,False
+58,Fwd Avg Bulk Rate,int8,rate_and_throughput,True,False
+59,Bwd Avg Bytes/Bulk,int8,bulk_transfer,True,False
+60,Bwd Avg Packets/Bulk,int8,bulk_transfer,True,False
+61,Bwd Avg Bulk Rate,int8,rate_and_throughput,True,False
+62,Subflow Fwd Packets,int16,packet_count,True,False
+63,Subflow Fwd Bytes,int32,subflow_volume,True,False
+64,Subflow Bwd Packets,int16,packet_count,True,False
+65,Subflow Bwd Bytes,int32,subflow_volume,True,False
+66,Init Fwd Win Bytes,int32,header_and_window,True,False
+67,Init Bwd Win Bytes,int32,header_and_window,True,False
+68,Fwd Act Data Packets,int16,packet_count,True,False
+69,Fwd Seg Size Min,int32,header_and_window,True,False
+70,Active Mean,float,timing_and_inter_arrival,True,False
+71,Active Std,float,timing_and_inter_arrival,True,False
+72,Active Max,float,timing_and_inter_arrival,True,False
+73,Active Min,float,timing_and_inter_arrival,True,False
+74,Idle Mean,float,timing_and_inter_arrival,True,False
+75,Idle Std,float,timing_and_inter_arrival,True,False
+76,Idle Max,float,timing_and_inter_arrival,True,False
+77,Idle Min,float,timing_and_inter_arrival,True,False
+78,Label,"dictionary<values=string, indices=int8, ordered=0>",target,False,True

@@ -1,18 +1,18 @@
-file_name,attack_family,split,column_name,reason
-DNS-testing.parquet,DNS,testing,Protocol,protocol
-LDAP-testing.parquet,LDAP,testing,Protocol,protocol
-LDAP-training.parquet,LDAP,training,Protocol,protocol
-MSSQL-testing.parquet,MSSQL,testing,Protocol,protocol
-MSSQL-training.parquet,MSSQL,training,Protocol,protocol
-NetBIOS-testing.parquet,NetBIOS,testing,Protocol,protocol
-NetBIOS-training.parquet,NetBIOS,training,Protocol,protocol
-NTP-testing.parquet,NTP,testing,Protocol,protocol
-Portmap-training.parquet,Portmap,training,Protocol,protocol
-SNMP-testing.parquet,SNMP,testing,Protocol,protocol
-Syn-testing.parquet,Syn,testing,Protocol,protocol
-Syn-training.parquet,Syn,training,Protocol,protocol
-TFTP-testing.parquet,TFTP,testing,Protocol,protocol
-UDP-testing.parquet,UDP,testing,Protocol,protocol
-UDP-training.parquet,UDP,training,Protocol,protocol
-UDPLag-testing.parquet,UDPLag,testing,Protocol,protocol
-UDPLag-training.parquet,UDPLag,training,Protocol,protocol
+file_name,attack_family,split,column_name,matched_rule,is_allowlisted_legitimate_feature,review_note
+DNS-testing.parquet,DNS,testing,Protocol,protocol_keyword,True,Legitimate traffic feature; keyword match is a false positive.
+LDAP-testing.parquet,LDAP,testing,Protocol,protocol_keyword,True,Legitimate traffic feature; keyword match is a false positive.
+LDAP-training.parquet,LDAP,training,Protocol,protocol_keyword,True,Legitimate traffic feature; keyword match is a false positive.
+MSSQL-testing.parquet,MSSQL,testing,Protocol,protocol_keyword,True,Legitimate traffic feature; keyword match is a false positive.
+MSSQL-training.parquet,MSSQL,training,Protocol,protocol_keyword,True,Legitimate traffic feature; keyword match is a false positive.
+NetBIOS-testing.parquet,NetBIOS,testing,Protocol,protocol_keyword,True,Legitimate traffic feature; keyword match is a false positive.
+NetBIOS-training.parquet,NetBIOS,training,Protocol,protocol_keyword,True,Legitimate traffic feature; keyword match is a false positive.
+NTP-testing.parquet,NTP,testing,Protocol,protocol_keyword,True,Legitimate traffic feature; keyword match is a false positive.
+Portmap-training.parquet,Portmap,training,Protocol,protocol_keyword,True,Legitimate traffic feature; keyword match is a false positive.
+SNMP-testing.parquet,SNMP,testing,Protocol,protocol_keyword,True,Legitimate traffic feature; keyword match is a false positive.
+Syn-testing.parquet,Syn,testing,Protocol,protocol_keyword,True,Legitimate traffic feature; keyword match is a false positive.
+Syn-training.parquet,Syn,training,Protocol,protocol_keyword,True,Legitimate traffic feature; keyword match is a false positive.
+TFTP-testing.parquet,TFTP,testing,Protocol,protocol_keyword,True,Legitimate traffic feature; keyword match is a false positive.
+UDP-testing.parquet,UDP,testing,Protocol,protocol_keyword,True,Legitimate traffic feature; keyword match is a false positive.
+UDP-training.parquet,UDP,training,Protocol,protocol_keyword,True,Legitimate traffic feature; keyword match is a false positive.
+UDPLag-testing.parquet,UDPLag,testing,Protocol,protocol_keyword,True,Legitimate traffic feature; keyword match is a false positive.
+UDPLag-training.parquet,UDPLag,training,Protocol,protocol_keyword,True,Legitimate traffic feature; keyword match is a false positive.

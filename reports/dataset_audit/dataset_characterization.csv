@@ -1,0 +1,23 @@
+metric,value
+parquet_file_count,17
+total_flow_rows,431371
+raw_columns_including_label,78
+numeric_model_feature_count,77
+variable_numeric_features_after_global_constants,65
+unique_label_count,18
+benign_row_count,97831
+attack_row_count,333540
+majority_class,DrDoS_NTP
+minority_class,WebDDoS
+class_imbalance_ratio,2379.764706
+globally_constant_feature_count,12
+near_constant_count,0
+high_correlation_pair_count,33
+leakage_keyword_matches,17
+leakage_false_positives_allowlisted,17
+leakage_candidates_requiring_review,0
+feature_taxonomy_group_count,11
+correlation_status,ok
+correlation_rows_used,50000
+correlation_feature_count,65
+correlation_sampling_method,deterministic_global_random_sample_streamed_by_file; only selected rows are retained and concatenated for correlation

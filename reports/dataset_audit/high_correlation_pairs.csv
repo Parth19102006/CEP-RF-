@@ -1,0 +1,34 @@
+feature_a,feature_b,pearson_r,abs_pearson_r,feature_group_a,feature_group_b,redundancy_note
+Flow Duration,Fwd IAT Total,0.999386,0.999386,timing_and_inter_arrival,timing_and_inter_arrival,Candidate pair for correlation pruning in Phase 5.
+Total Fwd Packets,Subflow Fwd Packets,1.0,1.0,packet_count,packet_count,Candidate pair for correlation pruning in Phase 5.
+Total Fwd Packets,Fwd Act Data Packets,0.986558,0.986558,packet_count,packet_count,Candidate pair for correlation pruning in Phase 5.
+Total Backward Packets,Subflow Bwd Packets,1.0,1.0,packet_count,packet_count,Candidate pair for correlation pruning in Phase 5.
+Fwd Packets Length Total,Subflow Fwd Bytes,1.0,1.0,subflow_volume,subflow_volume,Candidate pair for correlation pruning in Phase 5.
+Bwd Packets Length Total,Subflow Bwd Bytes,1.0,1.0,subflow_volume,subflow_volume,Candidate pair for correlation pruning in Phase 5.
+Fwd Packet Length Min,Fwd Packet Length Mean,0.956262,0.956262,packet_size,packet_size,Candidate pair for correlation pruning in Phase 5.
+Fwd Packet Length Min,Packet Length Min,0.995965,0.995965,packet_size,packet_size,Candidate pair for correlation pruning in Phase 5.
+Fwd Packet Length Min,Avg Fwd Segment Size,0.956262,0.956262,packet_size,packet_size,Candidate pair for correlation pruning in Phase 5.
+Fwd Packet Length Mean,Packet Length Min,0.951365,0.951365,packet_size,packet_size,Candidate pair for correlation pruning in Phase 5.
+Fwd Packet Length Mean,Packet Length Mean,0.96566,0.96566,packet_size,packet_size,Candidate pair for correlation pruning in Phase 5.
+Fwd Packet Length Mean,Avg Packet Size,0.956187,0.956187,packet_size,packet_size,Candidate pair for correlation pruning in Phase 5.
+Fwd Packet Length Mean,Avg Fwd Segment Size,1.0,1.0,packet_size,packet_size,Candidate pair for correlation pruning in Phase 5.
+Bwd Packet Length Mean,Avg Bwd Segment Size,1.0,1.0,packet_size,packet_size,Candidate pair for correlation pruning in Phase 5.
+Flow Packets/s,Fwd Packets/s,0.997651,0.997651,rate_and_throughput,rate_and_throughput,Candidate pair for correlation pruning in Phase 5.
+Flow IAT Mean,Fwd IAT Mean,0.967104,0.967104,timing_and_inter_arrival,timing_and_inter_arrival,Candidate pair for correlation pruning in Phase 5.
+Flow IAT Std,Fwd IAT Mean,0.953962,0.953962,timing_and_inter_arrival,timing_and_inter_arrival,Candidate pair for correlation pruning in Phase 5.
+Flow IAT Std,Fwd IAT Std,0.988654,0.988654,timing_and_inter_arrival,timing_and_inter_arrival,Candidate pair for correlation pruning in Phase 5.
+Flow IAT Max,Fwd IAT Max,0.998597,0.998597,timing_and_inter_arrival,timing_and_inter_arrival,Candidate pair for correlation pruning in Phase 5.
+Flow IAT Max,Idle Mean,0.960596,0.960596,timing_and_inter_arrival,timing_and_inter_arrival,Candidate pair for correlation pruning in Phase 5.
+Flow IAT Max,Idle Max,0.981325,0.981325,timing_and_inter_arrival,timing_and_inter_arrival,Candidate pair for correlation pruning in Phase 5.
+Flow IAT Min,Fwd IAT Min,0.998698,0.998698,timing_and_inter_arrival,timing_and_inter_arrival,Candidate pair for correlation pruning in Phase 5.
+Fwd IAT Max,Idle Mean,0.960338,0.960338,timing_and_inter_arrival,timing_and_inter_arrival,Candidate pair for correlation pruning in Phase 5.
+Fwd IAT Max,Idle Max,0.981277,0.981277,timing_and_inter_arrival,timing_and_inter_arrival,Candidate pair for correlation pruning in Phase 5.
+Bwd IAT Mean,Bwd IAT Std,0.967094,0.967094,timing_and_inter_arrival,timing_and_inter_arrival,Candidate pair for correlation pruning in Phase 5.
+Fwd PSH Flags,RST Flag Count,1.0,1.0,tcp_flags,tcp_flags,Candidate pair for correlation pruning in Phase 5.
+Packet Length Min,Avg Fwd Segment Size,0.951365,0.951365,packet_size,packet_size,Candidate pair for correlation pruning in Phase 5.
+Packet Length Mean,Avg Packet Size,0.978471,0.978471,packet_size,packet_size,Candidate pair for correlation pruning in Phase 5.
+Packet Length Mean,Avg Fwd Segment Size,0.96566,0.96566,packet_size,packet_size,Candidate pair for correlation pruning in Phase 5.
+Avg Packet Size,Avg Fwd Segment Size,0.956187,0.956187,packet_size,packet_size,Candidate pair for correlation pruning in Phase 5.
+Subflow Fwd Packets,Fwd Act Data Packets,0.986558,0.986558,packet_count,packet_count,Candidate pair for correlation pruning in Phase 5.
+Idle Mean,Idle Max,0.977913,0.977913,timing_and_inter_arrival,timing_and_inter_arrival,Candidate pair for correlation pruning in Phase 5.
+Idle Mean,Idle Min,0.977409,0.977409,timing_and_inter_arrival,timing_and_inter_arrival,Candidate pair for correlation pruning in Phase 5.

@@ -1,7 +1,9 @@
 """Inspect raw CIC-DDoS2019 Parquet metadata and labels for Phase 2.
 
-This script reports file dimensions, schemas, and label distributions only. It
-does not clean data, transform features, or modify any files in data/raw/.
+This script reports file dimensions, schemas, label distributions, constant and
+near-constant features, correlation redundancy, identifier/leakage risks, and a
+feature taxonomy. It does not clean data, transform features, or modify any
+files in data/raw/.
 """
 
 from __future__ import annotations
@@ -9,10 +11,14 @@ from __future__ import annotations
 import argparse
 from collections import Counter
 import csv
+from datetime import datetime
 import re
 from dataclasses import dataclass
 from pathlib import Path
 
+import numpy as np
+import pyarrow as pa
+import pyarrow.compute as pc
 import pyarrow.parquet as pq
 
 
@@ -52,6 +58,33 @@ DDOS_LABELS = {
     "webddos",
 }
 
+LEAKAGE_KEYWORD_RULES: tuple[tuple[str, str], ...] = (
+    (r"\bflow[\s_-]?id\b", "flow_identifier"),
+    (r"\bsource[\s_-]?ip\b", "source_ip"),
+    (r"\bdest(ination)?[\s_-]?ip\b", "destination_ip"),
+    (r"\btimestamp\b", "timestamp"),
+    (r"\btime[\s_-]?stamp\b", "timestamp"),
+    (r"\bmac[\s_-]?addr\b", "mac_address"),
+    (r"\bhostname\b", "hostname"),
+    (r"\bprotocol\b", "protocol_keyword"),
+)
+LEAKAGE_ALLOWLIST = {"Protocol"}
+NEAR_CONSTANT_VARIANCE_THRESHOLD = 1e-12
+
+FEATURE_TAXONOMY_RULES: tuple[tuple[str, str], ...] = (
+    (r"^Protocol$", "protocol"),
+    (r"Flow Duration|Flow IAT|Fwd IAT|Bwd IAT|Active |Idle ", "timing_and_inter_arrival"),
+    (r"Packet Length|Avg Packet Size|Avg Fwd Segment Size|Avg Bwd Segment Size", "packet_size"),
+    (r"Total Fwd Packets|Total Backward Packets|Subflow .* Packets|Fwd Act Data Packets", "packet_count"),
+    (r"Bytes/s|Packets/s|Bulk Rate", "rate_and_throughput"),
+    (r"Flags|Flag Count", "tcp_flags"),
+    (r"Header Length|Win Bytes|Seg Size Min", "header_and_window"),
+    (r"Subflow .* Bytes|Packets Length Total", "subflow_volume"),
+    (r"Bulk", "bulk_transfer"),
+    (r"Down/Up Ratio", "direction_ratio"),
+    (r"^Label$", "target"),
+)
+
 
 @dataclass(frozen=True)
 class SchemaInspection:
@@ -84,6 +117,23 @@ def parse_args() -> argparse.Namespace:
         type=Path,
         default=DEFAULT_REPORT_DIR,
         help="Directory where schema inspection CSV reports will be written.",
+    )
+    parser.add_argument(
+        "--correlation-threshold",
+        type=float,
+        default=0.95,
+        help="Absolute Pearson correlation threshold for redundant feature pairs.",
+    )
+    parser.add_argument(
+        "--correlation-sample-size",
+        type=int,
+        default=50_000,
+        help="Maximum rows sampled for correlation analysis (0 = use all rows).",
+    )
+    parser.add_argument(
+        "--skip-correlation",
+        action="store_true",
+        help="Skip correlation analysis (faster run).",
     )
     return parser.parse_args()
 
@@ -428,6 +478,634 @@ def build_schema_type_differences(
     return rows
 
 
+def is_numeric_data_type(data_type: str) -> bool:
+    """Return True when a Parquet/Arrow type string represents numeric data."""
+    numeric_prefixes = ("int", "uint", "float", "double", "halffloat")
+    return any(data_type.startswith(prefix) for prefix in numeric_prefixes)
+
+
+def get_numeric_feature_columns(schema: list[tuple[str, str]], label_column: str | None) -> list[str]:
+    """Return numeric model-feature column names, excluding the label column."""
+    excluded = {label_column} if label_column else set()
+    return [
+        column_name
+        for column_name, data_type in schema
+        if column_name not in excluded and is_numeric_data_type(data_type)
+    ]
+
+
+def classify_feature_group(column_name: str) -> str:
+    """Assign a feature to a taxonomy group using pattern rules."""
+    for pattern, group in FEATURE_TAXONOMY_RULES:
+        if re.search(pattern, column_name, flags=re.IGNORECASE):
+            return group
+    return "other"
+
+
+def classify_leakage_reason(column_name: str) -> str | None:
+    """Return a leakage keyword category when the column name matches a rule."""
+    normalized = column_name.strip().lower()
+    for pattern, reason in LEAKAGE_KEYWORD_RULES:
+        if re.search(pattern, normalized):
+            return reason
+    return None
+
+
+def read_numeric_column(path: Path, column_name: str) -> np.ndarray:
+    """Read one numeric column from a Parquet file as a NumPy array."""
+    table = pq.read_table(path, columns=[column_name])
+    array = table.column(column_name).combine_chunks()
+    return array.to_numpy(zero_copy_only=False)
+
+
+def build_file_inventory(parquet_files: list[Path]) -> list[dict[str, object]]:
+    """Build one inventory row per Parquet file with size and timestamp metadata."""
+    rows: list[dict[str, object]] = []
+    for index, path in enumerate(parquet_files, start=1):
+        attack_family, split = parse_dataset_name(path)
+        stat = path.stat()
+        rows.append(
+            {
+                "file_index": index,
+                "file_name": path.name,
+                "relative_path": project_relative(path),
+                "attack_family_from_filename": attack_family,
+                "split_from_filename": split,
+                "extension": path.suffix,
+                "size_bytes": stat.st_size,
+                "size_mb": round(stat.st_size / (1024 * 1024), 6),
+                "modified_time": datetime.fromtimestamp(stat.st_mtime).isoformat(timespec="seconds"),
+            }
+        )
+    return rows
+
+
+def build_feature_taxonomy(inspections: list[SchemaInspection]) -> list[dict[str, object]]:
+    """Build one taxonomy row per unique feature column."""
+    readable = [item for item in inspections if item.read_status == "ok"]
+    if not readable:
+        return []
+
+    reference = readable[0]
+    label_column = identify_label_column(reference.schema)
+    rows: list[dict[str, object]] = []
+    for position, (column_name, data_type) in enumerate(reference.schema, start=1):
+        rows.append(
+            {
+                "column_position": position,
+                "column_name": column_name,
+                "data_type": data_type,
+                "feature_group": classify_feature_group(column_name),
+                "is_model_feature": column_name != label_column and is_numeric_data_type(data_type),
+                "is_label_column": column_name == label_column,
+            }
+        )
+    return rows
+
+
+def build_potential_leakage_columns(inspections: list[SchemaInspection]) -> list[dict[str, object]]:
+    """Flag columns whose names resemble identifiers or leakage-prone fields."""
+    rows: list[dict[str, object]] = []
+    for item in inspections:
+        if item.read_status != "ok":
+            continue
+        for column_name, _ in item.schema:
+            reason = classify_leakage_reason(column_name)
+            if reason is None:
+                continue
+            rows.append(
+                {
+                    "file_name": item.file_name,
+                    "attack_family": item.attack_family,
+                    "split": item.split,
+                    "column_name": column_name,
+                    "matched_rule": reason,
+                    "is_allowlisted_legitimate_feature": column_name in LEAKAGE_ALLOWLIST,
+                    "review_note": (
+                        "Legitimate traffic feature; keyword match is a false positive."
+                        if column_name in LEAKAGE_ALLOWLIST
+                        else "Review before modeling; may cause leakage if values identify capture sessions."
+                    ),
+                }
+            )
+    return rows
+
+
+def build_constant_feature_analysis(
+    inspections: list[SchemaInspection],
+    raw_dir: Path,
+) -> list[dict[str, object]]:
+    """Detect globally constant and per-file constant numeric features."""
+    readable = [item for item in inspections if item.read_status == "ok"]
+    if not readable:
+        return []
+
+    reference = readable[0]
+    label_column = identify_label_column(reference.schema)
+    feature_columns = get_numeric_feature_columns(reference.schema, label_column)
+
+    global_tracker: dict[str, float | str] = {}
+    rows: list[dict[str, object]] = []
+
+    for item in readable:
+        path = raw_dir / item.file_name
+        file_feature_columns = get_numeric_feature_columns(item.schema, identify_label_column(item.schema))
+        for column_name in file_feature_columns:
+            try:
+                values = read_numeric_column(path, column_name)
+            except Exception as exc:  # pragma: no cover - depends on local/corrupt files
+                rows.append(
+                    {
+                        "scope": "file",
+                        "file_name": item.file_name,
+                        "column_name": column_name,
+                        "unique_count": None,
+                        "constant_value": None,
+                        "min_value": None,
+                        "max_value": None,
+                        "variance": None,
+                        "is_constant": False,
+                        "is_globally_constant": False,
+                        "read_status": "error",
+                        "error": f"{type(exc).__name__}: {exc}",
+                    }
+                )
+                continue
+
+            finite_values = values[np.isfinite(values)]
+            if finite_values.size == 0:
+                unique_count = 0
+                constant_value = None
+                min_value = None
+                max_value = None
+                variance = 0.0
+                is_constant = True
+            else:
+                unique_values = np.unique(finite_values)
+                unique_count = int(unique_values.size)
+                constant_value = float(unique_values[0]) if unique_count == 1 else None
+                min_value = float(np.min(finite_values))
+                max_value = float(np.max(finite_values))
+                variance = float(np.var(finite_values))
+                is_constant = unique_count <= 1
+
+            if unique_count > 1:
+                global_tracker[column_name] = "__NON_CONSTANT__"
+            elif unique_count == 1:
+                value = float(unique_values[0])
+                current = global_tracker.get(column_name)
+                if current == "__NON_CONSTANT__":
+                    pass
+                elif column_name not in global_tracker:
+                    global_tracker[column_name] = value
+                elif current != value:
+                    global_tracker[column_name] = "__NON_CONSTANT__"
+
+            rows.append(
+                {
+                    "scope": "file",
+                    "file_name": item.file_name,
+                    "column_name": column_name,
+                    "unique_count": unique_count,
+                    "constant_value": constant_value,
+                    "min_value": min_value,
+                    "max_value": max_value,
+                    "variance": round(variance, 12),
+                    "is_constant": is_constant,
+                    "is_globally_constant": False,
+                    "read_status": "ok",
+                    "error": None,
+                }
+            )
+
+    globally_constant: dict[str, float | None] = {}
+    for column_name in feature_columns:
+        tracked = global_tracker.get(column_name)
+        if isinstance(tracked, float):
+            globally_constant[column_name] = tracked
+        else:
+            globally_constant[column_name] = None
+
+    global_rows: list[dict[str, object]] = []
+    for column_name in feature_columns:
+        constant_value = globally_constant.get(column_name)
+        is_globally_constant = constant_value is not None
+        global_rows.append(
+            {
+                "scope": "global",
+                "file_name": "ALL_FILES",
+                "column_name": column_name,
+                "unique_count": 1 if is_globally_constant else None,
+                "constant_value": constant_value,
+                "min_value": constant_value,
+                "max_value": constant_value,
+                "variance": 0.0 if is_globally_constant else None,
+                "is_constant": is_globally_constant,
+                "is_globally_constant": is_globally_constant,
+                "read_status": "ok",
+                "error": None,
+            }
+        )
+
+    for row in rows:
+        if row["read_status"] == "ok":
+            row["is_globally_constant"] = globally_constant.get(str(row["column_name"])) is not None
+
+    return global_rows + rows
+
+
+def build_near_constant_features(
+    constant_feature_analysis: list[dict[str, object]],
+) -> list[dict[str, object]]:
+    """Flag file-level features with extremely low variance but more than one unique value."""
+    rows: list[dict[str, object]] = []
+    for row in constant_feature_analysis:
+        if row["scope"] != "file" or row["read_status"] != "ok":
+            continue
+        variance = row["variance"]
+        unique_count = row["unique_count"]
+        if variance is None or unique_count is None:
+            continue
+        if unique_count > 1 and isinstance(variance, (float, int)) and variance <= NEAR_CONSTANT_VARIANCE_THRESHOLD:
+            rows.append(
+                {
+                    "file_name": row["file_name"],
+                    "column_name": row["column_name"],
+                    "unique_count": unique_count,
+                    "variance": variance,
+                    "min_value": row["min_value"],
+                    "max_value": row["max_value"],
+                    "note": "Near-constant numeric feature; review before feature selection.",
+                }
+            )
+    return rows
+
+
+def read_correlation_sample_matrix(
+    inspections: list[SchemaInspection],
+    raw_dir: Path,
+    feature_columns: list[str],
+    correlation_sample_size: int,
+    random_seed: int,
+) -> tuple[np.ndarray, dict[str, object]]:
+    """Read only the bounded per-file rows needed for correlation analysis."""
+    matrices: list[np.ndarray] = []
+    rows_read_by_file: dict[str, int] = {}
+    rng = np.random.default_rng(random_seed)
+    batch_size = 8192
+    total_rows = sum(
+        int(item.row_count)
+        for item in inspections
+        if item.read_status == "ok" and item.row_count is not None
+    )
+
+    correlation_schema = pa.schema(
+        [(column_name, pa.float64()) for column_name in feature_columns]
+    )
+
+    if correlation_sample_size <= 0 or correlation_sample_size >= total_rows:
+        selected_global_indices: np.ndarray | None = None
+    else:
+        selected_global_indices = np.sort(
+            rng.choice(total_rows, size=correlation_sample_size, replace=False)
+        )
+
+    file_start = 0
+    global_offset = 0
+
+    for item in inspections:
+        if item.read_status != "ok" or item.row_count is None or item.row_count <= 0:
+            continue
+
+        file_row_count = int(item.row_count)
+        file_end = file_start + file_row_count
+
+        if selected_global_indices is None:
+            selected_indices: np.ndarray | None = None
+        else:
+            while (
+                global_offset < selected_global_indices.size
+                and selected_global_indices[global_offset] < file_start
+            ):
+                global_offset += 1
+            file_offset_end = global_offset
+            while (
+                file_offset_end < selected_global_indices.size
+                and selected_global_indices[file_offset_end] < file_end
+            ):
+                file_offset_end += 1
+
+            if file_offset_end == global_offset:
+                rows_read_by_file[item.file_name] = 0
+                file_start = file_end
+                continue
+
+            selected_indices = (
+                selected_global_indices[global_offset:file_offset_end] - file_start
+            )
+            global_offset = file_offset_end
+
+        parquet_file = pq.ParquetFile(raw_dir / item.file_name)
+        file_matrices: list[np.ndarray] = []
+        batch_start = 0
+        selected_offset = 0
+
+        for batch in parquet_file.iter_batches(
+            batch_size=batch_size,
+            columns=feature_columns,
+        ):
+            batch_end = batch_start + batch.num_rows
+            table = pa.Table.from_batches([batch])
+
+            if selected_indices is not None:
+                while (
+                    selected_offset < selected_indices.size
+                    and selected_indices[selected_offset] < batch_start
+                ):
+                    selected_offset += 1
+                offset_end = selected_offset
+                while (
+                    offset_end < selected_indices.size
+                    and selected_indices[offset_end] < batch_end
+                ):
+                    offset_end += 1
+                if offset_end == selected_offset:
+                    batch_start = batch_end
+                    continue
+
+                local_indices = selected_indices[selected_offset:offset_end] - batch_start
+                table = table.take(pa.array(local_indices))
+                selected_offset = offset_end
+
+            table = table.cast(correlation_schema)
+            matrix = table.to_pandas().to_numpy(dtype=np.float64, copy=True)
+            if matrix.size:
+                file_matrices.append(matrix)
+
+            batch_start = batch_end
+            if selected_indices is not None and selected_offset >= selected_indices.size:
+                break
+
+        if file_matrices:
+            file_matrix = np.vstack(file_matrices)
+            matrices.append(file_matrix)
+            rows_read_by_file[item.file_name] = int(file_matrix.shape[0])
+        else:
+            rows_read_by_file[item.file_name] = 0
+
+        file_start = file_end
+
+    if matrices:
+        sampled_matrix = np.vstack(matrices)
+    else:
+        sampled_matrix = np.empty((0, len(feature_columns)), dtype=np.float64)
+
+    if correlation_sample_size <= 0 or sampled_matrix.shape[0] >= total_rows:
+        sampling_method = "all_rows"
+    else:
+        sampling_method = (
+            "deterministic_global_random_sample_streamed_by_file; "
+            "only selected rows are retained and concatenated for correlation"
+        )
+
+    metadata = {
+        "total_rows": total_rows,
+        "rows_requested_for_correlation": correlation_sample_size,
+        "rows_used_for_correlation": int(sampled_matrix.shape[0]),
+        "sampling_method": sampling_method,
+        "correlation_read_batch_size": batch_size,
+        "rows_read_by_file": "; ".join(
+            f"{file_name}={rows_read_by_file[file_name]}"
+            for file_name in sorted(rows_read_by_file)
+        ),
+    }
+    return sampled_matrix, metadata
+
+
+def drop_nonfinite_or_zero_variance_columns(
+    matrix: np.ndarray,
+    feature_columns: list[str],
+) -> tuple[np.ndarray, list[str], list[str]]:
+    """Keep only columns with at least two finite values and non-zero variance."""
+    kept_indices: list[int] = []
+    dropped_columns: list[str] = []
+
+    for column_index, column_name in enumerate(feature_columns):
+        values = matrix[:, column_index]
+        finite_values = values[np.isfinite(values)]
+        if finite_values.size < 2 or np.nanvar(finite_values) == 0:
+            dropped_columns.append(column_name)
+            continue
+        kept_indices.append(column_index)
+
+    if not kept_indices:
+        return np.empty((matrix.shape[0], 0), dtype=np.float64), [], dropped_columns
+
+    return matrix[:, kept_indices], [feature_columns[index] for index in kept_indices], dropped_columns
+
+
+def calculate_safe_correlation_matrix(matrix: np.ndarray) -> np.ndarray:
+    """Calculate pairwise Pearson r while ignoring invalid/non-finite values."""
+    feature_count = matrix.shape[1]
+    corr = np.full((feature_count, feature_count), np.nan, dtype=np.float64)
+    np.fill_diagonal(corr, 1.0)
+
+    for row_index in range(feature_count):
+        x = matrix[:, row_index]
+        for col_index in range(row_index + 1, feature_count):
+            y = matrix[:, col_index]
+            mask = np.isfinite(x) & np.isfinite(y)
+            if np.count_nonzero(mask) < 2:
+                continue
+
+            x_valid = x[mask]
+            y_valid = y[mask]
+            x_centered = x_valid - np.mean(x_valid)
+            y_centered = y_valid - np.mean(y_valid)
+            denominator = np.sqrt(np.sum(x_centered ** 2) * np.sum(y_centered ** 2))
+            if denominator == 0 or not np.isfinite(denominator):
+                continue
+
+            value = float(np.sum(x_centered * y_centered) / denominator)
+            if np.isfinite(value):
+                corr[row_index, col_index] = value
+                corr[col_index, row_index] = value
+
+    return corr
+
+
+def build_correlation_analysis(
+    inspections: list[SchemaInspection],
+    raw_dir: Path,
+    correlation_threshold: float,
+    correlation_sample_size: int,
+    constant_feature_analysis: list[dict[str, object]],
+    random_seed: int = 42,
+) -> tuple[list[dict[str, object]], list[dict[str, object]], dict[str, object]]:
+    """Compute feature correlations and return pair list, matrix rows, and metadata."""
+    readable = [item for item in inspections if item.read_status == "ok"]
+    if not readable:
+        return [], [], {"status": "no_readable_files"}
+
+    reference = readable[0]
+    label_column = identify_label_column(reference.schema)
+    feature_columns = get_numeric_feature_columns(reference.schema, label_column)
+
+    globally_constant_columns = {
+        str(row["column_name"])
+        for row in constant_feature_analysis
+        if (
+            row["scope"] == "global"
+            and row["is_globally_constant"]
+        )
+    }
+
+    feature_columns = [
+        column
+        for column in feature_columns
+        if column not in globally_constant_columns
+    ]
+    if not feature_columns:
+        return [], [], {"status": "no_numeric_features_after_excluding_constants"}
+
+    sampled_matrix, sampling_metadata = read_correlation_sample_matrix(
+        inspections=readable,
+        raw_dir=raw_dir,
+        feature_columns=feature_columns,
+        correlation_sample_size=correlation_sample_size,
+        random_seed=random_seed,
+    )
+
+    if sampled_matrix.shape[0] < 2:
+        return [], [], {"status": "insufficient_rows", "rows_used": sampled_matrix.shape[0]}
+
+    sampled_matrix, feature_columns, sample_dropped_columns = drop_nonfinite_or_zero_variance_columns(
+        sampled_matrix,
+        feature_columns,
+    )
+    if not feature_columns:
+        metadata = {
+            "status": "no_variable_numeric_features_after_sampling",
+            **sampling_metadata,
+            "correlation_threshold": correlation_threshold,
+            "high_correlation_pair_count": 0,
+            "random_seed": random_seed,
+            "globally_constant_features_excluded": len(globally_constant_columns),
+            "sample_zero_variance_or_nonfinite_features_excluded": len(sample_dropped_columns),
+        }
+        return [], [], metadata
+
+    corr = calculate_safe_correlation_matrix(sampled_matrix)
+
+    pair_rows: list[dict[str, object]] = []
+    matrix_rows: list[dict[str, object]] = []
+    feature_count = len(feature_columns)
+
+    for row_index, row_name in enumerate(feature_columns):
+        matrix_row: dict[str, object] = {"feature": row_name}
+        for col_index, col_name in enumerate(feature_columns):
+            value = corr[row_index, col_index]
+            matrix_row[col_name] = round(float(value), 6) if np.isfinite(value) else ""
+        matrix_rows.append(matrix_row)
+
+        for col_index in range(row_index + 1, feature_count):
+            col_name = feature_columns[col_index]
+            value = corr[row_index, col_index]
+            if not np.isfinite(value):
+                continue
+            abs_value = abs(float(value))
+            if abs_value >= correlation_threshold:
+                pair_rows.append(
+                    {
+                        "feature_a": row_name,
+                        "feature_b": col_name,
+                        "pearson_r": round(float(value), 6),
+                        "abs_pearson_r": round(abs_value, 6),
+                        "feature_group_a": classify_feature_group(row_name),
+                        "feature_group_b": classify_feature_group(col_name),
+                        "redundancy_note": "Candidate pair for correlation pruning in Phase 5.",
+                    }
+                )
+
+    metadata = {
+        "status": "ok",
+        **sampling_metadata,
+        "feature_count": feature_count,
+        "correlation_threshold": correlation_threshold,
+        "high_correlation_pair_count": len(pair_rows),
+        "random_seed": random_seed,
+        "globally_constant_features_excluded": len(globally_constant_columns),
+        "sample_zero_variance_or_nonfinite_features_excluded": len(sample_dropped_columns),
+        "sample_zero_variance_or_nonfinite_feature_names": "; ".join(sample_dropped_columns),
+    }
+    return pair_rows, matrix_rows, metadata
+
+
+def build_dataset_characterization_summary(
+    dataset_summary: list[dict[str, object]],
+    label_summary: list[dict[str, object]],
+    constant_feature_analysis: list[dict[str, object]],
+    near_constant_features: list[dict[str, object]],
+    correlation_metadata: dict[str, object],
+    feature_taxonomy: list[dict[str, object]],
+    potential_leakage_columns: list[dict[str, object]],
+) -> list[dict[str, object]]:
+    """Build a paper-ready dataset characterization summary."""
+    total_rows = sum(int(row["row_count"]) for row in dataset_summary if row["row_count"] is not None)
+    global_constants = [
+        row
+        for row in constant_feature_analysis
+        if row["scope"] == "global" and row["is_globally_constant"]
+    ]
+    model_features = [row for row in feature_taxonomy if row["is_model_feature"]]
+    false_positive_leakage = [
+        row for row in potential_leakage_columns if row["is_allowlisted_legitimate_feature"]
+    ]
+    true_leakage_flags = [
+        row for row in potential_leakage_columns if not row["is_allowlisted_legitimate_feature"]
+    ]
+    benign_rows = next((row["row_count"] for row in label_summary if row["label"] == "Benign"), 0)
+    attack_rows = total_rows - int(benign_rows) if total_rows else 0
+    label_counts = [
+        (str(row["label"]), int(row["row_count"]))
+        for row in label_summary
+        if row.get("label") is not None
+    ]
+    majority_class, majority_count = max(label_counts, key=lambda item: item[1], default=("", 0))
+    minority_class, minority_count = min(label_counts, key=lambda item: item[1], default=("", 0))
+    imbalance_ratio = (
+        round(majority_count / minority_count, 6)
+        if minority_count
+        else None
+    )
+
+    metrics: list[tuple[str, object]] = [
+        ("parquet_file_count", len(dataset_summary)),
+        ("total_flow_rows", total_rows),
+        ("raw_columns_including_label", len(feature_taxonomy)),
+        ("numeric_model_feature_count", len(model_features)),
+        ("variable_numeric_features_after_global_constants", len(model_features) - len(global_constants)),
+        ("unique_label_count", len(label_summary)),
+        ("benign_row_count", benign_rows),
+        ("attack_row_count", attack_rows),
+        ("majority_class", majority_class),
+        ("minority_class", minority_class),
+        ("class_imbalance_ratio", imbalance_ratio),
+        ("globally_constant_feature_count", len(global_constants)),
+        ("near_constant_count", len(near_constant_features)),
+        ("high_correlation_pair_count", correlation_metadata.get("high_correlation_pair_count", 0)),
+        ("leakage_keyword_matches", len(potential_leakage_columns)),
+        ("leakage_false_positives_allowlisted", len(false_positive_leakage)),
+        ("leakage_candidates_requiring_review", len(true_leakage_flags)),
+        ("feature_taxonomy_group_count", len({row["feature_group"] for row in feature_taxonomy})),
+        ("correlation_status", correlation_metadata.get("status")),
+        ("correlation_rows_used", correlation_metadata.get("rows_used_for_correlation")),
+        ("correlation_feature_count", correlation_metadata.get("feature_count")),
+        ("correlation_sampling_method", correlation_metadata.get("sampling_method")),
+    ]
+    return [{"metric": metric, "value": value} for metric, value in metrics]
+
+
 def write_csv(path: Path, rows: list[dict[str, object]], fieldnames: list[str]) -> None:
     """Write rows to CSV, preserving headers even when there are no rows."""
     with path.open("w", newline="", encoding="utf-8") as csv_file:
@@ -445,6 +1123,13 @@ def write_reports(
     label_distribution: list[dict[str, object]],
     label_summary: list[dict[str, object]],
     label_file_mapping: list[dict[str, object]],
+    constant_feature_analysis: list[dict[str, object]],
+    near_constant_features: list[dict[str, object]],
+    correlation_pairs: list[dict[str, object]],
+    correlation_matrix: list[dict[str, object]],
+    potential_leakage_columns: list[dict[str, object]],
+    feature_taxonomy: list[dict[str, object]],
+    dataset_characterization: list[dict[str, object]],
 ) -> None:
     """Write Phase 2 reports."""
     report_dir.mkdir(parents=True, exist_ok=True)
@@ -536,6 +1221,103 @@ def write_reports(
         ],
     )
 
+    write_csv(
+        report_dir / "constant_feature_analysis.csv",
+        constant_feature_analysis,
+        [
+            "scope",
+            "file_name",
+            "column_name",
+            "unique_count",
+            "constant_value",
+            "min_value",
+            "max_value",
+            "variance",
+            "is_constant",
+            "is_globally_constant",
+            "read_status",
+            "error",
+        ],
+    )
+
+    write_csv(
+        report_dir / "near_constant_features.csv",
+        near_constant_features,
+        [
+            "file_name",
+            "column_name",
+            "unique_count",
+            "variance",
+            "min_value",
+            "max_value",
+            "note",
+        ],
+    )
+
+    write_csv(
+        report_dir / "high_correlation_pairs.csv",
+        correlation_pairs,
+        [
+            "feature_a",
+            "feature_b",
+            "pearson_r",
+            "abs_pearson_r",
+            "feature_group_a",
+            "feature_group_b",
+            "redundancy_note",
+        ],
+    )
+
+    correlation_matrix_fields = ["feature"]
+
+    if correlation_matrix:
+        correlation_matrix_fields.extend(
+            str(row["feature"])
+            for row in correlation_matrix
+        )
+
+    write_csv(
+        report_dir / "correlation_matrix.csv",
+        correlation_matrix,
+        correlation_matrix_fields,
+    )
+
+    write_csv(
+        report_dir / "potential_leakage_columns.csv",
+        potential_leakage_columns,
+        [
+            "file_name",
+            "attack_family",
+            "split",
+            "column_name",
+            "matched_rule",
+            "is_allowlisted_legitimate_feature",
+            "review_note",
+        ],
+    )
+
+    write_csv(
+        report_dir / "feature_taxonomy.csv",
+        feature_taxonomy,
+        [
+            "column_position",
+            "column_name",
+            "data_type",
+            "feature_group",
+            "is_model_feature",
+            "is_label_column",
+        ],
+    )
+
+    write_csv(
+        report_dir / "dataset_characterization.csv",
+        dataset_characterization,
+        [
+            "metric",
+            "value",
+        ],
+    )
+
 
 def print_label_results(
     label_distribution: list[dict[str, object]],
@@ -604,23 +1386,49 @@ def print_label_results(
 
 def print_results(
     raw_dir: Path,
+    report_dir: Path,
     dataset_summary: list[dict[str, object]],
     schema_comparison: list[dict[str, object]],
     schema_type_differences: list[dict[str, object]],
     label_distribution: list[dict[str, object]],
     label_summary: list[dict[str, object]],
+    constant_feature_analysis: list[dict[str, object]],
+    near_constant_features: list[dict[str, object]],
+    correlation_pairs: list[dict[str, object]],
+    potential_leakage_columns: list[dict[str, object]],
+    feature_taxonomy: list[dict[str, object]],
 ) -> None:
     """Print a concise human-readable report."""
     print("=" * 80)
     print("CIC-DDOS2019 PHASE 2 DATASET AUDIT")
     print("=" * 80)
     print(f"Raw directory: {project_relative(raw_dir)}")
-    print(f"Parquet files inspected: {len(dataset_summary)}")
+    total_rows = sum(int(row["row_count"]) for row in dataset_summary if row["row_count"] is not None)
+    total_columns = len(feature_taxonomy)
+    numeric_candidate_features = sum(1 for row in feature_taxonomy if row["is_model_feature"])
+    global_constants = [
+        row
+        for row in constant_feature_analysis
+        if row["scope"] == "global" and row["is_globally_constant"]
+    ]
 
     issue_counts: dict[str, int] = {}
     for row in schema_comparison:
         issue = str(row["issue"])
         issue_counts[issue] = issue_counts.get(issue, 0) + 1
+
+    print("\nPhase 2 summary:")
+    print(f"- Files inspected: {len(dataset_summary)}")
+    print(f"- Total rows: {total_rows}")
+    print(f"- Total columns: {total_columns}")
+    print(f"- Numeric candidate features: {numeric_candidate_features}")
+    print(f"- Global constants: {len(global_constants)}")
+    print(f"- Near-constant pairs: {len(near_constant_features)}")
+    print(f"- High-correlation pairs: {len(correlation_pairs)}")
+    print(f"- Potential leakage matches: {len(potential_leakage_columns)}")
+    print(f"- Taxonomy feature count: {len(feature_taxonomy)}")
+    print(f"- Model feature count: {numeric_candidate_features}")
+    print(f"- Report directory: {project_relative(report_dir)}")
 
     print("\nSchema status:")
     print(f"- Schema comparison issues: {sum(issue_counts.values())}")
@@ -632,7 +1440,7 @@ def print_results(
 
 
 def main() -> int:
-    """Run schema inspection only."""
+    """Run the complete Phase 2 dataset audit."""
     args = parse_args()
     raw_dir = resolve_project_path(args.raw_dir)
     report_dir = resolve_project_path(args.report_dir)
@@ -648,35 +1456,137 @@ def main() -> int:
         return 1
 
     parquet_files = find_parquet_files(raw_dir)
+
+    if not parquet_files:
+        print(f"No Parquet files found in: {project_relative(raw_dir)}")
+        print("No raw data was modified.")
+        return 1
+
+    # ------------------------------------------------------------------
+    # 1. Basic dataset/schema inspection
+    # ------------------------------------------------------------------
     inspections = [inspect_parquet_schema(path) for path in parquet_files]
+
     dataset_summary = build_dataset_summary(inspections)
     column_summary = build_column_summary(inspections)
     schema_comparison = build_schema_comparison(inspections)
     schema_type_differences = build_schema_type_differences(inspections)
-    label_distribution = build_label_distribution(inspections, raw_dir)
-    label_summary = build_label_summary(label_distribution)
-    label_file_mapping = build_label_file_mapping(inspections, label_distribution)
 
-    write_reports(
-        report_dir,
-        dataset_summary,
-        column_summary,
-        schema_comparison,
-        schema_type_differences,
-        label_distribution,
-        label_summary,
-        label_file_mapping,
-    )
-    print_results(
+    # ------------------------------------------------------------------
+    # 2. Label inspection
+    # ------------------------------------------------------------------
+    label_distribution = build_label_distribution(
+        inspections,
         raw_dir,
-        dataset_summary,
-        schema_comparison,
-        schema_type_differences,
-        label_distribution,
-        label_summary,
     )
-    print(f"\nReports written to: {project_relative(report_dir)}")
+    label_summary = build_label_summary(label_distribution)
+    label_file_mapping = build_label_file_mapping(
+        inspections,
+        label_distribution,
+    )
+
+    # ------------------------------------------------------------------
+    # 3. Constant / near-constant feature analysis
+    # ------------------------------------------------------------------
+    constant_feature_analysis = build_constant_feature_analysis(
+        inspections,
+        raw_dir,
+    )
+
+    near_constant_features = build_near_constant_features(
+        constant_feature_analysis,
+    )
+
+    # ------------------------------------------------------------------
+    # 4. Feature taxonomy
+    # ------------------------------------------------------------------
+    feature_taxonomy = build_feature_taxonomy(inspections)
+
+    # ------------------------------------------------------------------
+    # 5. Potential leakage / identifier analysis
+    # ------------------------------------------------------------------
+    potential_leakage_columns = build_potential_leakage_columns(
+        inspections,
+    )
+
+    # ------------------------------------------------------------------
+    # 6. Correlation / redundancy analysis
+    # ------------------------------------------------------------------
+    if args.skip_correlation:
+        correlation_pairs = []
+        correlation_matrix = []
+        correlation_metadata = {
+            "status": "skipped",
+            "high_correlation_pair_count": 0,
+            "correlation_threshold": args.correlation_threshold,
+        }
+    else:
+        (
+            correlation_pairs,
+            correlation_matrix,
+            correlation_metadata,
+        ) = build_correlation_analysis(
+            inspections,
+            raw_dir,
+            correlation_threshold=args.correlation_threshold,
+            correlation_sample_size=args.correlation_sample_size,
+            constant_feature_analysis=constant_feature_analysis,
+            random_seed=42,
+        )
+
+    # ------------------------------------------------------------------
+    # 7. Dataset characterization summary
+    # ------------------------------------------------------------------
+    dataset_characterization = build_dataset_characterization_summary(
+        dataset_summary=dataset_summary,
+        label_summary=label_summary,
+        constant_feature_analysis=constant_feature_analysis,
+        near_constant_features=near_constant_features,
+        correlation_metadata=correlation_metadata,
+        feature_taxonomy=feature_taxonomy,
+        potential_leakage_columns=potential_leakage_columns,
+    )
+
+    # ------------------------------------------------------------------
+    # 8. Write all Phase 2 reports
+    # ------------------------------------------------------------------
+    write_reports(
+        report_dir=report_dir,
+        dataset_summary=dataset_summary,
+        column_summary=column_summary,
+        schema_comparison=schema_comparison,
+        schema_type_differences=schema_type_differences,
+        label_distribution=label_distribution,
+        label_summary=label_summary,
+        label_file_mapping=label_file_mapping,
+        constant_feature_analysis=constant_feature_analysis,
+        near_constant_features=near_constant_features,
+        correlation_pairs=correlation_pairs,
+        correlation_matrix=correlation_matrix,
+        potential_leakage_columns=potential_leakage_columns,
+        feature_taxonomy=feature_taxonomy,
+        dataset_characterization=dataset_characterization,
+    )
+
+    # ------------------------------------------------------------------
+    # 9. Console summary
+    # ------------------------------------------------------------------
+    print_results(
+        raw_dir=raw_dir,
+        report_dir=report_dir,
+        dataset_summary=dataset_summary,
+        schema_comparison=schema_comparison,
+        schema_type_differences=schema_type_differences,
+        label_distribution=label_distribution,
+        label_summary=label_summary,
+        constant_feature_analysis=constant_feature_analysis,
+        near_constant_features=near_constant_features,
+        correlation_pairs=correlation_pairs,
+        potential_leakage_columns=potential_leakage_columns,
+        feature_taxonomy=feature_taxonomy,
+    )
     print("Raw data was not modified.")
+
     return 0
 
 
