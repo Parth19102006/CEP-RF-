@@ -1,7 +1,7 @@
 # DDoS Attack Detection Using Machine Learning on Network Traffic
 
 ## 📌 Project Overview
-DDoS (Distributed Denial of Service) attacks remain a very common and rapidly evolving cyber threat, fueled by automated tools and cheap DDoS-for-hire services that make them easy for non-technical actors to launch.[cite: 1] This project implements an anomaly-based Machine Learning (ML) Intrusion Detection System (IDS) to identify and classify DDoS traffic in real-time, moving beyond the limitations of legacy signature-based systems.
+DDoS (Distributed Denial of Service) attacks remain a very common and rapidly evolving cyber threat, fueled by automated tools and cheap DDoS-for-hire services that make them easy for non-technical actors to launch.This project implements an anomaly-based Machine Learning (ML) Intrusion Detection System (IDS) to identify and classify DDoS traffic in real-time, moving beyond the limitations of legacy signature-based systems.
 
 ### The Problem with Legacy Systems
 The global DDoS protection and mitigation market size is valued at $6.48 billion and is projected to skyrocket to over $16.66 billion. However, traditional defense mechanisms are failing due to several key vulnerabilities:
@@ -19,12 +19,12 @@ This model is designed with modern attack vectors in mind, addressing the follow
 * **AI-Enhanced Execution:** Threat actors use automated AI tools to map networks and execute "horizontal" multi-destination attacks, hitting multiple weak points at once.
 
 ## 🎯 Target Industries and Use Cases
-Financial services, telecommunications, gaming, and government sectors are the most heavily targeted industries for DDoS attacks.[cite: 1] Attackers focus on fields where even a few seconds of offline downtime causes massive financial loss, public panic, or strategic disruption.[cite: 1] This model is highly relevant for protecting:
+Financial services, telecommunications, gaming, and government sectors are the most heavily targeted industries for DDoS attacks.Attackers focus on fields where even a few seconds of offline downtime causes massive financial loss, public panic, or strategic disruption.This model is highly relevant for protecting:
 
 1. **Telecommunications:** Protecting ISPs and DNS servers to prevent "blast radius" outages that knock out internet access for thousands of downstream businesses simultaneously.
 2. **Finance & Banking:** Securing payment gateways from extortion and financial sabotage, where DDoS is often used as a distraction to hide background data-theft operations.
 3. **Gaming:** Protecting multiplayer servers from sabotage and extortion right before major tournament events.
-4. **Government:** Defending public portals and energy grids from geopolitical warfare and hacktivism.[cite: 1]
+4. **Government:** Defending public portals and energy grids from geopolitical warfare and hacktivism.
 5. **Generative AI Services:** Preventing application-layer traffic from exhausting AI API resources and driving up massive cloud computing bills.
 
 ## 🧠 Technical Architecture & ML Strategy
