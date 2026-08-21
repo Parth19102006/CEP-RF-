@@ -1,0 +1,66 @@
+feature_index,feature_name
+1,Protocol
+2,Flow Duration
+3,Total Fwd Packets
+4,Total Backward Packets
+5,Fwd Packets Length Total
+6,Bwd Packets Length Total
+7,Fwd Packet Length Max
+8,Fwd Packet Length Min
+9,Fwd Packet Length Mean
+10,Fwd Packet Length Std
+11,Bwd Packet Length Max
+12,Bwd Packet Length Min
+13,Bwd Packet Length Mean
+14,Bwd Packet Length Std
+15,Flow Bytes/s
+16,Flow Packets/s
+17,Flow IAT Mean
+18,Flow IAT Std
+19,Flow IAT Max
+20,Flow IAT Min
+21,Fwd IAT Total
+22,Fwd IAT Mean
+23,Fwd IAT Std
+24,Fwd IAT Max
+25,Fwd IAT Min
+26,Bwd IAT Total
+27,Bwd IAT Mean
+28,Bwd IAT Std
+29,Bwd IAT Max
+30,Bwd IAT Min
+31,Fwd PSH Flags
+32,Fwd Header Length
+33,Bwd Header Length
+34,Fwd Packets/s
+35,Bwd Packets/s
+36,Packet Length Min
+37,Packet Length Max
+38,Packet Length Mean
+39,Packet Length Std
+40,Packet Length Variance
+41,SYN Flag Count
+42,RST Flag Count
+43,ACK Flag Count
+44,URG Flag Count
+45,CWE Flag Count
+46,Down/Up Ratio
+47,Avg Packet Size
+48,Avg Fwd Segment Size
+49,Avg Bwd Segment Size
+50,Subflow Fwd Packets
+51,Subflow Fwd Bytes
+52,Subflow Bwd Packets
+53,Subflow Bwd Bytes
+54,Init Fwd Win Bytes
+55,Init Bwd Win Bytes
+56,Fwd Act Data Packets
+57,Fwd Seg Size Min
+58,Active Mean
+59,Active Std
+60,Active Max
+61,Active Min
+62,Idle Mean
+63,Idle Std
+64,Idle Max
+65,Idle Min

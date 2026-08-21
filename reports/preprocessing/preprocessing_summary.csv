@@ -1,0 +1,12 @@
+metric,value
+input_file_count,17
+training_row_count,125170
+testing_row_count,306201
+original_column_count,78
+original_feature_count_excluding_target,77
+removed_constant_feature_count,12
+final_feature_count,65
+target_column,Label
+encoded_target_column,Label_binary
+scaling_applied,False
+raw_data_modified,False
