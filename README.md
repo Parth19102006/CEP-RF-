@@ -61,8 +61,8 @@ Models are evaluated not just on Accuracy, but on:
 Run the preprocessing script to clean the network flow data:
 `python src/preprocess.py`
 
-Train the model and evaluate inference times:
-`python src/train.py`
+Train the Phase 4 all-valid-features Random Forest baseline and evaluate inference times:
+`python src/train_rf_baseline.py`
 
 ## 📚 Future Research Opportunities
 * **Lightweight Edge Models:** Build ultra-fast, optimized ML models (like pruned Random Forest or XGBoost) designed to run on low-resource edge routing devices or IoT gateways.
