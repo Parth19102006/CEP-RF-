@@ -1,0 +1,216 @@
+method,subset_name,feature_rank,feature_name,baseline_importance
+baseline_random_forest_mdi_rank_top_k,Baseline_65,1,URG Flag Count,0.0993175085425371
+baseline_random_forest_mdi_rank_top_k,Baseline_65,2,Bwd Packets/s,0.095232800347493
+baseline_random_forest_mdi_rank_top_k,Baseline_65,3,Packet Length Min,0.0576908485239037
+baseline_random_forest_mdi_rank_top_k,Baseline_65,4,Bwd Packet Length Max,0.0550381847197368
+baseline_random_forest_mdi_rank_top_k,Baseline_65,5,Bwd Packet Length Mean,0.0494777561807203
+baseline_random_forest_mdi_rank_top_k,Baseline_65,6,Avg Bwd Segment Size,0.0479466218536774
+baseline_random_forest_mdi_rank_top_k,Baseline_65,7,Bwd Packets Length Total,0.0413302247704075
+baseline_random_forest_mdi_rank_top_k,Baseline_65,8,Init Bwd Win Bytes,0.0399146063749103
+baseline_random_forest_mdi_rank_top_k,Baseline_65,9,Fwd Packet Length Min,0.0392148355661936
+baseline_random_forest_mdi_rank_top_k,Baseline_65,10,Subflow Bwd Bytes,0.031945601840571
+baseline_random_forest_mdi_rank_top_k,Baseline_65,11,Down/Up Ratio,0.0298781933538742
+baseline_random_forest_mdi_rank_top_k,Baseline_65,12,Subflow Fwd Bytes,0.0276269282772819
+baseline_random_forest_mdi_rank_top_k,Baseline_65,13,Fwd Act Data Packets,0.0270011155157103
+baseline_random_forest_mdi_rank_top_k,Baseline_65,14,Fwd Packet Length Mean,0.0252105364580206
+baseline_random_forest_mdi_rank_top_k,Baseline_65,15,Fwd PSH Flags,0.0247514244397171
+baseline_random_forest_mdi_rank_top_k,Baseline_65,16,Init Fwd Win Bytes,0.0224633815702279
+baseline_random_forest_mdi_rank_top_k,Baseline_65,17,Avg Packet Size,0.0208874388775122
+baseline_random_forest_mdi_rank_top_k,Baseline_65,18,RST Flag Count,0.0185041095667733
+baseline_random_forest_mdi_rank_top_k,Baseline_65,19,Flow Bytes/s,0.0176492764379366
+baseline_random_forest_mdi_rank_top_k,Baseline_65,20,Bwd Packet Length Min,0.0159550707295934
+baseline_random_forest_mdi_rank_top_k,Baseline_65,21,Packet Length Mean,0.014511591330942
+baseline_random_forest_mdi_rank_top_k,Baseline_65,22,Flow IAT Max,0.013195181644948
+baseline_random_forest_mdi_rank_top_k,Baseline_65,23,Fwd Packets Length Total,0.0129352961562454
+baseline_random_forest_mdi_rank_top_k,Baseline_65,24,ACK Flag Count,0.0125115016787176
+baseline_random_forest_mdi_rank_top_k,Baseline_65,25,Fwd Packets/s,0.0117165574906939
+baseline_random_forest_mdi_rank_top_k,Baseline_65,26,CWE Flag Count,0.0116832764123185
+baseline_random_forest_mdi_rank_top_k,Baseline_65,27,Fwd IAT Total,0.0114696755141959
+baseline_random_forest_mdi_rank_top_k,Baseline_65,28,Packet Length Variance,0.0110677127516175
+baseline_random_forest_mdi_rank_top_k,Baseline_65,29,Fwd IAT Mean,0.0104208535287205
+baseline_random_forest_mdi_rank_top_k,Baseline_65,30,Flow Packets/s,0.0101195775624915
+baseline_random_forest_mdi_rank_top_k,Baseline_65,31,Flow IAT Mean,0.009793280733747
+baseline_random_forest_mdi_rank_top_k,Baseline_65,32,Flow IAT Std,0.0091440194747759
+baseline_random_forest_mdi_rank_top_k,Baseline_65,33,Subflow Fwd Packets,0.0082685331200234
+baseline_random_forest_mdi_rank_top_k,Baseline_65,34,Flow Duration,0.0075633520861282
+baseline_random_forest_mdi_rank_top_k,Baseline_65,35,Total Fwd Packets,0.0063766475897894
+baseline_random_forest_mdi_rank_top_k,Baseline_65,36,Avg Fwd Segment Size,0.005075850099589
+baseline_random_forest_mdi_rank_top_k,Baseline_65,37,Packet Length Max,0.0047109078383879
+baseline_random_forest_mdi_rank_top_k,Baseline_65,38,Flow IAT Min,0.0044196830829301
+baseline_random_forest_mdi_rank_top_k,Baseline_65,39,Fwd IAT Max,0.0043903204333421
+baseline_random_forest_mdi_rank_top_k,Baseline_65,40,Fwd Packet Length Std,0.0043792453838617
+baseline_random_forest_mdi_rank_top_k,Baseline_65,41,Packet Length Std,0.0040753380803292
+baseline_random_forest_mdi_rank_top_k,Baseline_65,42,Fwd IAT Std,0.0034123252082814
+baseline_random_forest_mdi_rank_top_k,Baseline_65,43,Fwd Packet Length Max,0.0031547345241408
+baseline_random_forest_mdi_rank_top_k,Baseline_65,44,Bwd Header Length,0.0024121298870507
+baseline_random_forest_mdi_rank_top_k,Baseline_65,45,Idle Std,0.0023247164457823
+baseline_random_forest_mdi_rank_top_k,Baseline_65,46,Fwd Header Length,0.0021993413206114
+baseline_random_forest_mdi_rank_top_k,Baseline_65,47,Subflow Bwd Packets,0.0021502040842544
+baseline_random_forest_mdi_rank_top_k,Baseline_65,48,Fwd IAT Min,0.0017758363950682
+baseline_random_forest_mdi_rank_top_k,Baseline_65,49,Total Backward Packets,0.0014997686013946
+baseline_random_forest_mdi_rank_top_k,Baseline_65,50,Fwd Seg Size Min,0.0010021455341957
+baseline_random_forest_mdi_rank_top_k,Baseline_65,51,Active Min,0.0008087948113943
+baseline_random_forest_mdi_rank_top_k,Baseline_65,52,Bwd IAT Max,0.0007596271162721
+baseline_random_forest_mdi_rank_top_k,Baseline_65,53,Protocol,0.0007302859950007
+baseline_random_forest_mdi_rank_top_k,Baseline_65,54,Bwd Packet Length Std,0.0004423672992309
+baseline_random_forest_mdi_rank_top_k,Baseline_65,55,Bwd IAT Mean,0.0004208429730309
+baseline_random_forest_mdi_rank_top_k,Baseline_65,56,Idle Mean,0.0003630718104686
+baseline_random_forest_mdi_rank_top_k,Baseline_65,57,Bwd IAT Total,0.0003312352419291
+baseline_random_forest_mdi_rank_top_k,Baseline_65,58,SYN Flag Count,0.0002907636068585
+baseline_random_forest_mdi_rank_top_k,Baseline_65,59,Active Mean,0.0002844657071989
+baseline_random_forest_mdi_rank_top_k,Baseline_65,60,Bwd IAT Std,0.0002789944277786
+baseline_random_forest_mdi_rank_top_k,Baseline_65,61,Active Max,0.0001973322979589
+baseline_random_forest_mdi_rank_top_k,Baseline_65,62,Idle Max,0.000158614270894
+baseline_random_forest_mdi_rank_top_k,Baseline_65,63,Active Std,5.2507705519132e-05
+baseline_random_forest_mdi_rank_top_k,Baseline_65,64,Bwd IAT Min,4.799451629107009e-05
+baseline_random_forest_mdi_rank_top_k,Baseline_65,65,Idle Min,3.703427879884571e-05
+baseline_random_forest_mdi_rank_top_k,Top_50,1,URG Flag Count,0.0993175085425371
+baseline_random_forest_mdi_rank_top_k,Top_50,2,Bwd Packets/s,0.095232800347493
+baseline_random_forest_mdi_rank_top_k,Top_50,3,Packet Length Min,0.0576908485239037
+baseline_random_forest_mdi_rank_top_k,Top_50,4,Bwd Packet Length Max,0.0550381847197368
+baseline_random_forest_mdi_rank_top_k,Top_50,5,Bwd Packet Length Mean,0.0494777561807203
+baseline_random_forest_mdi_rank_top_k,Top_50,6,Avg Bwd Segment Size,0.0479466218536774
+baseline_random_forest_mdi_rank_top_k,Top_50,7,Bwd Packets Length Total,0.0413302247704075
+baseline_random_forest_mdi_rank_top_k,Top_50,8,Init Bwd Win Bytes,0.0399146063749103
+baseline_random_forest_mdi_rank_top_k,Top_50,9,Fwd Packet Length Min,0.0392148355661936
+baseline_random_forest_mdi_rank_top_k,Top_50,10,Subflow Bwd Bytes,0.031945601840571
+baseline_random_forest_mdi_rank_top_k,Top_50,11,Down/Up Ratio,0.0298781933538742
+baseline_random_forest_mdi_rank_top_k,Top_50,12,Subflow Fwd Bytes,0.0276269282772819
+baseline_random_forest_mdi_rank_top_k,Top_50,13,Fwd Act Data Packets,0.0270011155157103
+baseline_random_forest_mdi_rank_top_k,Top_50,14,Fwd Packet Length Mean,0.0252105364580206
+baseline_random_forest_mdi_rank_top_k,Top_50,15,Fwd PSH Flags,0.0247514244397171
+baseline_random_forest_mdi_rank_top_k,Top_50,16,Init Fwd Win Bytes,0.0224633815702279
+baseline_random_forest_mdi_rank_top_k,Top_50,17,Avg Packet Size,0.0208874388775122
+baseline_random_forest_mdi_rank_top_k,Top_50,18,RST Flag Count,0.0185041095667733
+baseline_random_forest_mdi_rank_top_k,Top_50,19,Flow Bytes/s,0.0176492764379366
+baseline_random_forest_mdi_rank_top_k,Top_50,20,Bwd Packet Length Min,0.0159550707295934
+baseline_random_forest_mdi_rank_top_k,Top_50,21,Packet Length Mean,0.014511591330942
+baseline_random_forest_mdi_rank_top_k,Top_50,22,Flow IAT Max,0.013195181644948
+baseline_random_forest_mdi_rank_top_k,Top_50,23,Fwd Packets Length Total,0.0129352961562454
+baseline_random_forest_mdi_rank_top_k,Top_50,24,ACK Flag Count,0.0125115016787176
+baseline_random_forest_mdi_rank_top_k,Top_50,25,Fwd Packets/s,0.0117165574906939
+baseline_random_forest_mdi_rank_top_k,Top_50,26,CWE Flag Count,0.0116832764123185
+baseline_random_forest_mdi_rank_top_k,Top_50,27,Fwd IAT Total,0.0114696755141959
+baseline_random_forest_mdi_rank_top_k,Top_50,28,Packet Length Variance,0.0110677127516175
+baseline_random_forest_mdi_rank_top_k,Top_50,29,Fwd IAT Mean,0.0104208535287205
+baseline_random_forest_mdi_rank_top_k,Top_50,30,Flow Packets/s,0.0101195775624915
+baseline_random_forest_mdi_rank_top_k,Top_50,31,Flow IAT Mean,0.009793280733747
+baseline_random_forest_mdi_rank_top_k,Top_50,32,Flow IAT Std,0.0091440194747759
+baseline_random_forest_mdi_rank_top_k,Top_50,33,Subflow Fwd Packets,0.0082685331200234
+baseline_random_forest_mdi_rank_top_k,Top_50,34,Flow Duration,0.0075633520861282
+baseline_random_forest_mdi_rank_top_k,Top_50,35,Total Fwd Packets,0.0063766475897894
+baseline_random_forest_mdi_rank_top_k,Top_50,36,Avg Fwd Segment Size,0.005075850099589
+baseline_random_forest_mdi_rank_top_k,Top_50,37,Packet Length Max,0.0047109078383879
+baseline_random_forest_mdi_rank_top_k,Top_50,38,Flow IAT Min,0.0044196830829301
+baseline_random_forest_mdi_rank_top_k,Top_50,39,Fwd IAT Max,0.0043903204333421
+baseline_random_forest_mdi_rank_top_k,Top_50,40,Fwd Packet Length Std,0.0043792453838617
+baseline_random_forest_mdi_rank_top_k,Top_50,41,Packet Length Std,0.0040753380803292
+baseline_random_forest_mdi_rank_top_k,Top_50,42,Fwd IAT Std,0.0034123252082814
+baseline_random_forest_mdi_rank_top_k,Top_50,43,Fwd Packet Length Max,0.0031547345241408
+baseline_random_forest_mdi_rank_top_k,Top_50,44,Bwd Header Length,0.0024121298870507
+baseline_random_forest_mdi_rank_top_k,Top_50,45,Idle Std,0.0023247164457823
+baseline_random_forest_mdi_rank_top_k,Top_50,46,Fwd Header Length,0.0021993413206114
+baseline_random_forest_mdi_rank_top_k,Top_50,47,Subflow Bwd Packets,0.0021502040842544
+baseline_random_forest_mdi_rank_top_k,Top_50,48,Fwd IAT Min,0.0017758363950682
+baseline_random_forest_mdi_rank_top_k,Top_50,49,Total Backward Packets,0.0014997686013946
+baseline_random_forest_mdi_rank_top_k,Top_50,50,Fwd Seg Size Min,0.0010021455341957
+baseline_random_forest_mdi_rank_top_k,Top_40,1,URG Flag Count,0.0993175085425371
+baseline_random_forest_mdi_rank_top_k,Top_40,2,Bwd Packets/s,0.095232800347493
+baseline_random_forest_mdi_rank_top_k,Top_40,3,Packet Length Min,0.0576908485239037
+baseline_random_forest_mdi_rank_top_k,Top_40,4,Bwd Packet Length Max,0.0550381847197368
+baseline_random_forest_mdi_rank_top_k,Top_40,5,Bwd Packet Length Mean,0.0494777561807203
+baseline_random_forest_mdi_rank_top_k,Top_40,6,Avg Bwd Segment Size,0.0479466218536774
+baseline_random_forest_mdi_rank_top_k,Top_40,7,Bwd Packets Length Total,0.0413302247704075
+baseline_random_forest_mdi_rank_top_k,Top_40,8,Init Bwd Win Bytes,0.0399146063749103
+baseline_random_forest_mdi_rank_top_k,Top_40,9,Fwd Packet Length Min,0.0392148355661936
+baseline_random_forest_mdi_rank_top_k,Top_40,10,Subflow Bwd Bytes,0.031945601840571
+baseline_random_forest_mdi_rank_top_k,Top_40,11,Down/Up Ratio,0.0298781933538742
+baseline_random_forest_mdi_rank_top_k,Top_40,12,Subflow Fwd Bytes,0.0276269282772819
+baseline_random_forest_mdi_rank_top_k,Top_40,13,Fwd Act Data Packets,0.0270011155157103
+baseline_random_forest_mdi_rank_top_k,Top_40,14,Fwd Packet Length Mean,0.0252105364580206
+baseline_random_forest_mdi_rank_top_k,Top_40,15,Fwd PSH Flags,0.0247514244397171
+baseline_random_forest_mdi_rank_top_k,Top_40,16,Init Fwd Win Bytes,0.0224633815702279
+baseline_random_forest_mdi_rank_top_k,Top_40,17,Avg Packet Size,0.0208874388775122
+baseline_random_forest_mdi_rank_top_k,Top_40,18,RST Flag Count,0.0185041095667733
+baseline_random_forest_mdi_rank_top_k,Top_40,19,Flow Bytes/s,0.0176492764379366
+baseline_random_forest_mdi_rank_top_k,Top_40,20,Bwd Packet Length Min,0.0159550707295934
+baseline_random_forest_mdi_rank_top_k,Top_40,21,Packet Length Mean,0.014511591330942
+baseline_random_forest_mdi_rank_top_k,Top_40,22,Flow IAT Max,0.013195181644948
+baseline_random_forest_mdi_rank_top_k,Top_40,23,Fwd Packets Length Total,0.0129352961562454
+baseline_random_forest_mdi_rank_top_k,Top_40,24,ACK Flag Count,0.0125115016787176
+baseline_random_forest_mdi_rank_top_k,Top_40,25,Fwd Packets/s,0.0117165574906939
+baseline_random_forest_mdi_rank_top_k,Top_40,26,CWE Flag Count,0.0116832764123185
+baseline_random_forest_mdi_rank_top_k,Top_40,27,Fwd IAT Total,0.0114696755141959
+baseline_random_forest_mdi_rank_top_k,Top_40,28,Packet Length Variance,0.0110677127516175
+baseline_random_forest_mdi_rank_top_k,Top_40,29,Fwd IAT Mean,0.0104208535287205
+baseline_random_forest_mdi_rank_top_k,Top_40,30,Flow Packets/s,0.0101195775624915
+baseline_random_forest_mdi_rank_top_k,Top_40,31,Flow IAT Mean,0.009793280733747
+baseline_random_forest_mdi_rank_top_k,Top_40,32,Flow IAT Std,0.0091440194747759
+baseline_random_forest_mdi_rank_top_k,Top_40,33,Subflow Fwd Packets,0.0082685331200234
+baseline_random_forest_mdi_rank_top_k,Top_40,34,Flow Duration,0.0075633520861282
+baseline_random_forest_mdi_rank_top_k,Top_40,35,Total Fwd Packets,0.0063766475897894
+baseline_random_forest_mdi_rank_top_k,Top_40,36,Avg Fwd Segment Size,0.005075850099589
+baseline_random_forest_mdi_rank_top_k,Top_40,37,Packet Length Max,0.0047109078383879
+baseline_random_forest_mdi_rank_top_k,Top_40,38,Flow IAT Min,0.0044196830829301
+baseline_random_forest_mdi_rank_top_k,Top_40,39,Fwd IAT Max,0.0043903204333421
+baseline_random_forest_mdi_rank_top_k,Top_40,40,Fwd Packet Length Std,0.0043792453838617
+baseline_random_forest_mdi_rank_top_k,Top_30,1,URG Flag Count,0.0993175085425371
+baseline_random_forest_mdi_rank_top_k,Top_30,2,Bwd Packets/s,0.095232800347493
+baseline_random_forest_mdi_rank_top_k,Top_30,3,Packet Length Min,0.0576908485239037
+baseline_random_forest_mdi_rank_top_k,Top_30,4,Bwd Packet Length Max,0.0550381847197368
+baseline_random_forest_mdi_rank_top_k,Top_30,5,Bwd Packet Length Mean,0.0494777561807203
+baseline_random_forest_mdi_rank_top_k,Top_30,6,Avg Bwd Segment Size,0.0479466218536774
+baseline_random_forest_mdi_rank_top_k,Top_30,7,Bwd Packets Length Total,0.0413302247704075
+baseline_random_forest_mdi_rank_top_k,Top_30,8,Init Bwd Win Bytes,0.0399146063749103
+baseline_random_forest_mdi_rank_top_k,Top_30,9,Fwd Packet Length Min,0.0392148355661936
+baseline_random_forest_mdi_rank_top_k,Top_30,10,Subflow Bwd Bytes,0.031945601840571
+baseline_random_forest_mdi_rank_top_k,Top_30,11,Down/Up Ratio,0.0298781933538742
+baseline_random_forest_mdi_rank_top_k,Top_30,12,Subflow Fwd Bytes,0.0276269282772819
+baseline_random_forest_mdi_rank_top_k,Top_30,13,Fwd Act Data Packets,0.0270011155157103
+baseline_random_forest_mdi_rank_top_k,Top_30,14,Fwd Packet Length Mean,0.0252105364580206
+baseline_random_forest_mdi_rank_top_k,Top_30,15,Fwd PSH Flags,0.0247514244397171
+baseline_random_forest_mdi_rank_top_k,Top_30,16,Init Fwd Win Bytes,0.0224633815702279
+baseline_random_forest_mdi_rank_top_k,Top_30,17,Avg Packet Size,0.0208874388775122
+baseline_random_forest_mdi_rank_top_k,Top_30,18,RST Flag Count,0.0185041095667733
+baseline_random_forest_mdi_rank_top_k,Top_30,19,Flow Bytes/s,0.0176492764379366
+baseline_random_forest_mdi_rank_top_k,Top_30,20,Bwd Packet Length Min,0.0159550707295934
+baseline_random_forest_mdi_rank_top_k,Top_30,21,Packet Length Mean,0.014511591330942
+baseline_random_forest_mdi_rank_top_k,Top_30,22,Flow IAT Max,0.013195181644948
+baseline_random_forest_mdi_rank_top_k,Top_30,23,Fwd Packets Length Total,0.0129352961562454
+baseline_random_forest_mdi_rank_top_k,Top_30,24,ACK Flag Count,0.0125115016787176
+baseline_random_forest_mdi_rank_top_k,Top_30,25,Fwd Packets/s,0.0117165574906939
+baseline_random_forest_mdi_rank_top_k,Top_30,26,CWE Flag Count,0.0116832764123185
+baseline_random_forest_mdi_rank_top_k,Top_30,27,Fwd IAT Total,0.0114696755141959
+baseline_random_forest_mdi_rank_top_k,Top_30,28,Packet Length Variance,0.0110677127516175
+baseline_random_forest_mdi_rank_top_k,Top_30,29,Fwd IAT Mean,0.0104208535287205
+baseline_random_forest_mdi_rank_top_k,Top_30,30,Flow Packets/s,0.0101195775624915
+baseline_random_forest_mdi_rank_top_k,Top_20,1,URG Flag Count,0.0993175085425371
+baseline_random_forest_mdi_rank_top_k,Top_20,2,Bwd Packets/s,0.095232800347493
+baseline_random_forest_mdi_rank_top_k,Top_20,3,Packet Length Min,0.0576908485239037
+baseline_random_forest_mdi_rank_top_k,Top_20,4,Bwd Packet Length Max,0.0550381847197368
+baseline_random_forest_mdi_rank_top_k,Top_20,5,Bwd Packet Length Mean,0.0494777561807203
+baseline_random_forest_mdi_rank_top_k,Top_20,6,Avg Bwd Segment Size,0.0479466218536774
+baseline_random_forest_mdi_rank_top_k,Top_20,7,Bwd Packets Length Total,0.0413302247704075
+baseline_random_forest_mdi_rank_top_k,Top_20,8,Init Bwd Win Bytes,0.0399146063749103
+baseline_random_forest_mdi_rank_top_k,Top_20,9,Fwd Packet Length Min,0.0392148355661936
+baseline_random_forest_mdi_rank_top_k,Top_20,10,Subflow Bwd Bytes,0.031945601840571
+baseline_random_forest_mdi_rank_top_k,Top_20,11,Down/Up Ratio,0.0298781933538742
+baseline_random_forest_mdi_rank_top_k,Top_20,12,Subflow Fwd Bytes,0.0276269282772819
+baseline_random_forest_mdi_rank_top_k,Top_20,13,Fwd Act Data Packets,0.0270011155157103
+baseline_random_forest_mdi_rank_top_k,Top_20,14,Fwd Packet Length Mean,0.0252105364580206
+baseline_random_forest_mdi_rank_top_k,Top_20,15,Fwd PSH Flags,0.0247514244397171
+baseline_random_forest_mdi_rank_top_k,Top_20,16,Init Fwd Win Bytes,0.0224633815702279
+baseline_random_forest_mdi_rank_top_k,Top_20,17,Avg Packet Size,0.0208874388775122
+baseline_random_forest_mdi_rank_top_k,Top_20,18,RST Flag Count,0.0185041095667733
+baseline_random_forest_mdi_rank_top_k,Top_20,19,Flow Bytes/s,0.0176492764379366
+baseline_random_forest_mdi_rank_top_k,Top_20,20,Bwd Packet Length Min,0.0159550707295934
+baseline_random_forest_mdi_rank_top_k,Top_10,1,URG Flag Count,0.0993175085425371
+baseline_random_forest_mdi_rank_top_k,Top_10,2,Bwd Packets/s,0.095232800347493
+baseline_random_forest_mdi_rank_top_k,Top_10,3,Packet Length Min,0.0576908485239037
+baseline_random_forest_mdi_rank_top_k,Top_10,4,Bwd Packet Length Max,0.0550381847197368
+baseline_random_forest_mdi_rank_top_k,Top_10,5,Bwd Packet Length Mean,0.0494777561807203
+baseline_random_forest_mdi_rank_top_k,Top_10,6,Avg Bwd Segment Size,0.0479466218536774
+baseline_random_forest_mdi_rank_top_k,Top_10,7,Bwd Packets Length Total,0.0413302247704075
+baseline_random_forest_mdi_rank_top_k,Top_10,8,Init Bwd Win Bytes,0.0399146063749103
+baseline_random_forest_mdi_rank_top_k,Top_10,9,Fwd Packet Length Min,0.0392148355661936
+baseline_random_forest_mdi_rank_top_k,Top_10,10,Subflow Bwd Bytes,0.031945601840571

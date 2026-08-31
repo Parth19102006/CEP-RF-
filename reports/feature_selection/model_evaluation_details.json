@@ -1,0 +1,625 @@
+[
+  {
+    "model": "Baseline_65",
+    "feature_count": 65,
+    "feature_names": [
+      "Protocol",
+      "Flow Duration",
+      "Total Fwd Packets",
+      "Total Backward Packets",
+      "Fwd Packets Length Total",
+      "Bwd Packets Length Total",
+      "Fwd Packet Length Max",
+      "Fwd Packet Length Min",
+      "Fwd Packet Length Mean",
+      "Fwd Packet Length Std",
+      "Bwd Packet Length Max",
+      "Bwd Packet Length Min",
+      "Bwd Packet Length Mean",
+      "Bwd Packet Length Std",
+      "Flow Bytes/s",
+      "Flow Packets/s",
+      "Flow IAT Mean",
+      "Flow IAT Std",
+      "Flow IAT Max",
+      "Flow IAT Min",
+      "Fwd IAT Total",
+      "Fwd IAT Mean",
+      "Fwd IAT Std",
+      "Fwd IAT Max",
+      "Fwd IAT Min",
+      "Bwd IAT Total",
+      "Bwd IAT Mean",
+      "Bwd IAT Std",
+      "Bwd IAT Max",
+      "Bwd IAT Min",
+      "Fwd PSH Flags",
+      "Fwd Header Length",
+      "Bwd Header Length",
+      "Fwd Packets/s",
+      "Bwd Packets/s",
+      "Packet Length Min",
+      "Packet Length Max",
+      "Packet Length Mean",
+      "Packet Length Std",
+      "Packet Length Variance",
+      "SYN Flag Count",
+      "RST Flag Count",
+      "ACK Flag Count",
+      "URG Flag Count",
+      "CWE Flag Count",
+      "Down/Up Ratio",
+      "Avg Packet Size",
+      "Avg Fwd Segment Size",
+      "Avg Bwd Segment Size",
+      "Subflow Fwd Packets",
+      "Subflow Fwd Bytes",
+      "Subflow Bwd Packets",
+      "Subflow Bwd Bytes",
+      "Init Fwd Win Bytes",
+      "Init Bwd Win Bytes",
+      "Fwd Act Data Packets",
+      "Fwd Seg Size Min",
+      "Active Mean",
+      "Active Std",
+      "Active Max",
+      "Active Min",
+      "Idle Mean",
+      "Idle Std",
+      "Idle Max",
+      "Idle Min"
+    ],
+    "model_path": "models\\rf_baseline.joblib",
+    "training_time_seconds": 4.525479399948381,
+    "test_prediction_time_seconds": 0.45807120006065816,
+    "test_predict_proba_time_seconds": 0.44582769996486604,
+    "metrics": {
+      "accuracy": 0.9728446347333941,
+      "precision": 0.9997283225743666,
+      "recall": 0.9676291322111328,
+      "f1_score": 0.9834168639424985,
+      "roc_auc": 0.9945409300595867,
+      "true_negatives": 51337,
+      "false_positives": 67,
+      "false_negatives": 8248,
+      "true_positives": 246549,
+      "confusion_matrix": {
+        "labels": [
+          0,
+          1
+        ],
+        "class_names": [
+          "Benign",
+          "DDoS/Attack"
+        ],
+        "matrix": [
+          [
+            51337,
+            67
+          ],
+          [
+            8248,
+            246549
+          ]
+        ]
+      },
+      "per_class": {
+        "Benign": {
+          "precision": 0.8615758999748259,
+          "recall": 0.9986965994864213,
+          "f1-score": 0.925082665849769,
+          "support": 51404.0
+        },
+        "DDoS/Attack": {
+          "precision": 0.9997283225743666,
+          "recall": 0.9676291322111328,
+          "f1-score": 0.9834168639424985,
+          "support": 254797.0
+        },
+        "accuracy": 0.9728446347333941,
+        "macro avg": {
+          "precision": 0.9306521112745962,
+          "recall": 0.983162865848777,
+          "f1-score": 0.9542497648961337,
+          "support": 306201.0
+        },
+        "weighted avg": {
+          "precision": 0.9765357558247256,
+          "recall": 0.9728446347333941,
+          "f1-score": 0.9736239138255536,
+          "support": 306201.0
+        }
+      }
+    }
+  },
+  {
+    "model": "Top_50",
+    "feature_count": 50,
+    "feature_names": [
+      "URG Flag Count",
+      "Bwd Packets/s",
+      "Packet Length Min",
+      "Bwd Packet Length Max",
+      "Bwd Packet Length Mean",
+      "Avg Bwd Segment Size",
+      "Bwd Packets Length Total",
+      "Init Bwd Win Bytes",
+      "Fwd Packet Length Min",
+      "Subflow Bwd Bytes",
+      "Down/Up Ratio",
+      "Subflow Fwd Bytes",
+      "Fwd Act Data Packets",
+      "Fwd Packet Length Mean",
+      "Fwd PSH Flags",
+      "Init Fwd Win Bytes",
+      "Avg Packet Size",
+      "RST Flag Count",
+      "Flow Bytes/s",
+      "Bwd Packet Length Min",
+      "Packet Length Mean",
+      "Flow IAT Max",
+      "Fwd Packets Length Total",
+      "ACK Flag Count",
+      "Fwd Packets/s",
+      "CWE Flag Count",
+      "Fwd IAT Total",
+      "Packet Length Variance",
+      "Fwd IAT Mean",
+      "Flow Packets/s",
+      "Flow IAT Mean",
+      "Flow IAT Std",
+      "Subflow Fwd Packets",
+      "Flow Duration",
+      "Total Fwd Packets",
+      "Avg Fwd Segment Size",
+      "Packet Length Max",
+      "Flow IAT Min",
+      "Fwd IAT Max",
+      "Fwd Packet Length Std",
+      "Packet Length Std",
+      "Fwd IAT Std",
+      "Fwd Packet Length Max",
+      "Bwd Header Length",
+      "Idle Std",
+      "Fwd Header Length",
+      "Subflow Bwd Packets",
+      "Fwd IAT Min",
+      "Total Backward Packets",
+      "Fwd Seg Size Min"
+    ],
+    "model_path": "models\\rf_top50.joblib",
+    "training_time_seconds": 2.8734298000345007,
+    "test_prediction_time_seconds": 0.2957186000421643,
+    "test_predict_proba_time_seconds": 0.2964618999976665,
+    "metrics": {
+      "accuracy": 0.9720771649994612,
+      "precision": 0.9986755825209295,
+      "recall": 0.967727249535905,
+      "f1_score": 0.9829578750563088,
+      "roc_auc": 0.9928151399982349,
+      "true_negatives": 51077,
+      "false_positives": 327,
+      "false_negatives": 8223,
+      "true_positives": 246574,
+      "confusion_matrix": {
+        "labels": [
+          0,
+          1
+        ],
+        "class_names": [
+          "Benign",
+          "DDoS/Attack"
+        ],
+        "matrix": [
+          [
+            51077,
+            327
+          ],
+          [
+            8223,
+            246574
+          ]
+        ]
+      },
+      "per_class": {
+        "Benign": {
+          "precision": 0.8613322091062394,
+          "recall": 0.9936386273441755,
+          "f1-score": 0.9227670183552537,
+          "support": 51404.0
+        },
+        "DDoS/Attack": {
+          "precision": 0.9986755825209295,
+          "recall": 0.967727249535905,
+          "f1-score": 0.9829578750563088,
+          "support": 254797.0
+        },
+        "accuracy": 0.9720771649994612,
+        "macro avg": {
+          "precision": 0.9300038958135844,
+          "recall": 0.9806829384400403,
+          "f1-score": 0.9528624467057812,
+          "support": 306201.0
+        },
+        "weighted avg": {
+          "precision": 0.9756188362431293,
+          "recall": 0.9720771649994612,
+          "f1-score": 0.972853235300524,
+          "support": 306201.0
+        }
+      }
+    }
+  },
+  {
+    "model": "Top_40",
+    "feature_count": 40,
+    "feature_names": [
+      "URG Flag Count",
+      "Bwd Packets/s",
+      "Packet Length Min",
+      "Bwd Packet Length Max",
+      "Bwd Packet Length Mean",
+      "Avg Bwd Segment Size",
+      "Bwd Packets Length Total",
+      "Init Bwd Win Bytes",
+      "Fwd Packet Length Min",
+      "Subflow Bwd Bytes",
+      "Down/Up Ratio",
+      "Subflow Fwd Bytes",
+      "Fwd Act Data Packets",
+      "Fwd Packet Length Mean",
+      "Fwd PSH Flags",
+      "Init Fwd Win Bytes",
+      "Avg Packet Size",
+      "RST Flag Count",
+      "Flow Bytes/s",
+      "Bwd Packet Length Min",
+      "Packet Length Mean",
+      "Flow IAT Max",
+      "Fwd Packets Length Total",
+      "ACK Flag Count",
+      "Fwd Packets/s",
+      "CWE Flag Count",
+      "Fwd IAT Total",
+      "Packet Length Variance",
+      "Fwd IAT Mean",
+      "Flow Packets/s",
+      "Flow IAT Mean",
+      "Flow IAT Std",
+      "Subflow Fwd Packets",
+      "Flow Duration",
+      "Total Fwd Packets",
+      "Avg Fwd Segment Size",
+      "Packet Length Max",
+      "Flow IAT Min",
+      "Fwd IAT Max",
+      "Fwd Packet Length Std"
+    ],
+    "model_path": "models\\rf_top40.joblib",
+    "training_time_seconds": 2.408430400013458,
+    "test_prediction_time_seconds": 0.28981279995059595,
+    "test_predict_proba_time_seconds": 0.29543090000515804,
+    "metrics": {
+      "accuracy": 0.9725735709550263,
+      "precision": 0.9997444478247642,
+      "recall": 0.9672876839209252,
+      "f1_score": 0.9832482915172285,
+      "roc_auc": 0.9958604866049982,
+      "true_negatives": 51341,
+      "false_positives": 63,
+      "false_negatives": 8335,
+      "true_positives": 246462,
+      "confusion_matrix": {
+        "labels": [
+          0,
+          1
+        ],
+        "class_names": [
+          "Benign",
+          "DDoS/Attack"
+        ],
+        "matrix": [
+          [
+            51341,
+            63
+          ],
+          [
+            8335,
+            246462
+          ]
+        ]
+      },
+      "per_class": {
+        "Benign": {
+          "precision": 0.8603291105301963,
+          "recall": 0.9987744144424558,
+          "f1-score": 0.9243968311127115,
+          "support": 51404.0
+        },
+        "DDoS/Attack": {
+          "precision": 0.9997444478247642,
+          "recall": 0.9672876839209252,
+          "f1-score": 0.9832482915172285,
+          "support": 254797.0
+        },
+        "accuracy": 0.9725735709550263,
+        "macro avg": {
+          "precision": 0.9300367791774803,
+          "recall": 0.9830310491816905,
+          "f1-score": 0.95382256131497,
+          "support": 306201.0
+        },
+        "weighted avg": {
+          "precision": 0.9763398671790775,
+          "recall": 0.9725735709550263,
+          "f1-score": 0.973368505133011,
+          "support": 306201.0
+        }
+      }
+    }
+  },
+  {
+    "model": "Top_30",
+    "feature_count": 30,
+    "feature_names": [
+      "URG Flag Count",
+      "Bwd Packets/s",
+      "Packet Length Min",
+      "Bwd Packet Length Max",
+      "Bwd Packet Length Mean",
+      "Avg Bwd Segment Size",
+      "Bwd Packets Length Total",
+      "Init Bwd Win Bytes",
+      "Fwd Packet Length Min",
+      "Subflow Bwd Bytes",
+      "Down/Up Ratio",
+      "Subflow Fwd Bytes",
+      "Fwd Act Data Packets",
+      "Fwd Packet Length Mean",
+      "Fwd PSH Flags",
+      "Init Fwd Win Bytes",
+      "Avg Packet Size",
+      "RST Flag Count",
+      "Flow Bytes/s",
+      "Bwd Packet Length Min",
+      "Packet Length Mean",
+      "Flow IAT Max",
+      "Fwd Packets Length Total",
+      "ACK Flag Count",
+      "Fwd Packets/s",
+      "CWE Flag Count",
+      "Fwd IAT Total",
+      "Packet Length Variance",
+      "Fwd IAT Mean",
+      "Flow Packets/s"
+    ],
+    "model_path": "models\\rf_top30.joblib",
+    "training_time_seconds": 2.0226254999870434,
+    "test_prediction_time_seconds": 0.2642735000117682,
+    "test_predict_proba_time_seconds": 0.2581977000227198,
+    "metrics": {
+      "accuracy": 0.972841368904739,
+      "precision": 0.9997769586075729,
+      "recall": 0.9675781112022512,
+      "f1_score": 0.9834140426176933,
+      "roc_auc": 0.9948206803725914,
+      "true_negatives": 51349,
+      "false_positives": 55,
+      "false_negatives": 8261,
+      "true_positives": 246536,
+      "confusion_matrix": {
+        "labels": [
+          0,
+          1
+        ],
+        "class_names": [
+          "Benign",
+          "DDoS/Attack"
+        ],
+        "matrix": [
+          [
+            51349,
+            55
+          ],
+          [
+            8261,
+            246536
+          ]
+        ]
+      },
+      "per_class": {
+        "Benign": {
+          "precision": 0.8614158698204999,
+          "recall": 0.9989300443545249,
+          "f1-score": 0.925090529122453,
+          "support": 51404.0
+        },
+        "DDoS/Attack": {
+          "precision": 0.9997769586075729,
+          "recall": 0.9675781112022512,
+          "f1-score": 0.9834140426176933,
+          "support": 254797.0
+        },
+        "accuracy": 0.972841368904739,
+        "macro avg": {
+          "precision": 0.9305964142140364,
+          "recall": 0.983254077778388,
+          "f1-score": 0.9542522858700732,
+          "support": 306201.0
+        },
+        "weighted avg": {
+          "precision": 0.9765493616761106,
+          "recall": 0.972841368904739,
+          "f1-score": 0.9736228861952474,
+          "support": 306201.0
+        }
+      }
+    }
+  },
+  {
+    "model": "Top_20",
+    "feature_count": 20,
+    "feature_names": [
+      "URG Flag Count",
+      "Bwd Packets/s",
+      "Packet Length Min",
+      "Bwd Packet Length Max",
+      "Bwd Packet Length Mean",
+      "Avg Bwd Segment Size",
+      "Bwd Packets Length Total",
+      "Init Bwd Win Bytes",
+      "Fwd Packet Length Min",
+      "Subflow Bwd Bytes",
+      "Down/Up Ratio",
+      "Subflow Fwd Bytes",
+      "Fwd Act Data Packets",
+      "Fwd Packet Length Mean",
+      "Fwd PSH Flags",
+      "Init Fwd Win Bytes",
+      "Avg Packet Size",
+      "RST Flag Count",
+      "Flow Bytes/s",
+      "Bwd Packet Length Min"
+    ],
+    "model_path": "models\\rf_top20.joblib",
+    "training_time_seconds": 1.3395280000404455,
+    "test_prediction_time_seconds": 0.25551019998965785,
+    "test_predict_proba_time_seconds": 0.25710079999407753,
+    "metrics": {
+      "accuracy": 0.9710680239450556,
+      "precision": 0.9987871953791738,
+      "recall": 0.9664046279979749,
+      "f1_score": 0.982329110591164,
+      "roc_auc": 0.9919537736844958,
+      "true_negatives": 51105,
+      "false_positives": 299,
+      "false_negatives": 8560,
+      "true_positives": 246237,
+      "confusion_matrix": {
+        "labels": [
+          0,
+          1
+        ],
+        "class_names": [
+          "Benign",
+          "DDoS/Attack"
+        ],
+        "matrix": [
+          [
+            51105,
+            299
+          ],
+          [
+            8560,
+            246237
+          ]
+        ]
+      },
+      "per_class": {
+        "Benign": {
+          "precision": 0.8565323053716585,
+          "recall": 0.9941833320364174,
+          "f1-score": 0.9202387704940173,
+          "support": 51404.0
+        },
+        "DDoS/Attack": {
+          "precision": 0.9987871953791738,
+          "recall": 0.9664046279979749,
+          "f1-score": 0.982329110591164,
+          "support": 254797.0
+        },
+        "accuracy": 0.9710680239450556,
+        "macro avg": {
+          "precision": 0.9276597503754161,
+          "recall": 0.9802939800171961,
+          "f1-score": 0.9512839405425906,
+          "support": 306201.0
+        },
+        "weighted avg": {
+          "precision": 0.9749059201189809,
+          "recall": 0.9710680239450556,
+          "f1-score": 0.9719055919143675,
+          "support": 306201.0
+        }
+      }
+    }
+  },
+  {
+    "model": "Top_10",
+    "feature_count": 10,
+    "feature_names": [
+      "URG Flag Count",
+      "Bwd Packets/s",
+      "Packet Length Min",
+      "Bwd Packet Length Max",
+      "Bwd Packet Length Mean",
+      "Avg Bwd Segment Size",
+      "Bwd Packets Length Total",
+      "Init Bwd Win Bytes",
+      "Fwd Packet Length Min",
+      "Subflow Bwd Bytes"
+    ],
+    "model_path": "models\\rf_top10.joblib",
+    "training_time_seconds": 0.8824147999985144,
+    "test_prediction_time_seconds": 0.2496087000472471,
+    "test_predict_proba_time_seconds": 0.24501429998781532,
+    "metrics": {
+      "accuracy": 0.9770314270691474,
+      "precision": 0.9997337593184239,
+      "recall": 0.9726566639324639,
+      "f1_score": 0.9860093536213952,
+      "roc_auc": 0.9951416952393666,
+      "true_negatives": 51338,
+      "false_positives": 66,
+      "false_negatives": 6967,
+      "true_positives": 247830,
+      "confusion_matrix": {
+        "labels": [
+          0,
+          1
+        ],
+        "class_names": [
+          "Benign",
+          "DDoS/Attack"
+        ],
+        "matrix": [
+          [
+            51338,
+            66
+          ],
+          [
+            6967,
+            247830
+          ]
+        ]
+      },
+      "per_class": {
+        "Benign": {
+          "precision": 0.8805076751565046,
+          "recall": 0.9987160532254299,
+          "f1-score": 0.9358940469788258,
+          "support": 51404.0
+        },
+        "DDoS/Attack": {
+          "precision": 0.9997337593184239,
+          "recall": 0.9726566639324639,
+          "f1-score": 0.9860093536213952,
+          "support": 254797.0
+        },
+        "accuracy": 0.9770314270691474,
+        "macro avg": {
+          "precision": 0.9401207172374643,
+          "recall": 0.9856863585789468,
+          "f1-score": 0.9609517003001105,
+          "support": 306201.0
+        },
+        "weighted avg": {
+          "precision": 0.9797184829794855,
+          "recall": 0.9770314270691474,
+          "f1-score": 0.977596163518637,
+          "support": 306201.0
+        }
+      }
+    }
+  }
+]
