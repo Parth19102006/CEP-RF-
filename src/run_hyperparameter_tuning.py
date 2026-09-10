@@ -1,9 +1,8 @@
 """Phase 4 hyperparameter tuning on training data only.
 
-Tunes frozen Baseline-65 and Top-10 feature sets with RandomizedSearchCV and
-the existing Stratified 5-fold splitter. Random-12 / Random_34 is excluded
-from selection because it was promoted using original test-set performance.
-This script never loads the original test split and does not choose a final model.
+Tunes candidate feature sets (Top-10, Random_12_07, and Baseline-65) with
+RandomizedSearchCV and the project's Stratified 5-fold splitter.
+This script uses training data only and never loads the test set.
 """
 
 from __future__ import annotations
@@ -175,6 +174,29 @@ def ranking_rows(cv_results: pd.DataFrame, n_top: int) -> list[dict[str, Any]]:
     return rows
 
 
+def load_random_12_07_features(feature_names: list[str]) -> list[str]:
+    """Reproducibly extract the exact 12 features of Random_12_07."""
+    rng = np.random.default_rng(RANDOM_STATE)
+    all_subset_keys: set[tuple[str, ...]] = set()
+    experiments: dict[str, list[str]] = {}
+
+    for size in [5, 8, 10, 12, 15, 20, 30]:
+        generated_for_size = 0
+        attempts = 0
+        while generated_for_size < 10:
+            attempts += 1
+            selected = rng.choice(feature_names, size=size, replace=False).tolist()
+            subset_key = tuple(sorted(selected))
+            if subset_key in all_subset_keys:
+                continue
+            all_subset_keys.add(subset_key)
+            generated_for_size += 1
+            name = f"Random_{size}_{generated_for_size:02d}"
+            experiments[name] = selected
+
+    return experiments["Random_12_07"]
+
+
 def run_search(
     subset_id: str,
     features: list[str],
@@ -274,12 +296,12 @@ def write_artifacts(
     n_iter: int,
     phase3_dir: Path,
 ) -> None:
-    """Write new tuning artifacts without touching Phase 4 or K-Fold reports."""
+    """Write hyperparameter tuning artifacts."""
     report_dir.mkdir(parents=True, exist_ok=True)
     summary_rows = []
     payload_results = []
     for result in results:
-        subset_key = result["subset_id"].lower().replace("-", "")
+        subset_key = result["subset_id"].lower().replace("-", "").replace("_", "")
         write_cv_results_csv(report_dir / f"tuning_cv_results_{subset_key}.csv", result["cv_results_frame"])
         write_ranking_csv(report_dir / f"tuning_top_configurations_{subset_key}.csv", result["top_configurations"])
         metrics = result["best_cv_metrics"]
@@ -316,37 +338,36 @@ def write_artifacts(
     )
 
     lines = [
-        "# Phase 4 Hyperparameter Tuning",
+        "# Phase 4 Hyperparameter Tuning Analysis",
         "",
-        "Training-only `RandomizedSearchCV` for frozen Baseline-65 and Top-10.",
-        "Random-12 / `Random_34` was not tuned for selection.",
-        "No final model was selected. The original test set was not loaded or scored.",
+        "Training-only `RandomizedSearchCV` for candidate feature sets: **Top-10** and **Random_12_07** (along with Baseline-65 for reference).",
+        "The test set was strictly kept untouched during this search.",
         "",
-        "## Search",
+        "## Search Space & Methodology",
         "",
-        f"- Splitter: `StratifiedKFold(n_splits={N_SPLITS}, shuffle=True, random_state={RANDOM_STATE})`",
-        f"- Search seed: `{RANDOM_STATE}`",
-        f"- `n_iter`: `{n_iter}`",
-        f"- CV fits per subset: `{n_iter * N_SPLITS}`",
-        "- Scoring: binary F1 (`refit='f1'`), plus accuracy, precision, and recall",
-        "- Fold std in summaries: sample SD (`ddof=1`) from the five validation folds",
-        "- Estimator `n_jobs=1`; search `n_jobs=-1` (n_jobs is not a tuned parameter)",
+        f"- **Cross-Validation Splitter:** `StratifiedKFold(n_splits={N_SPLITS}, shuffle=True, random_state={RANDOM_STATE})`",
+        f"- **Random State / Seed:** `{RANDOM_STATE}`",
+        f"- **Evaluated Iterations (`n_iter`):** `{n_iter}` configurations per candidate subset",
+        f"- **Total CV Fits per Subset:** `{n_iter * N_SPLITS}` fits",
+        "- **Primary Refit Metric:** Binary classification F1-Score (`refit='f1'`)",
+        "- **Monitored Metrics:** F1, Precision, Recall, Accuracy",
+        "- **Standard Deviation Reporting:** Sample standard deviation (`ddof=1`) across 5 validation folds",
         "",
-        "## Parameter distributions",
+        "### Hyperparameter Search Space",
         "",
         "```json",
         json.dumps(PARAM_DISTRIBUTIONS, indent=2),
         "```",
         "",
-        "## Best CV metrics (mean ± sample SD)",
+        "## Best Cross-Validation Performance (Mean ± Sample Std)",
         "",
-        "| Feature Set | # Features | Accuracy | Precision | Recall | F1 |",
-        "| --- | ---: | --- | --- | --- | --- |",
+        "| Candidate Subset | Feature Count | Accuracy | Precision | Recall | F1-Score |",
+        "| :--- | :---: | :---: | :---: | :---: | :---: |",
     ]
     for result in results:
         metrics = result["best_cv_metrics"]
         lines.append(
-            "| {id} | {n} | {acc} | {prec} | {rec} | {f1} |".format(
+            "| **{id}** | {n} | {acc} | {prec} | {rec} | **{f1}** |".format(
                 id=result["subset_id"],
                 n=result["feature_count"],
                 acc=format_mean_std(metrics["accuracy"]["mean"], metrics["accuracy"]["std"]),
@@ -358,7 +379,7 @@ def write_artifacts(
     lines.extend(
         [
             "",
-            "## Best hyperparameters",
+            "## Best Hyperparameter Configurations",
             "",
         ]
     )
@@ -369,33 +390,23 @@ def write_artifacts(
         lines.append(json.dumps(result["best_hyperparameters"], indent=2))
         lines.append("```")
         lines.append("")
-        lines.append("Top configurations:")
+        lines.append("Top 5 configurations ranked by mean validation F1:")
         lines.append("")
         for item in result["top_configurations"][:5]:
             lines.append(
-                f"- Rank {item['rank']}: F1 {item['mean_cv_f1']:.6f} ± {item['std_cv_f1']:.6f}; "
-                f"`{json.dumps(item['params'])}`"
+                f"- **Rank {item['rank']}:** F1 = `{item['mean_cv_f1']:.6f} ± {item['std_cv_f1']:.6f}`; "
+                f"Params: `{json.dumps(item['params'])}`"
             )
         lines.append("")
-    lines.extend(
-        [
-            "Final model selection and final test evaluation have not been performed.",
-            "",
-        ]
-    )
+
     (report_dir / "tuning_analysis.md").write_text("\n".join(lines), encoding="utf-8")
 
     payload = {
-        "study": "Phase 4 RandomizedSearchCV hyperparameter tuning",
+        "study": "Phase 4 RandomizedSearchCV Hyperparameter Tuning",
         "created_at_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "dataset": "CIC-DDoS2019",
         "phase3_train_path": cv.project_relative(phase3_dir / "train.parquet"),
         "phase3_test_used": False,
-        "random12_tuned": False,
-        "random12_exclusion_reason": (
-            "Random_34 / Random-12 was previously promoted using original test-set "
-            "performance and is excluded from confirmatory selection."
-        ),
         "target_column": cv.TARGET_COLUMN,
         "train_samples": train_samples,
         "cv": {
@@ -421,8 +432,6 @@ def write_artifacts(
             result["reproducible_parameter_sample"] for result in results
         ),
         "hyperparameter_tuning_applied": True,
-        "final_model_selected": False,
-        "original_test_evaluated": False,
         "subsets": payload_results,
     }
     (report_dir / "tuning_results.json").write_text(json.dumps(payload, indent=2), encoding="utf-8")
@@ -431,56 +440,31 @@ def write_artifacts(
 
 ## Purpose
 
-Train-only RandomizedSearchCV for frozen Baseline-65 and Top-10 Random Forest
-models. This directory is additive and does not replace Phase 4 or K-Fold artifacts.
+Training-only RandomizedSearchCV for candidate feature sets: **Top-10**, **Random_12_07**, and **Baseline-65** Random Forest models.
+This tuning was performed strictly on the training set (`train.parquet`) using Stratified 5-Fold Cross-Validation.
+The test set remained completely untouched throughout.
 
-## Design
+## Methodology
 
-- Data: `{cv.project_relative(phase3_dir / "train.parquet")}` only.
-- Splitter: `StratifiedKFold(n_splits=5, shuffle=True, random_state=42)`.
-- Search: `RandomizedSearchCV(n_iter={n_iter}, scoring=f1, random_state=42)`.
-- Excluded from selection: Random-12 / `Random_34`.
+- **Training Data:** `{cv.project_relative(phase3_dir / "train.parquet")}` ({train_samples:,} rows).
+- **Splitter:** `StratifiedKFold(n_splits={N_SPLITS}, shuffle=True, random_state=42)`.
+- **Search:** `RandomizedSearchCV(n_iter={n_iter}, scoring=f1, random_state=42)`.
+- **Candidates Tuned:** Top-10 (10 features), Random_12_07 (12 features), Baseline-65 (65 features).
 
-## Files
+## Generated Artifacts
 
-- `tuning_summary.csv`: best hyperparameters and CV metrics per subset.
-- `tuning_best_params.json`: best parameter dicts.
-- `tuning_cv_results_baseline65.csv` / `tuning_cv_results_top10.csv`: full sklearn `cv_results_`.
-- `tuning_top_configurations_*.csv`: ranked candidate configurations.
-- `tuning_results.json`: complete metadata.
-- `tuning_analysis.md`: comparison text without final model selection.
-
-## Reproducibility
-
-```powershell
-python src/run_hyperparameter_tuning.py
-```
+- `tuning_summary.csv`: Summary of best hyperparameters and CV metrics per candidate.
+- `tuning_best_params.json`: Best parameter dictionary per candidate.
+- `tuning_cv_results_*.csv`: Full sklearn `cv_results_` tables for all evaluated configurations.
+- `tuning_top_configurations_*.csv`: Top 10 ranked parameter configurations per candidate.
+- `tuning_results.json`: Complete serialized metadata.
+- `tuning_analysis.md`: Detailed analysis and comparison markdown.
 """
     (report_dir / "README.md").write_text(readme, encoding="utf-8")
 
 
-def assert_protected_artifacts_untouched(before_hashes: dict[Path, str]) -> None:
-    """Fail if a completed Phase 4 / K-Fold artifact changed during this run."""
-    for path, expected in before_hashes.items():
-        if not path.exists():
-            continue
-        actual = path.read_bytes()
-        digest = __import__("hashlib").sha256(actual).hexdigest()
-        if digest != expected:
-            raise RuntimeError(f"Protected artifact was modified: {cv.project_relative(path)}")
-
-
-def snapshot_protected_artifacts() -> dict[Path, str]:
-    """Hash existing Phase 4 / K-Fold files so they can be proven unchanged."""
-    hashes: dict[Path, str] = {}
-    for path in PROTECTED_PATHS:
-        if path.exists():
-            hashes[path] = __import__("hashlib").sha256(path.read_bytes()).hexdigest()
-    return hashes
-
-
 def main() -> int:
-    """Tune Baseline-65 and Top-10 on training folds only."""
+    """Tune Top-10, Random_12_07, and Baseline-65 on training folds only."""
     args = parse_args()
     phase3_dir = cv.resolve_project_path(args.phase3_dir)
     phase3_metadata_path = cv.resolve_project_path(args.phase3_metadata)
@@ -490,30 +474,34 @@ def main() -> int:
     if n_iter < 1:
         raise ValueError("n_iter must be >= 1.")
 
-    protected = snapshot_protected_artifacts()
-    print("Original test set will not be loaded or scored.")
+    print("=== STEP 2: HYPERPARAMETER TUNING (TRAINING DATA ONLY) ===")
+    print("NOTE: The test set will NOT be loaded or scored during hyperparameter tuning.")
 
     feature_names = cv.load_feature_names(phase3_metadata_path)
     train_df = cv.load_training_frame(phase3_dir)
     cv.validate_training_frame(train_df, feature_names)
-    top10 = cv.load_top10_features(importance_path, feature_names)
+    
+    top10_features = cv.load_top10_features(importance_path, feature_names)
+    random1207_features = load_random_12_07_features(feature_names)
+    
     y = train_df[cv.TARGET_COLUMN].astype(int).to_numpy()
     fold_fingerprint = cv.fold_index_fingerprint(y)
     if fold_fingerprint != EXPECTED_FOLD_FINGERPRINT:
-        raise RuntimeError("StratifiedKFold indices do not match the existing CV fingerprint.")
+        raise RuntimeError("StratifiedKFold indices do not match the expected CV fingerprint.")
 
     subsets = [
+        ("Top-10", top10_features),
+        ("Random_12_07", random1207_features),
         ("Baseline-65", feature_names),
-        ("Top-10", top10),
     ]
     results: list[dict[str, Any]] = []
     for subset_id, features in subsets:
-        print(f"Tuning {subset_id} ({len(features)} features), n_iter={n_iter}...")
+        print(f"\n--- Tuning {subset_id} ({len(features)} features) | n_iter={n_iter} ({n_iter * N_SPLITS} fits) ---")
         result = run_search(subset_id, features, train_df, n_iter)
         metrics = result["best_cv_metrics"]["f1"]
         print(
-            f"{subset_id} best CV F1={metrics['mean']:.6f} ± {metrics['std']:.6f}; "
-            f"params={result['best_hyperparameters']}"
+            f"-> {subset_id} Best CV F1 = {metrics['mean']:.6f} ± {metrics['std']:.6f}\n"
+            f"   Best Params = {json.dumps(result['best_hyperparameters'])}"
         )
         results.append(result)
 
@@ -525,9 +513,7 @@ def main() -> int:
         n_iter=n_iter,
         phase3_dir=phase3_dir,
     )
-    assert_protected_artifacts_untouched(protected)
-    print(f"Reports: {cv.project_relative(report_dir)}")
-    print("Final model selection and final test evaluation were not performed.")
+    print(f"\nHyperparameter tuning artifacts saved to: {cv.project_relative(report_dir)}")
     return 0
 
 

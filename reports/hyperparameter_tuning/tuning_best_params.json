@@ -1,0 +1,29 @@
+{
+  "Top-10": {
+    "n_estimators": 300,
+    "min_samples_split": 2,
+    "min_samples_leaf": 1,
+    "max_features": "sqrt",
+    "max_depth": 40,
+    "criterion": "gini",
+    "bootstrap": false
+  },
+  "Random_12_07": {
+    "n_estimators": 300,
+    "min_samples_split": 2,
+    "min_samples_leaf": 1,
+    "max_features": "sqrt",
+    "max_depth": 40,
+    "criterion": "gini",
+    "bootstrap": false
+  },
+  "Baseline-65": {
+    "n_estimators": 300,
+    "min_samples_split": 2,
+    "min_samples_leaf": 1,
+    "max_features": "sqrt",
+    "max_depth": 40,
+    "criterion": "gini",
+    "bootstrap": false
+  }
+}
