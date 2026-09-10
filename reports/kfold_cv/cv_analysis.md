@@ -1,5 +1,12 @@
 # Phase 4 K-Fold Cross-Validation Analysis
 
+> **⚠️ Historical Artifact Notice:** The "Random-12" subset evaluated here
+> corresponds to an **earlier random 12-feature configuration** (source experiment
+> `Random_34`) and is **NOT** the final Phase 4 random candidate.
+> The final Phase 4 random candidate is **Random_12_07**, whose authoritative
+> validation, hyperparameter-tuning, and final test results are documented under
+> `reports/hyperparameter_tuning/` and `reports/final_evaluation/`.
+
 This analysis uses training-data Stratified 5-fold CV only. It does not select a
 final model, tune hyperparameters, or evaluate the original test set.
 

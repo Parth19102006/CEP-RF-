@@ -1,5 +1,14 @@
 # Phase 4 K-Fold Cross-Validation
 
+## ⚠️ Historical Artifact Notice
+
+> **Note:** The K-Fold artifact in this directory corresponds to an **earlier
+> Random-12 feature configuration** (experiment ID `Random_34`). Its 12-feature
+> list is **NOT** the final Phase 4 random candidate.
+> The final Phase 4 random candidate is **Random_12_07**, whose authoritative
+> validation, hyperparameter-tuning, and final test results are documented under
+> `reports/hyperparameter_tuning/` and `reports/final_evaluation/`.
+
 ## Purpose
 
 Training-only stratified 5-fold CV for the existing Phase 4 shortlisted subsets.
@@ -11,7 +20,8 @@ artifacts.
 - Data: `data\processed\phase3\train.parquet` only; the original test set is untouched.
 - Splitter: `StratifiedKFold(n_splits=5, shuffle=True, random_state=42)`.
 - Model: the frozen Phase 4 Random Forest (`random_state=42`).
-- Subsets: Top-10 from baseline importance ranks; Random-12 from `Random_34`.
+- Subsets: Top-10 from baseline importance ranks; Random-12 (earlier configuration,
+  source experiment `Random_34`) — **not** the final Random_12_07 feature set.
 
 ## Files
 

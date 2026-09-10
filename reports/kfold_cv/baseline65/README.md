@@ -1,5 +1,14 @@
 # Additive 65-feature baseline K-Fold CV
 
+## ⚠️ Historical Artifact Notice
+
+> **Note:** The "Random-12" rows in the combined files in this directory
+> correspond to an **earlier random 12-feature configuration** (source experiment
+> `Random_34`) and are **NOT** the final Phase 4 random candidate.
+> The final Phase 4 random candidate is **Random_12_07**, whose authoritative
+> validation, hyperparameter-tuning, and final test results are documented under
+> `reports/hyperparameter_tuning/` and `reports/final_evaluation/`.
+
 ## Purpose
 
 Train-only Stratified 5-fold CV for the frozen 65-feature Phase 4 baseline,

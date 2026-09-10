@@ -1,5 +1,12 @@
 # Train-only CV: Top-10 vs 65-feature baseline
 
+> **⚠️ Historical Artifact Notice:** The "Random-12" row in this document
+> corresponds to an **earlier random 12-feature configuration** (source experiment
+> `Random_34`) and is **NOT** the final Phase 4 random candidate.
+> The final Phase 4 random candidate is **Random_12_07**, whose authoritative
+> validation, hyperparameter-tuning, and final test results are documented under
+> `reports/hyperparameter_tuning/` and `reports/final_evaluation/`.
+
 This additive study reuses the frozen Stratified 5-fold split and Phase 4
 Random Forest configuration. Original K-Fold files under
 `reports\kfold_cv` were read, not overwritten.
