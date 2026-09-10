@@ -1,0 +1,62 @@
+{
+  "accuracy": 0.9728446347333941,
+  "precision": 0.9997283225743666,
+  "recall": 0.9676291322111328,
+  "f1_score": 0.9834168639424985,
+  "positive_class": {
+    "label": 1,
+    "name": "DDoS/Attack"
+  },
+  "negative_class": {
+    "label": 0,
+    "name": "Benign"
+  },
+  "confusion_matrix": {
+    "labels": [
+      0,
+      1
+    ],
+    "class_names": [
+      "Benign",
+      "DDoS/Attack"
+    ],
+    "matrix": [
+      [
+        51337,
+        67
+      ],
+      [
+        8248,
+        246549
+      ]
+    ]
+  },
+  "per_class": {
+    "Benign": {
+      "precision": 0.8615758999748259,
+      "recall": 0.9986965994864213,
+      "f1-score": 0.925082665849769,
+      "support": 51404.0
+    },
+    "DDoS/Attack": {
+      "precision": 0.9997283225743666,
+      "recall": 0.9676291322111328,
+      "f1-score": 0.9834168639424985,
+      "support": 254797.0
+    },
+    "accuracy": 0.9728446347333941,
+    "macro avg": {
+      "precision": 0.9306521112745962,
+      "recall": 0.983162865848777,
+      "f1-score": 0.9542497648961337,
+      "support": 306201.0
+    },
+    "weighted avg": {
+      "precision": 0.9765357558247256,
+      "recall": 0.9728446347333941,
+      "f1-score": 0.9736239138255536,
+      "support": 306201.0
+    }
+  },
+  "roc_auc": 0.9945409300595867
+}

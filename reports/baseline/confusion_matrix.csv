@@ -1,0 +1,3 @@
+actual_class,predicted_Benign,predicted_DDoS/Attack
+actual_Benign,51337,67
+actual_DDoS/Attack,8248,246549

@@ -1,0 +1,66 @@
+feature_name,high_performing_group_count,groups
+Bwd Packet Length Max,6,top_10_by_f1; top_10_by_roc_auc; top_10_by_recall; top_10_by_lowest_fn; top_10_by_lowest_fp; top_10_importance_selected
+Bwd Packet Length Mean,6,top_10_by_f1; top_10_by_roc_auc; top_10_by_recall; top_10_by_lowest_fn; top_10_by_lowest_fp; top_10_importance_selected
+Bwd Packets Length Total,6,top_10_by_f1; top_10_by_roc_auc; top_10_by_recall; top_10_by_lowest_fn; top_10_by_lowest_fp; top_10_importance_selected
+Bwd Packets/s,6,top_10_by_f1; top_10_by_roc_auc; top_10_by_recall; top_10_by_lowest_fn; top_10_by_lowest_fp; top_10_importance_selected
+Init Bwd Win Bytes,6,top_10_by_f1; top_10_by_roc_auc; top_10_by_recall; top_10_by_lowest_fn; top_10_by_lowest_fp; top_10_importance_selected
+Subflow Bwd Bytes,6,top_10_by_f1; top_10_by_roc_auc; top_10_by_recall; top_10_by_lowest_fn; top_10_by_lowest_fp; top_10_importance_selected
+URG Flag Count,6,top_10_by_f1; top_10_by_roc_auc; top_10_by_recall; top_10_by_lowest_fn; top_10_by_lowest_fp; top_10_importance_selected
+ACK Flag Count,5,top_10_by_f1; top_10_by_roc_auc; top_10_by_recall; top_10_by_lowest_fn; top_10_by_lowest_fp
+Active Max,5,top_10_by_f1; top_10_by_roc_auc; top_10_by_recall; top_10_by_lowest_fn; top_10_by_lowest_fp
+Active Mean,5,top_10_by_f1; top_10_by_roc_auc; top_10_by_recall; top_10_by_lowest_fn; top_10_by_lowest_fp
+Active Min,5,top_10_by_f1; top_10_by_roc_auc; top_10_by_recall; top_10_by_lowest_fn; top_10_by_lowest_fp
+Active Std,5,top_10_by_f1; top_10_by_roc_auc; top_10_by_recall; top_10_by_lowest_fn; top_10_by_lowest_fp
+Avg Packet Size,5,top_10_by_f1; top_10_by_roc_auc; top_10_by_recall; top_10_by_lowest_fn; top_10_by_lowest_fp
+Bwd Header Length,5,top_10_by_f1; top_10_by_roc_auc; top_10_by_recall; top_10_by_lowest_fn; top_10_by_lowest_fp
+Bwd IAT Max,5,top_10_by_f1; top_10_by_roc_auc; top_10_by_recall; top_10_by_lowest_fn; top_10_by_lowest_fp
+Bwd IAT Mean,5,top_10_by_f1; top_10_by_roc_auc; top_10_by_recall; top_10_by_lowest_fn; top_10_by_lowest_fp
+Bwd IAT Min,5,top_10_by_f1; top_10_by_roc_auc; top_10_by_recall; top_10_by_lowest_fn; top_10_by_lowest_fp
+Bwd IAT Std,5,top_10_by_f1; top_10_by_roc_auc; top_10_by_recall; top_10_by_lowest_fn; top_10_by_lowest_fp
+CWE Flag Count,5,top_10_by_f1; top_10_by_roc_auc; top_10_by_recall; top_10_by_lowest_fn; top_10_by_lowest_fp
+Down/Up Ratio,5,top_10_by_f1; top_10_by_roc_auc; top_10_by_recall; top_10_by_lowest_fn; top_10_by_lowest_fp
+Flow Duration,5,top_10_by_f1; top_10_by_roc_auc; top_10_by_recall; top_10_by_lowest_fn; top_10_by_lowest_fp
+Flow IAT Max,5,top_10_by_f1; top_10_by_roc_auc; top_10_by_recall; top_10_by_lowest_fn; top_10_by_lowest_fp
+Flow IAT Mean,5,top_10_by_f1; top_10_by_roc_auc; top_10_by_recall; top_10_by_lowest_fn; top_10_by_lowest_fp
+Flow IAT Min,5,top_10_by_f1; top_10_by_roc_auc; top_10_by_recall; top_10_by_lowest_fn; top_10_by_lowest_fp
+Flow IAT Std,5,top_10_by_f1; top_10_by_roc_auc; top_10_by_recall; top_10_by_lowest_fn; top_10_by_lowest_fp
+Flow Packets/s,5,top_10_by_f1; top_10_by_roc_auc; top_10_by_recall; top_10_by_lowest_fn; top_10_by_lowest_fp
+Fwd Header Length,5,top_10_by_f1; top_10_by_roc_auc; top_10_by_recall; top_10_by_lowest_fn; top_10_by_lowest_fp
+Fwd IAT Max,5,top_10_by_f1; top_10_by_roc_auc; top_10_by_recall; top_10_by_lowest_fn; top_10_by_lowest_fp
+Fwd IAT Min,5,top_10_by_f1; top_10_by_roc_auc; top_10_by_recall; top_10_by_lowest_fn; top_10_by_lowest_fp
+Fwd IAT Std,5,top_10_by_f1; top_10_by_roc_auc; top_10_by_recall; top_10_by_lowest_fn; top_10_by_lowest_fp
+Fwd IAT Total,5,top_10_by_f1; top_10_by_roc_auc; top_10_by_recall; top_10_by_lowest_fn; top_10_by_lowest_fp
+Fwd Packet Length Max,5,top_10_by_f1; top_10_by_roc_auc; top_10_by_recall; top_10_by_lowest_fn; top_10_by_lowest_fp
+Fwd Packet Length Mean,5,top_10_by_f1; top_10_by_roc_auc; top_10_by_recall; top_10_by_lowest_fn; top_10_by_lowest_fp
+Fwd Packet Length Std,5,top_10_by_f1; top_10_by_roc_auc; top_10_by_recall; top_10_by_lowest_fn; top_10_by_lowest_fp
+Fwd Packets/s,5,top_10_by_f1; top_10_by_roc_auc; top_10_by_recall; top_10_by_lowest_fn; top_10_by_lowest_fp
+Fwd Seg Size Min,5,top_10_by_f1; top_10_by_roc_auc; top_10_by_recall; top_10_by_lowest_fn; top_10_by_lowest_fp
+Idle Max,5,top_10_by_f1; top_10_by_roc_auc; top_10_by_recall; top_10_by_lowest_fn; top_10_by_lowest_fp
+Idle Std,5,top_10_by_f1; top_10_by_roc_auc; top_10_by_recall; top_10_by_lowest_fn; top_10_by_lowest_fp
+Init Fwd Win Bytes,5,top_10_by_f1; top_10_by_roc_auc; top_10_by_recall; top_10_by_lowest_fn; top_10_by_lowest_fp
+Packet Length Max,5,top_10_by_f1; top_10_by_roc_auc; top_10_by_recall; top_10_by_lowest_fn; top_10_by_lowest_fp
+Packet Length Std,5,top_10_by_f1; top_10_by_roc_auc; top_10_by_recall; top_10_by_lowest_fn; top_10_by_lowest_fp
+Protocol,5,top_10_by_f1; top_10_by_roc_auc; top_10_by_recall; top_10_by_lowest_fn; top_10_by_lowest_fp
+Subflow Fwd Bytes,5,top_10_by_f1; top_10_by_roc_auc; top_10_by_recall; top_10_by_lowest_fn; top_10_by_lowest_fp
+Subflow Fwd Packets,5,top_10_by_f1; top_10_by_roc_auc; top_10_by_recall; top_10_by_lowest_fn; top_10_by_lowest_fp
+Total Fwd Packets,5,top_10_by_f1; top_10_by_roc_auc; top_10_by_recall; top_10_by_lowest_fn; top_10_by_lowest_fp
+Avg Bwd Segment Size,4,top_10_by_f1; top_10_by_roc_auc; top_10_by_lowest_fp; top_10_importance_selected
+Avg Fwd Segment Size,4,top_10_by_f1; top_10_by_roc_auc; top_10_by_recall; top_10_by_lowest_fn
+Flow Bytes/s,4,top_10_by_roc_auc; top_10_by_recall; top_10_by_lowest_fn; top_10_by_lowest_fp
+Fwd Packet Length Min,4,top_10_by_f1; top_10_by_roc_auc; top_10_by_lowest_fp; top_10_importance_selected
+Fwd Packets Length Total,4,top_10_by_f1; top_10_by_recall; top_10_by_lowest_fn; top_10_by_lowest_fp
+Idle Mean,4,top_10_by_f1; top_10_by_recall; top_10_by_lowest_fn; top_10_by_lowest_fp
+Packet Length Mean,4,top_10_by_f1; top_10_by_roc_auc; top_10_by_recall; top_10_by_lowest_fn
+Packet Length Min,4,top_10_by_f1; top_10_by_roc_auc; top_10_by_lowest_fp; top_10_importance_selected
+RST Flag Count,4,top_10_by_roc_auc; top_10_by_recall; top_10_by_lowest_fn; top_10_by_lowest_fp
+Total Backward Packets,4,top_10_by_f1; top_10_by_recall; top_10_by_lowest_fn; top_10_by_lowest_fp
+Bwd IAT Total,3,top_10_by_f1; top_10_by_roc_auc; top_10_by_lowest_fp
+Bwd Packet Length Std,3,top_10_by_recall; top_10_by_lowest_fn; top_10_by_lowest_fp
+Fwd Act Data Packets,3,top_10_by_f1; top_10_by_roc_auc; top_10_by_lowest_fp
+Fwd IAT Mean,3,top_10_by_f1; top_10_by_roc_auc; top_10_by_lowest_fp
+Fwd PSH Flags,3,top_10_by_f1; top_10_by_roc_auc; top_10_by_lowest_fp
+Idle Min,3,top_10_by_f1; top_10_by_roc_auc; top_10_by_lowest_fp
+Packet Length Variance,3,top_10_by_f1; top_10_by_roc_auc; top_10_by_lowest_fp
+SYN Flag Count,3,top_10_by_f1; top_10_by_recall; top_10_by_lowest_fn
+Subflow Bwd Packets,3,top_10_by_f1; top_10_by_roc_auc; top_10_by_lowest_fp
+Bwd Packet Length Min,2,top_10_by_roc_auc; top_10_by_lowest_fp
