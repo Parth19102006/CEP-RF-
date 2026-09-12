@@ -72,10 +72,12 @@ Deterministic 7th 12-feature subset from random exploration:
 
 ### Final Performance Metrics
 
-| Model | Features | Accuracy | Precision | Recall | F1-Score | ROC-AUC | Inference Time (s) | Throughput (samples/s) |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Top-10** | 10 | **0.977048** | **0.999661** | **0.972747** | **0.986020** | **0.995224** | 1.255s | 243,943 |
-| **Random_12_07** | 12 | **0.977107** | **0.999738** | **0.972743** | **0.986056** | **0.998620** | 1.185s | 258,348 |
+> **Timing convention:** `Prediction Time` is `model.predict()` only and is the official metric for comparison with baseline and pre-HT experiments. `Predict-Proba Time` is `model.predict_proba()` only. `Combined Inference Time` is their explicit sum and is secondary.
+
+| Model | Features | Accuracy | Precision | Recall | F1-Score | ROC-AUC | Prediction Time (s) [predict only] | Predict-Proba Time (s) [predict_proba only] | Combined Inference Time (s) [predict+proba] | Throughput (samples/s) |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **Top-10** | 10 | **0.977048** | **0.999661** | **0.972747** | **0.986020** | **0.995224** | **0.715s** | 0.615s | 1.330s | 428,095 |
+| **Random_12_07** | 12 | **0.977107** | **0.999738** | **0.972743** | **0.986056** | **0.998620** | **0.679s** | 0.722s | 1.400s | 451,181 |
 
 ### Final Confusion Matrices
 

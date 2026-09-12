@@ -141,8 +141,12 @@
           "support": 306201.0
         }
       },
-      "test_inference_time_seconds": 1.255214500008151,
-      "test_samples_per_second": 243943.1666842692
+      "test_prediction_time_seconds": 0.7152643000008538,
+      "test_predict_proba_time_seconds": 0.6150023999798577,
+      "test_inference_time_seconds": 1.3302666999807116,
+      "test_samples": 306201,
+      "test_samples_per_second": 428094.90142264124,
+      "test_prediction_time_per_sample_us": 2.3359306468654704
     },
     "Random_12_07": {
       "accuracy": 0.9771065411282132,
@@ -193,8 +197,12 @@
           "support": 306201.0
         }
       },
-      "test_inference_time_seconds": 1.1852286999346688,
-      "test_samples_per_second": 258347.60837033237
+      "test_prediction_time_seconds": 0.678665599989472,
+      "test_predict_proba_time_seconds": 0.7217219999874942,
+      "test_inference_time_seconds": 1.4003875999769662,
+      "test_samples": 306201,
+      "test_samples_per_second": 451180.96453503764,
+      "test_prediction_time_per_sample_us": 2.216405563631314
     }
   }
 }

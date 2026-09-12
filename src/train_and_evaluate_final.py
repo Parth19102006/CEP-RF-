@@ -106,11 +106,27 @@ def evaluate_test_set(
     x_test: pd.DataFrame,
     y_test: np.ndarray,
 ) -> dict[str, Any]:
-    """Perform one-time final test set evaluation."""
-    start_time = time.perf_counter()
+    """Perform one-time final test set evaluation.
+
+    Timing convention (consistent with baseline, feature_selection_rf, random_feature_rf):
+      - test_prediction_time_seconds   : model.predict() only  (official comparison metric)
+      - test_predict_proba_time_seconds: model.predict_proba() only
+      - test_inference_time_seconds    : predict() + predict_proba() combined (secondary)
+    """
+    n_samples = len(y_test)
+
+    # --- predict() only (official timing metric for apples-to-apples comparison) ---
+    predict_start = time.perf_counter()
     y_pred = model.predict(x_test)
+    test_prediction_time_seconds = time.perf_counter() - predict_start
+
+    # --- predict_proba() only ---
+    proba_start = time.perf_counter()
     y_proba = model.predict_proba(x_test)[:, 1]
-    inference_time = time.perf_counter() - start_time
+    test_predict_proba_time_seconds = time.perf_counter() - proba_start
+
+    # --- Combined inference time (predict + predict_proba), explicitly calculated ---
+    test_inference_time_seconds = test_prediction_time_seconds + test_predict_proba_time_seconds
 
     acc = float(accuracy_score(y_test, y_pred))
     prec = float(precision_score(y_test, y_pred, zero_division=0))
@@ -139,8 +155,13 @@ def evaluate_test_set(
             "matrix_2x2": [[tn, fp], [fn, tp]],
         },
         "classification_report": report_dict,
-        "test_inference_time_seconds": inference_time,
-        "test_samples_per_second": float(len(y_test) / inference_time) if inference_time > 0 else 0.0,
+        # Timing fields — do NOT merge these:
+        "test_prediction_time_seconds": float(test_prediction_time_seconds),
+        "test_predict_proba_time_seconds": float(test_predict_proba_time_seconds),
+        "test_inference_time_seconds": float(test_inference_time_seconds),
+        "test_samples": n_samples,
+        "test_samples_per_second": float(n_samples / test_prediction_time_seconds) if test_prediction_time_seconds > 0 else 0.0,
+        "test_prediction_time_per_sample_us": float(test_prediction_time_seconds / n_samples * 1e6) if n_samples > 0 else 0.0,
     }
 
 
@@ -310,8 +331,14 @@ def main() -> int:
                 "recall": eval_metrics["recall"],
                 "f1_score": eval_metrics["f1_score"],
                 "roc_auc": eval_metrics["roc_auc"],
-                "inference_time_seconds": eval_metrics["test_inference_time_seconds"],
-                "samples_per_second": eval_metrics["test_samples_per_second"],
+                # --- Official prediction-time metric (predict() only, consistent with baseline/pre-HT) ---
+                "test_prediction_time_seconds": eval_metrics["test_prediction_time_seconds"],
+                "test_predict_proba_time_seconds": eval_metrics["test_predict_proba_time_seconds"],
+                # --- Combined inference time (predict + predict_proba) ---
+                "test_inference_time_seconds": eval_metrics["test_inference_time_seconds"],
+                "test_samples": eval_metrics["test_samples"],
+                "test_samples_per_second": eval_metrics["test_samples_per_second"],
+                "test_prediction_time_per_sample_us": eval_metrics["test_prediction_time_per_sample_us"],
                 "is_retained_candidate": name in retained_candidates,
             }
         )
@@ -429,14 +456,19 @@ def main() -> int:
             "",
             "### Final Performance Metrics",
             "",
-            "| Model | Features | Accuracy | Precision | Recall | F1-Score | ROC-AUC | Inference Time (s) | Throughput (samples/s) |",
-            "| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |",
+            "> [!NOTE]",
+            "> **Timing convention:** `Prediction Time` = `model.predict()` only (apples-to-apples with baseline, Top-10 pre-HT, Random_12_07 pre-HT).",
+            "> `Predict-Proba Time` = `model.predict_proba()` only.",
+            "> `Inference Time` = `predict() + predict_proba()` combined (secondary metric).",
+            "",
+            "| Model | Features | Accuracy | Precision | Recall | F1-Score | ROC-AUC | Prediction Time (s) [predict only] | Predict-Proba Time (s) [predict_proba only] | Combined Inference Time (s) [predict+proba] | Throughput (samples/s) |",
+            "| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |",
         ]
     )
 
     for row in test_summary_rows:
         md_lines.append(
-            f"| **{row['model']}** | {row['feature_count']} | **{row['accuracy']:.6f}** | **{row['precision']:.6f}** | **{row['recall']:.6f}** | **{row['f1_score']:.6f}** | **{row['roc_auc']:.6f}** | {row['inference_time_seconds']:.3f}s | {row['samples_per_second']:,.0f} |"
+            f"| **{row['model']}** | {row['feature_count']} | **{row['accuracy']:.6f}** | **{row['precision']:.6f}** | **{row['recall']:.6f}** | **{row['f1_score']:.6f}** | **{row['roc_auc']:.6f}** | **{row['test_prediction_time_seconds']:.3f}s** | {row['test_predict_proba_time_seconds']:.3f}s | {row['test_inference_time_seconds']:.3f}s | {row['test_samples_per_second']:,.0f} |"
         )
 
     md_lines.extend(
