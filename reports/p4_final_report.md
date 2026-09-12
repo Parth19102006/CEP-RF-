@@ -140,10 +140,12 @@ Both final models were trained on the entire training set ($125,170$ samples) us
 
 ### Final Test Metrics
 
-| Model | Features | Accuracy | Precision | Recall | F1-Score | ROC-AUC | Inference Time | Throughput |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Top-10** | 10 | **0.977048** | **0.999661** | **0.972747** | **0.986020** | **0.995224** | 1.255s | 243,943 samples/s |
-| **Random_12_07** | 12 | **0.977107** | **0.999738** | **0.972743** | **0.986056** | **0.998620** | 1.185s | 258,348 samples/s |
+> **Timing convention:** `Prediction Time` is `model.predict()` only and is the official comparison metric. `Predict-Proba Time` is `model.predict_proba()` only. `Combined Inference Time` is the explicit sum of both calls and is secondary.
+
+| Model | Features | Accuracy | Precision | Recall | F1-Score | ROC-AUC | Prediction Time (s) [predict only] | Predict-Proba Time (s) [predict_proba only] | Combined Inference Time (s) [predict+proba] | Throughput (samples/s) |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **Top-10** | 10 | **0.977048** | **0.999661** | **0.972747** | **0.986020** | **0.995224** | **0.715s** | 0.615s | 1.330s | 428,095 |
+| **Random_12_07** | 12 | **0.977107** | **0.999738** | **0.972743** | **0.986056** | **0.998620** | **0.679s** | 0.722s | 1.400s | 451,181 |
 
 ### Final Confusion Matrices
 
@@ -155,7 +157,7 @@ Both final models were trained on the entire training set ($125,170$ samples) us
 #### Analysis of Test Results:
 - **Low False Alarm Rate:** Both models achieve false positive rates under $0.17\%$ (84 FP for Top-10 and only 65 FP for Random_12_07 out of 51,404 benign flows), which is critical for real-world IDS deployments.
 - **High Attack Detection:** Both models correctly flag $>247,850$ out of $254,797$ attack instances ($>97.27\%$ recall) with near-zero false alarms.
-- **Ultra-Fast Throughput:** Both models achieve throughput $>240,000$ flow records per second on test data (~$1.2$ seconds for $306,201$ records).
+- **Prediction Timing:** The official `predict()`-only timings are 0.715s (Top-10) and 0.679s (Random_12_07) for 306,201 flows; probability scoring and the clearly labeled combined time are reported separately above.
 
 ---
 
