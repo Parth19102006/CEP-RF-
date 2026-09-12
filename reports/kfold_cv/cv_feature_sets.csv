@@ -1,0 +1,3 @@
+subset_id,feature_count,source_experiment_id,sampling_seed,features
+Top-10,10,,,"[""URG Flag Count"", ""Bwd Packets/s"", ""Packet Length Min"", ""Bwd Packet Length Max"", ""Bwd Packet Length Mean"", ""Avg Bwd Segment Size"", ""Bwd Packets Length Total"", ""Init Bwd Win Bytes"", ""Fwd Packet Length Min"", ""Subflow Bwd Bytes""]"
+Random-12,12,Random_34,20260936.0,"[""Bwd Packet Length Min"", ""Subflow Bwd Packets"", ""Total Backward Packets"", ""Active Std"", ""Fwd PSH Flags"", ""Packet Length Max"", ""Idle Std"", ""Fwd Seg Size Min"", ""Bwd IAT Min"", ""Down/Up Ratio"", ""Init Fwd Win Bytes"", ""Fwd Packets/s""]"

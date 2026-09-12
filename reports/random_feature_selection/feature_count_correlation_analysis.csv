@@ -1,0 +1,8 @@
+x,y,pearson_correlation,spearman_correlation
+feature_count,f1_score,0.3291541118178989,0.20998840392964724
+feature_count,recall,0.3177260305245354,0.12761921518283278
+feature_count,roc_auc,0.3827106205842951,0.5210823356772729
+feature_count,false_positives,-0.255070970651474,-0.36379006873570646
+feature_count,false_negatives,-0.3177260305245353,-0.12761921518283278
+feature_count,training_time_seconds,0.7032176127007282,0.5942601128042712
+feature_count,test_prediction_time_seconds,0.4149484755243335,0.33301191330257196

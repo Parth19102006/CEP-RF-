@@ -1,3 +1,5 @@
 numpy
 pandas
 pyarrow
+scikit-learn
+joblib

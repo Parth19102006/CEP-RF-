@@ -1,0 +1,44 @@
+{
+  "analysis_phase": "Phase 4.3 - Baseline Error Analysis",
+  "source_artifacts": {
+    "baseline_revision": "origin/P4 (a427a1f)",
+    "confusion_matrix": "reports/baseline/confusion_matrix.csv",
+    "classification_report": "reports/baseline/classification_report.csv",
+    "metrics": "reports/baseline/metrics.json",
+    "metadata": "reports/baseline/baseline_metadata.json"
+  },
+  "target_mapping": {
+    "0": "Benign",
+    "1": "DDoS/Attack"
+  },
+  "sample_counts": {
+    "total": 306201,
+    "benign_actual": 51404,
+    "attack_actual": 254797
+  },
+  "confusion_matrix": {
+    "rows": "actual class [Benign, DDoS/Attack]",
+    "columns": "predicted class [Benign, DDoS/Attack]",
+    "matrix": [
+      [
+        51337,
+        67
+      ],
+      [
+        8248,
+        246549
+      ]
+    ]
+  },
+  "TN": 51337,
+  "FP": 67,
+  "FN": 8248,
+  "TP": 246549,
+  "FPR": 0.0013034005135787098,
+  "FNR": 0.03237086778886722,
+  "accuracy": 0.9728446347333941,
+  "precision": 0.9997283225743666,
+  "recall": 0.9676291322111328,
+  "F1": 0.9834168639424985,
+  "interpretation": "The baseline produced 67 false positives (benign samples classified as DDoS/Attack) and 8,248 false negatives (DDoS/Attack samples classified as Benign). False negatives are the larger error type. For this detector, the baseline has a very low benign-to-attack false-positive rate, while a larger share of actual attacks is missed than benign traffic is falsely alerted on."
+}

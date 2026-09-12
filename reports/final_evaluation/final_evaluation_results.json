@@ -1,0 +1,200 @@
+{
+  "title": "Phase 4 Final Candidate Selection, Training and Untouched Test Evaluation",
+  "created_at_utc": "2026-09-10T16:15:17+00:00",
+  "dataset": "CIC-DDoS2019",
+  "phase3_train_path": "data\\processed\\phase3\\train.parquet",
+  "phase3_test_path": "data\\processed\\phase3\\test.parquet",
+  "train_sample_count": 125170,
+  "train_class_counts": {
+    "0_Benign": 46427,
+    "1_Attack": 78743
+  },
+  "test_sample_count": 306201,
+  "test_class_counts": {
+    "0_Benign": 51404,
+    "1_Attack": 254797
+  },
+  "random_state": 42,
+  "selection_decision": "TIE (Both Retained)",
+  "selection_rationale": "Top-10 (F1 = 0.999282 \u00b1 0.000086) and Random_12_07 (F1 = 0.999530 \u00b1 0.000210) have nearly identical CV F1 scores (delta = 0.000248 < 0.001). Per evaluation protocol, both candidates are retained as final candidate models without manufacturing an arbitrary winner.",
+  "retained_candidates": [
+    "Top-10",
+    "Random_12_07"
+  ],
+  "training_metadata": {
+    "Top-10": {
+      "candidate_name": "Top-10",
+      "feature_count": 10,
+      "features": [
+        "URG Flag Count",
+        "Bwd Packets/s",
+        "Packet Length Min",
+        "Bwd Packet Length Max",
+        "Bwd Packet Length Mean",
+        "Avg Bwd Segment Size",
+        "Bwd Packets Length Total",
+        "Init Bwd Win Bytes",
+        "Fwd Packet Length Min",
+        "Subflow Bwd Bytes"
+      ],
+      "hyperparameters": {
+        "n_estimators": 300,
+        "min_samples_split": 2,
+        "min_samples_leaf": 1,
+        "max_features": "sqrt",
+        "max_depth": 40,
+        "criterion": "gini",
+        "bootstrap": false
+      },
+      "random_state": 42,
+      "train_sample_count": 125170,
+      "train_class_counts": {
+        "0_Benign": 46427,
+        "1_Attack": 78743
+      },
+      "training_time_seconds": 2.7295883999904618,
+      "model_path": "models\\rf_final_top_10.joblib"
+    },
+    "Random_12_07": {
+      "candidate_name": "Random_12_07",
+      "feature_count": 12,
+      "features": [
+        "Total Fwd Packets",
+        "Idle Max",
+        "Init Fwd Win Bytes",
+        "Fwd IAT Std",
+        "Active Mean",
+        "Flow IAT Mean",
+        "Protocol",
+        "Fwd IAT Max",
+        "Bwd Packets/s",
+        "Fwd Packet Length Max",
+        "Bwd Header Length",
+        "Fwd Header Length"
+      ],
+      "hyperparameters": {
+        "n_estimators": 300,
+        "min_samples_split": 2,
+        "min_samples_leaf": 1,
+        "max_features": "sqrt",
+        "max_depth": 40,
+        "criterion": "gini",
+        "bootstrap": false
+      },
+      "random_state": 42,
+      "train_sample_count": 125170,
+      "train_class_counts": {
+        "0_Benign": 46427,
+        "1_Attack": 78743
+      },
+      "training_time_seconds": 6.490242199972272,
+      "model_path": "models\\rf_final_random_12_07.joblib"
+    }
+  },
+  "final_untouched_test_evaluation": {
+    "Top-10": {
+      "accuracy": 0.9770477562124226,
+      "precision": 0.9996612042575331,
+      "recall": 0.9727469318712544,
+      "f1_score": 0.986020440232807,
+      "roc_auc": 0.9952243307023921,
+      "confusion_matrix": {
+        "tn": 51320,
+        "fp": 84,
+        "fn": 6944,
+        "tp": 247853,
+        "matrix_2x2": [
+          [
+            51320,
+            84
+          ],
+          [
+            6944,
+            247853
+          ]
+        ]
+      },
+      "classification_report": {
+        "Benign (0)": {
+          "precision": 0.8808183440889743,
+          "recall": 0.9983658859232745,
+          "f1-score": 0.935915672757778,
+          "support": 51404.0
+        },
+        "DDoS/Attack (1)": {
+          "precision": 0.9996612042575331,
+          "recall": 0.9727469318712544,
+          "f1-score": 0.986020440232807,
+          "support": 254797.0
+        },
+        "accuracy": 0.9770477562124226,
+        "macro avg": {
+          "precision": 0.9402397741732538,
+          "recall": 0.9855564088972644,
+          "f1-score": 0.9609680564952925,
+          "support": 306201.0
+        },
+        "weighted avg": {
+          "precision": 0.9797102622811693,
+          "recall": 0.9770477562124226,
+          "f1-score": 0.9776090194102546,
+          "support": 306201.0
+        }
+      },
+      "test_inference_time_seconds": 1.255214500008151,
+      "test_samples_per_second": 243943.1666842692
+    },
+    "Random_12_07": {
+      "accuracy": 0.9771065411282132,
+      "precision": 0.9997378154785674,
+      "recall": 0.9727430071782635,
+      "f1_score": 0.9860556897162204,
+      "roc_auc": 0.998619732109655,
+      "confusion_matrix": {
+        "tn": 51339,
+        "fp": 65,
+        "fn": 6945,
+        "tp": 247852,
+        "matrix_2x2": [
+          [
+            51339,
+            65
+          ],
+          [
+            6945,
+            247852
+          ]
+        ]
+      },
+      "classification_report": {
+        "Benign (0)": {
+          "precision": 0.8808420835906938,
+          "recall": 0.9987355069644386,
+          "f1-score": 0.9360914594121508,
+          "support": 51404.0
+        },
+        "DDoS/Attack (1)": {
+          "precision": 0.9997378154785674,
+          "recall": 0.9727430071782635,
+          "f1-score": 0.9860556897162204,
+          "support": 254797.0
+        },
+        "accuracy": 0.9771065411282132,
+        "macro avg": {
+          "precision": 0.9402899495346306,
+          "recall": 0.985739257071351,
+          "f1-score": 0.9610735745641856,
+          "support": 306201.0
+        },
+        "weighted avg": {
+          "precision": 0.9797779975747584,
+          "recall": 0.9771065411282132,
+          "f1-score": 0.977667861803998,
+          "support": 306201.0
+        }
+      },
+      "test_inference_time_seconds": 1.1852286999346688,
+      "test_samples_per_second": 258347.60837033237
+    }
+  }
+}

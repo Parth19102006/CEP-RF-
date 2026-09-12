@@ -1,0 +1,151 @@
+{
+  "phase": "Phase 4 exploratory random feature-combination Random Forest experiment",
+  "created_at_utc": "2026-08-31T11:22:42+00:00",
+  "dataset": "CIC-DDoS2019",
+  "phase3_metadata_path": "reports\\preprocessing\\preprocessing_metadata.json",
+  "phase3_train_path": "data\\processed\\phase3\\train.parquet",
+  "phase3_test_path": "data\\processed\\phase3\\test.parquet",
+  "feature_source": "Phase 3 preprocessing metadata final_feature_names",
+  "valid_feature_count": 65,
+  "random_state": 42,
+  "subset_sizes": [
+    5,
+    8,
+    10,
+    12,
+    15,
+    20,
+    30
+  ],
+  "combinations_per_size": 10,
+  "total_experiments": 70,
+  "model_type": "sklearn.ensemble.RandomForestClassifier",
+  "model_config": {
+    "bootstrap": true,
+    "ccp_alpha": 0.0,
+    "class_weight": null,
+    "criterion": "gini",
+    "max_depth": null,
+    "max_features": "sqrt",
+    "max_leaf_nodes": null,
+    "max_samples": null,
+    "min_impurity_decrease": 0.0,
+    "min_samples_leaf": 1,
+    "min_samples_split": 2,
+    "min_weight_fraction_leaf": 0.0,
+    "monotonic_cst": null,
+    "n_estimators": 100,
+    "n_jobs": -1,
+    "oob_score": false,
+    "random_state": 42,
+    "verbose": 0,
+    "warm_start": false
+  },
+  "train_test_split_preserved": true,
+  "hyperparameter_tuning_applied": false,
+  "oversampling_applied": false,
+  "undersampling_applied": false,
+  "scaling_applied": false,
+  "pca_applied": false,
+  "target_column": "Label_binary",
+  "class_mapping": {
+    "0": "Benign",
+    "1": "DDoS/Attack"
+  },
+  "forbidden_feature_columns": [
+    "Label",
+    "Label_binary"
+  ],
+  "methodological_limitation": "This is an exploratory random-search experiment. Because the same test set is used to compare many random combinations, the best test score among these experiments is not an unbiased final performance estimate.",
+  "top_10_reference_f1": 0.9860093536213952,
+  "best_random_by": {
+    "f1": {
+      "experiment": "Random_12_07",
+      "feature_count": 12,
+      "f1_score": 0.9860144033740501,
+      "recall": 0.9725977935376006,
+      "roc_auc": 0.9991893454014822,
+      "accuracy": 0.9770412245551124
+    },
+    "recall": {
+      "experiment": "Random_5_06",
+      "feature_count": 5,
+      "f1_score": 0.9602457479343796,
+      "recall": 0.9747249771386634,
+      "roc_auc": 0.9439967372861455,
+      "accuracy": 0.9328414995378852
+    },
+    "roc_auc": {
+      "experiment": "Random_20_04",
+      "feature_count": 20,
+      "f1_score": 0.9835860272841666,
+      "recall": 0.9678920866415225,
+      "roc_auc": 0.9994845551293475,
+      "accuracy": 0.9731189643404169
+    },
+    "accuracy": {
+      "experiment": "Random_12_07",
+      "feature_count": 12,
+      "f1_score": 0.9860144033740501,
+      "recall": 0.9725977935376006,
+      "roc_auc": 0.9991893454014822,
+      "accuracy": 0.9770412245551124
+    }
+  },
+  "saved_top_f1_models": [
+    {
+      "rank_by_f1": 1,
+      "experiment": "Random_12_07",
+      "feature_count": 12,
+      "f1_score": 0.9860144033740501,
+      "recall": 0.9725977935376006,
+      "roc_auc": 0.9991893454014822,
+      "model_path": "models\\random_best_01.joblib"
+    },
+    {
+      "rank_by_f1": 2,
+      "experiment": "Random_12_02",
+      "feature_count": 12,
+      "f1_score": 0.9850008549353629,
+      "recall": 0.9721817760805661,
+      "roc_auc": 0.9962627333172607,
+      "model_path": "models\\random_best_02.joblib"
+    },
+    {
+      "rank_by_f1": 3,
+      "experiment": "Random_12_10",
+      "feature_count": 12,
+      "f1_score": 0.9847179229761008,
+      "recall": 0.9700938394094122,
+      "roc_auc": 0.9989085208064619,
+      "model_path": "models\\random_best_03.joblib"
+    },
+    {
+      "rank_by_f1": 4,
+      "experiment": "Random_8_09",
+      "feature_count": 8,
+      "f1_score": 0.9845532390393729,
+      "recall": 0.9699721739266945,
+      "roc_auc": 0.9970393717975088,
+      "model_path": "models\\random_best_04.joblib"
+    },
+    {
+      "rank_by_f1": 5,
+      "experiment": "Random_12_05",
+      "feature_count": 12,
+      "f1_score": 0.9838921893066465,
+      "recall": 0.9684964893621196,
+      "roc_auc": 0.9990199429885921,
+      "model_path": "models\\random_best_05.joblib"
+    }
+  ],
+  "artifacts": {
+    "random_results_csv": "reports\\random_feature_selection\\random_results.csv",
+    "random_results_json": "reports\\random_feature_selection\\random_results.json",
+    "random_feature_sets": "reports\\random_feature_selection\\random_feature_sets.csv",
+    "comparison_with_existing_csv": "reports\\random_feature_selection\\comparison_with_existing.csv",
+    "comparison_with_existing_json": "reports\\random_feature_selection\\comparison_with_existing.json",
+    "saved_top_models": "reports\\random_feature_selection\\saved_top_models.csv",
+    "report": "reports\\random_feature_selection\\random_feature_selection.md"
+  }
+}
